@@ -1,0 +1,182 @@
+<?php
+/*
+se incluye asi porque este archivo lo incluyo en crea_compra.php y este esta anidado en una carpeta
+ * por lo tanto este archivo adquiero el mismo nivel de anidacion que el anterior
+ *  */
+include '../../php funciones/funciones.php';
+class kardex{
+    
+    private $res_lns;
+   private $conex;
+    public function __construct() {
+        $this->conex=$GLOBALS[conex];
+        
+    }
+/* metodo usado cuando se hace una compra */
+    /**
+     * 
+     * @param type $operacion
+     * @param type $enc_id
+     * @throws PDOException
+     */
+    public function actualiza_inventario($operacion,$enc_id=null) {
+        
+        
+        if($operacion==='+'){
+            $sql="select * from compras_lns where enc_id='$enc_id'";           
+            $this->res_lns= $GLOBALS[conex]->query($sql);
+                    while($fila=  $this->res_lns->fetch()){
+                            #convertir a unidades standard   
+                           
+                                $cant_convertida=convertir($fila[unidad],$fila[cantidad]);
+                                $costo_unit_conv=  floatval($fila[subtotal])/$cant_convertida;                                                                
+                                
+                                 $sql="select precio_promedio::numeric(10,2)*cantidad_total::numeric(10,2) from productos where referencia='$fila[referencia]'"  ;
+                              
+                                 $subtotal_prod=  floatval($GLOBALS[conex]->query($sql)->fetchColumn());
+                                 
+                                 $subtotal_prod+=floatval($fila[subtotal]);
+                                 
+                                 $sql_cant="select cantidad_total::numeric(10,2) from productos where referencia='$fila[referencia]'";
+                                 
+                                 $cant_total=floatval($GLOBALS[conex]->query($sql_cant)->fetchColumn())+$cant_convertida;
+                                 
+                                    $costo_unitario=$subtotal_prod/$cant_total;
+
+                              
+                              $sql2="update productos set precio_promedio='$costo_unitario', cantidad_total='$cant_total' where referencia='$fila[referencia]'";
+                             if(!$GLOBALS[conex]->prepare($sql2)->execute()){
+                                  throw  new PDOException('error al actualizar el inventario');
+                              }
+                            
+                              
+                              ##formatear cantidad a dos decimales
+                              $sql3="update productos set precio_promedio=precio_promedio::numeric(10,2) where referencia='$fila[referencia]'";
+                              $GLOBALS[conex]->prepare($sql3)->execute();
+                             
+                    
+                        }                     
+                }
+        }
+        /**
+         * 
+         * @param type $cod_bodega
+         * @param type $enc_id
+         */
+        public function actualiza_existencias($cod_bodega,$enc_id){            
+             $sql="select * from compras_lns where enc_id='$enc_id'";
+
+             $sql_insert="insert into existencias values";
+             $sql_update="update existencias set existencia=existencia::numeric(10,2)+";
+              $this->res_lns= $GLOBALS[conex]->query($sql);
+              while($fila=  $this->res_lns->fetch()){
+                               #verificar si existe en la tabla
+             $existe="select count(id) from existencias where codigo_producto='$fila[referencia]' and codigo_bodega='$cod_bodega'";
+             $res=  $this->conex->query($existe)->fetch()[count];
+             $cant_convertida=convertir($fila[unidad],$fila[cantidad]);                                    
+             if($res==1){
+                 $sql_update.="$cant_convertida where codigo_producto='$fila[referencia]' and codigo_bodega='$cod_bodega'";
+                 $this->conex->prepare($sql_update)->execute();
+             }else{
+                     
+                     $sql_insert.="(default,'$fila[referencia]','$cod_bodega','$cant_convertida')";
+                     $this->conex->prepare($sql_insert)->execute();
+             }
+                                
+              }#cierro while
+          
+              
+        }
+        /**
+         * 
+         * @param type $cod_bodega
+         * @param type $tipo_doc
+         * @param type $no_doc
+         * @param type $enc_id
+         * @throws PDOException
+         */
+        public function actualiza_kardex($cod_bodega,$tipo_doc,$no_doc,$enc_id){
+                  $sql="select * from compras_lns where enc_id='$enc_id'";
+                   $sql_insert="insert into kardex values ";
+                    $this->res_lns= $GLOBALS[conex]->query($sql);
+                         while($fila=  $this->res_lns->fetch()){
+                            $cant_convertida=convertir($fila[unidad],$fila[cantidad]);                  
+                            $subtotal=  floatval($fila[subtotal])/$cant_convertida;
+                            $sql_insert.="(default,'$cod_bodega','$fila[referencia]',now(),'$tipo_doc','$no_doc','$subtotal','$cant_convertida')".",";
+                  
+              }
+                    $sql_insert=trim($sql_insert, ',');
+                    if(!$this->conex->prepare($sql_insert)->execute()){
+                                throw  new PDOException('error al actualizar existencia');
+              }
+        }
+        
+        
+        /* metodo usado cuando se crean actividades en los proyectos siembra */
+        # $array es un aparametro con referencia y cantidad
+        /**
+         * 
+         * @param type $array
+         * @param type $bodega_seleccionada
+         * @throws PDOException
+         */
+        public function decrease_inventario($array,$bodega_seleccionada=NULL) {
+            foreach ($array as $key=>$value){
+                                   
+                    $consultas=[];
+                    $consultas[]="update productos set cantidad_total=(cantidad_total::numeric(10,2)-$value) where referencia='$key'";
+                    $consultas[]="update existencias set existencia=(existencia::numeric(10,2)-$value) where "
+                                                                . "codigo_producto='$key' and codigo_bodega='$bodega_seleccionada'";
+                    try{
+                                                $this->conex->beginTransaction();
+                                                foreach ($consultas as $value) {
+                                                    
+                                                   if(!$this->conex->prepare($value)->execute())   {
+                                                       throw  new PDOException();
+                                                   }
+                                                    
+                                                }
+                                                
+                                                 
+                                                $this->conex->commit();
+                    }
+                    catch (PDOException $pe){
+                        $this->conex->rollBack();
+                                   echo '<div data-alert class="alert-box alert round">
+                 <h5 style="color:white">Error al insertar el registro</h5>
+                 <a href="#" class="close">&times;</a>
+                 </div>';
+                                   exit($pe->getMessage());
+                    }
+                                            
+            }#foreach    
+                        
+            #######para insertar en kardex una salida de producto de las actividades 
+            $proy_id=$GLOBALS[info][proy_id];
+            $acts=$GLOBALS[actividades_insertadas];
+            $sql_costo_promedio="select precio_promedio,referencia from productos where nombre in (";
+            foreach ($acts as $key => $value) {
+                $salida=  convertir($value[unidad], $value[cantidad_dias]);
+                $sql_costo_promedio.="'$value[producto]')";
+                $info_prod=$this->conex->query($sql_costo_promedio)->fetch();
+                $sql_kardex="insert into kardex (id,codigo_bodega,codigo_producto,fecha,tipo_doc,no_doc,costo,salida) "
+                                                . "values(default,'$bodega_seleccionada','$info_prod[referencia]',now(),'proyecto','$proy_id-$value[id]','$info_prod[precio_promedio]','$salida')";
+            
+                                        $this->conex->prepare($sql_kardex)->execute();
+            }
+                
+        }
+        
+        /* metodo para verificar existencia antes de aplicar un tratamiento */
+        public function check_stock($referencia){
+            $sql="select cantidad_total,precio_promedio from productos where referencia='$referencia'";            
+            $res=$this->conex->query($sql)->fetch();
+            $disponible=$res[cantidad_total];
+            $precio_prom=$res[precio_promedio];
+            $prod[$referencia]=$disponible.'/'.$precio_prom;
+            return $prod;
+        }
+
+}
+
+
