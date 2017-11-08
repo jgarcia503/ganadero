@@ -38,7 +38,7 @@ if(filter_input(INPUT_SERVER, 'REQUEST_METHOD')==  'POST'){
 			</div>
           
       <div class="mdl-card__supporting-text">
-          <form method="post" id="login">
+          <form method="post" id="login" autocomplete="off">
 <div class="mdl-textfield mdl-js-textfield">
     
         <label class="mdl-textfield__label"></label>
