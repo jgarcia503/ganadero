@@ -15,7 +15,7 @@ $res=$conex->query("select * from pesos_leches order by fecha desc");
 		<tr>
 			<th>fecha</th>
 			<th>animal</th>                        
-			<th>peso</th>                        
+			<th>peso (botellas)</th>                        
 			<th>hora</th>                        
                         <th data-filterable="false"></th>
 		</tr>
@@ -33,7 +33,7 @@ while($fila=$res->fetch()){
                 <!--<td><a href="#" class="animales" data-id="<?php echo $fila[id]?>">pesos</a></td>-->                
                 <td>
                     <a href="#" class="ver" data-id="<?php  echo base64_encode( $fila[id]) ?>"><i class="fa fa-eye" aria-hidden="true"></i></a>
-                    <a href="Upleche.php?<?php  echo  base64_encode($fila[id])?>"><i class="fa fa-pencil" aria-hidden="true"></i></a>                    
+                    <!--<a href="Upleche.php?<?php  echo  base64_encode($fila[id])?>"><i class="fa fa-pencil" aria-hidden="true"></i></a>-->                    
                     <a href="Dpleche.php?<?php  echo  base64_encode($fila[id])?>" id="eliminar"><i class="fa fa-trash" aria-hidden="true"></i></a>
                 </td>
             </tr>

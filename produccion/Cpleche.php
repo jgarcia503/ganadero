@@ -76,6 +76,7 @@ else{
         <option value="manana">manana</option>
         <option value="medio dia">medio dia</option>
         <option value="tarde">tarde</option>
+        <option value="dia">dia</option>
     </select>
            </div>
        </div>

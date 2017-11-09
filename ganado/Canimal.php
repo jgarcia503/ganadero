@@ -51,7 +51,7 @@
 <div class="small-10 columns">
     <h2>crear animal</h2>
     <?php echo $mensaje?>
-     <a href="javascript:history.back(1)" class="regresar">regresar</a>
+    <a href="animales.php" class="regresar">regresar</a>
   <form action="Canimal.php" method="post" enctype="multipart/form-data"  data-abide>
  <ul class="tabs" data-tab>
   <li class="tab-title active"><a href="#panel1">datos generales</a></li>
@@ -85,8 +85,13 @@
       <input type="text" name="fec_nac">
       <label for="">fecha destete</label>
       <input type="text" name="fec_deteste">
+       <div class="row">
+                   <div class="small-12 columns">
       <label for="">peso nac</label>
-      <input type="text" name="peso_nac">
+      <input type="text" name="peso_nac" pattern="number">
+      <small class="error">solo numero</small>
+      </div>
+      </div>
               <label for="">marca hierro</label>
               <input type="checkbox" name="marca_hierro" value="si">
 
@@ -104,8 +109,13 @@
      
       <label for="">procedencia</label>
       <input type="text" name="procedencia">
-      <label for="">precio compra</label>
-      <input type="text" name="precio_venta">
+      <div class="row">
+          <div class='small-12 columns'>
+            <label for="">precio compra</label>
+            <input type="text" name="precio_compra" pattern='number'>
+            <small class="error">solo numero</small>
+            </div>
+      </div>
                <!--si es hembra-->
                <div class="row">
                    <div class="small-12 columns">
@@ -209,11 +219,11 @@
       <div class="row">
           <div class="small-4 columns">
                  <label for="">padre</label>
-                <input type="text" name="padre">
+                 <input type="text" name="padre" pattern="alpha">
           </div>
           <div class="small-4 columns">
               <label for="">madre</label>
-          <input type="text" name="madre">
+          <input type="text" name="madre" pattern="alpha">
           </div>
           <div class="small-4 columns">
               <label for="">concepcion</label>
@@ -229,27 +239,27 @@
       <div class="row">
           <div class="small-4 columns">  
               <label for="">abuelo materno</label>
-                <input type="text" name="abuelo_materno">
+                <input type="text" name="abuelo_materno" pattern="alpha">
           </div>
           <div class="small-4 columns">
                  <label for="">abuelo paterno</label>
-                <input type="text" name="abuelo_paterno">
+                <input type="text" name="abuelo_paterno" pattern="alpha">
           </div>
           <div class="small-4 columns">
                   <!--si es te o fiv-->
           <label for="">donadora
-          <input type="text" name="donadora">
+          <input type="text" name="donadora" pattern="alpha">
           </label>
           </div>
       </div>
       <div class="row">
           <div class="small-4 columns">
                  <label for="">abuela materna</label>
-                <input type="text" name="abuela_materna">
+                <input type="text" name="abuela_materna" pattern="alpha">
           </div>
           <div class="small-4 columns">
                  <label for="">abuela paterna</label>
-                <input type="text" name="abuela_paterna">
+                <input type="text" name="abuela_paterna" pattern="alpha">
           </div>
           <div class="small-4"></div>
       </div>
@@ -276,8 +286,13 @@
           ?>
       </select>
       <!--<input type="text" name="estructura">-->
+            <div class="row">
+          <div class="small-12 columns">
       <label for="">temperamento</label>
-      <input type="text" name="temperamento">
+      <input type="text" name="temperamento" pattern="alpha">
+      <small class="error">solo texto</small>
+      </div>
+      </div>
       <label for="">estado cachos</label>
       <select name="cachos" id=""><option value="cuernos">cuernos</option>
           <option value="descornado">descornado</option></select>

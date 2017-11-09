@@ -15,6 +15,7 @@
 <script src="//cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js"></script>
 <script src="https://code.highcharts.com/highcharts.js"></script>
 <script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="<?php echo  'http://'.$_SERVER[HTTP_HOST].'/ganadero' ?>/assets/select2/select2.min.js"></script>
 
 <link rel="stylesheet" href="<?php echo  'http://'.$_SERVER[HTTP_HOST].'/ganadero' ?>/assets/appendgrid/jquery.appendGrid-1.6.3.min.css">
 <link rel="stylesheet" href="<?php echo  'http://'.$_SERVER[HTTP_HOST].'/ganadero' ?>/assets/jquery-ui/jquery-ui.min.css">
@@ -27,6 +28,7 @@
 <link rel="stylesheet" href="<?php echo  'http://'.$_SERVER[HTTP_HOST].'/ganadero' ?>/assets/jsgrid/jsgrid-theme.min.css">
 <link rel="stylesheet" href="<?php echo  'http://'.$_SERVER[HTTP_HOST].'/ganadero' ?>/assets/multiple-select/multiple-select.css"  />
 <link rel="stylesheet" href="<?php echo  'http://'.$_SERVER[HTTP_HOST].'/ganadero' ?>/assets/zurb/css/foundation.min.css">
+<link  rel="stylesheet" href="<?php echo  'http://'.$_SERVER[HTTP_HOST].'/ganadero' ?>/assets/select2/select2.min.css" >
 
 <style>
     h2{

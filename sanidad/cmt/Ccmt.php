@@ -23,7 +23,7 @@ $animales=$conex->query("select * from animales");
             <div class="row">
                 <div class="small-12 columns">                 
                              <label>animal
-                 <select id="animal">
+                 <select id="animal" class="js-example-basic-single">
                      <option value="">seleccione</option>
                      <?php
                      while($fila=$animales->fetch()){
@@ -37,25 +37,31 @@ $animales=$conex->query("select * from animales");
                 
             <div class="row">
                 <div class="small-6 columns">
-                     <label>ubre 1
+                     <label>DI
                          <select id="ubre_1">
                 <option value="">seleccione</option>
                 
                 <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
+                <option value="c">clinico</option>
+                <option value="x">cuarto ciego</option>
+                <option value="t">traza</option>                
                 <option value="-">-</option>
             </select>
                     </label>
                 </div>
                 <div class="small-6 columns">
-                     <label>ubre 2
+                     <label>DR
                          <select id="ubre_2">
                 <option value="">seleccione</option>
                 
                 <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
+                <option value="c">clinico</option>
+                <option value="x">cuarto ciego</option>
+                <option value="t">traza</option>
                 <option value="-">-</option>
             </select>
                     </label>
@@ -63,25 +69,31 @@ $animales=$conex->query("select * from animales");
             </div>
             <div class="row">
                 <div class="small-6 columns">
-                     <label>ubre 3
+                     <label>TI
                          <select id="ubre_3">
                 <option value="">seleccione</option>
                 
                 <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
+                <option value="c">clinico</option>
+                <option value="x">cuarto ciego</option>
+                <option value="t">traza</option>
                 <option value="-">-</option>
             </select>
                     </label>
                 </div>
                 <div class="small-6 columns">
-                     <label>ubre 4
+                     <label>TD
                          <select id="ubre_4">
                 <option value="">seleccione</option>
                 
                 <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
+                <option value="c">clinico</option>
+                <option value="x">cuarto ciego</option>
+                <option value="t">traza</option>
                 <option value="-">-</option>
             </select>
                     </label>
@@ -110,14 +122,18 @@ $animales=$conex->query("select * from animales");
 <script>        
     $("[name=fecha]").attr('readonly',true).datepicker( { dateFormat: "dd-mm-yy"});
     
+    $(document).ready(function() {
+                $('.js-example-basic-single').select2();
+                        });
+    
         $('#tblAppendGrid').appendGrid({        
         initRows: 0,
         columns: [
             { name: 'animal', display: 'animal', type: 'text', ctrlAttr: { readonly: true }},
-            { name: 'ubre_1', display: 'ubre 1', type: 'text', ctrlAttr: { readonly: true }},
-            { name: 'ubre_2', display: 'ubre 2', type: 'text', ctrlAttr: { readonly: true }},
-            { name: 'ubre_3', display: 'ubre 3', type: 'text', ctrlAttr: { readonly:true} },
-            { name: 'ubre_4', display: 'ubre 4', type: 'text' ,ctrlAttr: { readonly:true} }            
+            { name: 'ubre_1', display: 'DI', type: 'text', ctrlAttr: { readonly: true }},
+            { name: 'ubre_2', display: 'DR', type: 'text', ctrlAttr: { readonly: true }},
+            { name: 'ubre_3', display: 'TI', type: 'text', ctrlAttr: { readonly:true} },
+            { name: 'ubre_4', display: 'TR', type: 'text' ,ctrlAttr: { readonly:true} }            
         ],
         hideButtons:{
             append:true,
@@ -140,6 +156,7 @@ $animales=$conex->query("select * from animales");
         ub3=$("#ubre_3").val();
         ub4=$("#ubre_4").val();
         animal=$("#animal").val();
+        $("#animal").find('option:selected').remove();
   
         if(ub1!=='' || ub2!=='' || ub3!=='' || ub4 !=='' || animal!==''){
          $('#tblAppendGrid').appendGrid('appendRow', [ 

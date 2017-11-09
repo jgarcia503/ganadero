@@ -49,13 +49,13 @@ while($fila=$res->fetch()){
                 <input type="hidden" value="" name="proyecto_id">
                 <select id="opciones">
                     <option value="">seleccione</option>
-                    <option value="opcion1.php">venta del zacate con grano</option>
-                    <option value="opcion2.php">venta de siembra con silo de zacate</option>
-                    <option value="opcion3.php">ensilado con grano</option>
-                    <option value="opcion4.php">venta elote y zacate (prematuro)</option>
-                    <option value="opcion5.php">doblado y cosecha del grano</option>
-                    <option value="opcion6.php">ensilado antes del tiempo</option>            
-                    <option value="opcion7.php">corte y reparte en verde</option>            
+                    <option value="opcion1.php">1-venta del zacate con grano</option>
+                    <option value="opcion2.php">2-venta de elote y ensilaje de zacate</option>
+                    <option value="opcion3.php">3-ensilado con grano</option>
+                    <option value="opcion4.php">4-venta elote y zacate (prematuro)</option>
+                    <option value="opcion5.php">5-cosecha del grano</option>
+                    <option value="opcion6.php">6-ensilado antes del tiempo</option>            
+                    <option value="opcion7.php">7-corte y reparte en verde</option>            
                 </select>
                 <button id="sigte">siguiente</button>
             </span>

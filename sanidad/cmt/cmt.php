@@ -29,7 +29,9 @@ while($fila=$res->fetch()){
                 <td><?php  echo $fila[animales_revisados]?></td>
     
                 <td>
-                    <a href="#" class="ver" data-id="<?php  echo  $fila[fecha] ?>"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                    <a href="#" class="ver" data-id="<?php  echo  $fila[fecha] ?>"><i class="fa fa-eye" aria-hidden="true"></i></a> |
+                    <a href="../ajax/pdf_cmt.php?fecha=<?php  echo  $fila[fecha] ?>" class="pdf" data-id="<?php  echo  $fila[fecha] ?>"><i class="fa fa-file-pdf-o" aria-hidden="true"></i>
+</a>
 <!--                    <a href="Ueventosanitario.php?<?php  echo  base64_encode( $fila[id])?>"><i class="fa fa-pencil" aria-hidden="true"></i></a>                    
                     <a href="Deventosanitario.php?<?php  echo  base64_encode('eventosanitario='. $fila[id])?>" id="eliminar"><i class="fa fa-trash" aria-hidden="true"></i></a>-->
                 </td>
@@ -56,7 +58,15 @@ if(isset($_SESSION[error])){
 </div>
 </div>
 <script>
-
+//                  $(".table").on('click','a.pdf',function(e){
+//        e.preventDefault();
+//                $.ajax({
+//            url:"../ajax/pdf_cmt.php?fecha="+$(this).data('id'),
+//            success:function(data){
+//                data;
+//            }
+//        });
+//    });
 
                     $(".table").on('click','a.ver',function(e){
         e.preventDefault();
