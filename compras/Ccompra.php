@@ -6,6 +6,7 @@ $resprods=$conex->query($sql);
 $resproveedores=$conex->query($sqlproveedores);
 #$resbodegas=$conex->query($sqlbodegas);
 $productos[]='seleccione';
+$bodegas[]='seleccione';
 $unit_prod=[];
 $unit_peso="<option value=''>seleccione</option>"
         . "<option value='qq'>quintal</option>"
@@ -64,18 +65,19 @@ $res=$conex->query($sql_bodega);
                     <small class="error">obligatorio</small>
             </td>
              <td>
-                 <label class="inline">bodega</label>
+                 <!--<label class="inline">bodega</label>-->
              </td>
                     <td>
-                <select name="bodega" required>
+<!--                <select name="bodega" required>
                     <option value=''>seleccione</option>
                     <?php
                                                                             while($fila=$res->fetch()){
                                                                                 echo "<option value='$fila[codigo]'>$fila[nombre]</option>";
+                                                                                $bodegas[$fila[codigo]]=$fila[nombre];
                                                                             }
                                                             ?>
                 </select>
-                         <small class="error">obligatorio</small>
+                         <small class="error">obligatorio</small>-->
                     </td>
           </tr>
           <tr>
@@ -150,6 +152,9 @@ $res=$conex->query($sql_bodega);
         initRows: 1,
         idPrefix: 'linea',
         columns: [
+            {name: 'bodega', display: 'bodega', type: 'select', ctrlAttr: { maxlength: 100,required:true }, ctrlCss: { width: '160px'},
+                  ctrlOptions:<?php            echo json_encode($bodegas);     ?>
+            },
             { name: 'referencia', display: 'referencia', type: 'select', ctrlAttr: { maxlength: 100,required:true }, ctrlCss: { width: '160px'} ,
                      ctrlOptions: <?php echo json_encode($productos)?>,
                      onChange:function(evt,rowIndex){
@@ -198,6 +203,7 @@ $res=$conex->query($sql_bodega);
         ],
         afterRowAppended: function (caller, parentRowIndex, addedRowIndex) {
         
+        $($('#tblAppendGrid').appendGrid('getCellCtrl', 'bodega', addedRowIndex)).after('<small class="error">requerido</small>').find('option:first').val('');
         $($('#tblAppendGrid').appendGrid('getCellCtrl', 'referencia', addedRowIndex)).after('<small class="error">requerido</small>').find('option:first').val('');
         $($('#tblAppendGrid').appendGrid('getCellCtrl', 'cantidad', addedRowIndex)).after('<small class="error">requerido</small>');
         $($('#tblAppendGrid').appendGrid('getCellCtrl', 'unidad', addedRowIndex)).after('<small class="error">requerido</small>').find('option:first').val('');

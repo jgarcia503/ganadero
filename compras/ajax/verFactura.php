@@ -2,7 +2,7 @@
 
 include '../../conexion.php';
 $id=$_GET[id];
-$sql="select * from compras_lns where enc_id='$id'";
+$sql="select *,b.nombre bodega from compras_lns a inner join bodega b on b.codigo=a.bodega  where enc_id='$id'";
 $sql2="select * from compras_enc where id='$id'";
 $res=$conex->query($sql);
 $res2=$conex->query($sql2)->fetch();
@@ -38,6 +38,7 @@ $plantilla="<div class='row'>
             <table width=100%>
           <thead>
             <tr>
+              <th  >bodega</th>
               <th  >referencia</th>
               <th >producto</th>
               <th >cantidad</th>
@@ -77,6 +78,7 @@ $plantilla="<div class='row'>
 $datos='';
 while($lineas=$res->fetch(PDO::FETCH_ASSOC)){
     $datos.="<tr>";
+   $datos.="<td>$lineas[bodega]</td>";
    $datos.="<td>$lineas[referencia]</td>";
    $datos.="<td>$lineas[producto]</td>";
    $datos.="<td>$lineas[cantidad]</td>";

@@ -19,8 +19,12 @@ include '../../conexion.php';
                 $tmp=explode('_',$key)[0];
                     if( $tmp === 'linea'){
                         $tmp2=explode('_',$key)[1];
+                        if($tmp2==='bodega'){
+                            $sql_lns.="(default,'".$_GET[$key]."',";
+                            continue;
+                        }
                         if($tmp2==='referencia'){
-                                                        $sql_lns.="(default,'".explode('-',$_GET[$key])[0]."','".explode('-',$_GET[$key])[1]."',";
+                                                        $sql_lns.="'".explode('-',$_GET[$key])[0]."','".explode('-',$_GET[$key])[1]."',";
                                                         continue;
                         }
                         if($tmp2==='subtotal'){
@@ -37,10 +41,10 @@ include '../../conexion.php';
                   #kardex 
                 #existencias
                 #prods
-                                                      $kardex=new kardex();
-                                                      $kardex->actualiza_inventario('+',$enc_id);
-                                                      $kardex->actualiza_existencias($cod_bodega, $enc_id);
-                                                      $kardex->actualiza_kardex($cod_bodega,$tipo_doc,$doc_no, $enc_id);
+                                                     // $kardex=new kardex();
+                                                      //$kardex->actualiza_inventario('+',$enc_id);
+                                                      //$kardex->actualiza_existencias($cod_bodega, $enc_id);
+                                                      //$kardex->actualiza_kardex($cod_bodega,$tipo_doc,$doc_no, $enc_id);
                                                       
                                                       $conex->commit();
                 echo '<div data-alert class="alert-box success round">
