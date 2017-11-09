@@ -12,7 +12,7 @@ $res=$conex->query("select * from compras_enc  order by fecha desc");
 			<th>fecha</th>
 			<th>Doc No</th>						
 			<th>Tipo doc</th>						
-			<th>total</th>		
+			<th>total</th>					
                         <th data-filterable="false">acciones</th>
 		</tr>
 	</thead>
@@ -24,9 +24,12 @@ while($fila=$res->fetch()){
                 <td><?php  echo $fila[fecha]?></td>
                 <td><?php  echo $fila[doc_no]?></td>                           
                 <td><?php  echo $fila[tipo_doc]?></td>                           
-                <td><?php  echo $fila[total]?></td>                
+                <td><?php  echo $fila[total]?></td>                                
                 <td>
                     <a href="#" class="ver" data-id="<?php  echo  $fila[id] ?>"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                    <a href="ajax/print_fact.php?id=<?php  echo  $fila[id] ?>"><i class="fa fa-file-pdf-o" aria-hidden="true"></i></a>
+                    <?php echo ($fila[aplicada]!==TRUE) ?"<a href='#' class='aplicar' data-id='$fila[id]' title='aplicar'><i class='fa fa-check' aria-hidden='true'></i></a>":''?>
+                    
 <!--                    <a href="Umortalidad.php?<?php  echo  base64_encode( $fila[id])?>"><i class="fa fa-pencil" aria-hidden="true"></i></a>                    
                     <a href="Dmortalidad.php?<?php  echo  base64_encode('mortalidad='. $fila[id])?>" id="eliminar"><i class="fa fa-trash" aria-hidden="true"></i></a>-->
                 </td>
@@ -45,6 +48,23 @@ while($fila=$res->fetch()){
 </div>
 </div>
 <script>
+
+        $('.table').on('click','.aplicar',function(e){
+            e.preventDefault();
+           resp=confirm('desea aplicar factura?');
+           if(resp){
+                                var id=$(this).data('id');                        
+                        $.ajax({
+                            url:"ajax/aplicarFactura.php",
+                            method:'get',
+                            data:{id:id},
+                            success: function (data) {                                
+                                                alert(data);
+                                                window.location.reload();
+                                            }
+                        });
+                    }
+        });
 
           $('.table').on('click','.ver',function(e){
                         e.preventDefault();

@@ -9,7 +9,7 @@ include '../../conexion.php';
         $fecha=$_GET[fecha];
         $cod_bodega=$_GET[bodega];
         $tipo_doc=$_GET[tipo_doc];
-        $sql="insert into compras_enc values(default,'$fecha','$doc_no','$tipo_doc','$_GET[proveedor]','$_GET[total]',now()) returning id";
+        $sql="insert into compras_enc values(default,'$fecha','$doc_no','$tipo_doc','$_GET[proveedor]','$_GET[total]',now(),'0') returning id";
         $conex->beginTransaction();
         $insert=$conex->prepare($sql);
         $sql_lns="insert into compras_lns values ";
