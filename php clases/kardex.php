@@ -63,7 +63,7 @@ class kardex{
          * @param type $cod_bodega
          * @param type $enc_id
          */
-        public function actualiza_existencias($cod_bodega,$enc_id){            
+        public function actualiza_existencias($enc_id){            
              $sql="select * from compras_lns where enc_id='$enc_id'";
 
              $sql_insert="insert into existencias values";
@@ -71,15 +71,15 @@ class kardex{
               $this->res_lns= $GLOBALS[conex]->query($sql);
               while($fila=  $this->res_lns->fetch()){
                                #verificar si existe en la tabla
-             $existe="select count(id) from existencias where codigo_producto='$fila[referencia]' and codigo_bodega='$cod_bodega'";
+             $existe="select count(id) from existencias where codigo_producto='$fila[referencia]' and codigo_bodega='$fila[bodega]'";
              $res=  $this->conex->query($existe)->fetch()[count];
              $cant_convertida=convertir($fila[unidad],$fila[cantidad]);                                    
              if($res==1){
-                 $sql_update.="$cant_convertida where codigo_producto='$fila[referencia]' and codigo_bodega='$cod_bodega'";
+                 $sql_update.="$cant_convertida where codigo_producto='$fila[referencia]' and codigo_bodega='$fila[bodega]'";
                  $this->conex->prepare($sql_update)->execute();
              }else{
                      
-                     $sql_insert.="(default,'$fila[referencia]','$cod_bodega','$cant_convertida')";
+                     $sql_insert.="(default,'$fila[referencia]','$fila[bodega]','$cant_convertida')";
                      $this->conex->prepare($sql_insert)->execute();
              }
                                 
@@ -95,14 +95,16 @@ class kardex{
          * @param type $enc_id
          * @throws PDOException
          */
-        public function actualiza_kardex($cod_bodega,$tipo_doc,$no_doc,$enc_id){
+        public function actualiza_kardex($enc_id){
+            $sql_enc="select tipo_doc,doc_no from compras_enc where id=$enc_id ";
+            $res_enc=   $GLOBALS[conex]->query($sql_enc)->fetchAll()[0];
                   $sql="select * from compras_lns where enc_id='$enc_id'";
                    $sql_insert="insert into kardex values ";
                     $this->res_lns= $GLOBALS[conex]->query($sql);
                          while($fila=  $this->res_lns->fetch()){
                             $cant_convertida=convertir($fila[unidad],$fila[cantidad]);                  
                             $subtotal=  floatval($fila[subtotal])/$cant_convertida;
-                            $sql_insert.="(default,'$cod_bodega','$fila[referencia]',now(),'$tipo_doc','$no_doc','$subtotal','$cant_convertida')".",";
+                            $sql_insert.="(default,'$fila[bodega]','$fila[referencia]',now(),'$res_enc[tipo_doc]','$res_enc[doc_no]','$subtotal','$cant_convertida')".",";
                   
               }
                     $sql_insert=trim($sql_insert, ',');
