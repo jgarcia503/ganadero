@@ -24,5 +24,6 @@ if($res->execute()){
 
 }
  catch (PDOException $pe){
+     $conex->rollBack();
      echo 'error al aplicar factura';
  }
