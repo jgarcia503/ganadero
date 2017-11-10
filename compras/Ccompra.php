@@ -257,6 +257,31 @@ $res=$conex->query($sql_bodega);
 
     
   });
+  $('[name=tipo_doc]').on('change',function(){
+      if($("[name=fac_no]").val()!==''){
+      $("[name=fac_no]").trigger('blur');
+        }
+  });
+  
+  $("[name=fac_no]").on('blur',function(){
+      no_doc=$(this).val();
+      tipo_doc=$('[name=tipo_doc]').val();
+      if(no_doc!=='' && tipo_doc!==''){
+              $.ajax({
+          url:"ajax/verificar_doc.php",
+          data:{no_doc:no_doc,tipo_doc:tipo_doc},
+          success:function(data){
+              if(data!==''){
+                  alert('ya existe el documento');
+                  $('[name=fac_no]').val('');
+              }
+          }
+      });
+      }else{
+          alert('seleccione  documento')
+      }
+  
+  });
   
     $("[name=fecha]").datepicker({ dateFormat: "dd-mm-yy"    ,  changeMonth: true, yearRange: "2000:2050",
       changeYear: true});
