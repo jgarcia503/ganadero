@@ -18,8 +18,9 @@ $unit_peso="<option value=''>seleccione</option>"
 $unit_vol="<option value=''>seleccione</option>"
         . "<option value='lt'>litros</option>"
         . "<option value='ml'>mililitros</option>";
-
+$selectprod='<option value="">seleccione</option>';
 while($filapro=$resprods->fetch()){
+    $selectprod.="<option value='$filapro[referencia]-$filapro[nombre]' data-unidad='$filapro[unidad_standar]'>$filapro[nombre]</option>";
     $productos[]=$filapro[referencia].'-'.$filapro[nombre];
     if($filapro[unidad_standar]=='kg'){
         $unit_prod[$filapro[referencia]]=$unit_peso;
@@ -32,12 +33,16 @@ while($filapro=$resprods->fetch()){
 
 $sql_bodega="select * from bodega";
 $res=$conex->query($sql_bodega);
+$selectbodega="<option value=''>seleccione</option>";
+while($fila=$res->fetch()){
+    $selectbodega.="<option value='$fila[codigo]'>$fila[nombre]</option>";
+}
 ?>
 <div class="small-10 columns">
     <h2>crear compra</h2>
-    <a href="javascript:history.back(1)" class="regresar">regresar</a>
+    <a href="compras.php" class="regresar">regresar</a>
     <span id="mensaje"></span>
-    <form data-abide='ajax' id="miforma">
+    <form data-abide='ajax' id="miforma" enctype="multipart/form-data" method="post">
             <div class="row">
                 <!--<div class="small-12 columns"><h3 style="color: white;background-color: black" class="text-center">factura</h3></div>-->
         
@@ -113,9 +118,65 @@ $res=$conex->query($sql_bodega);
         </tbody>
             </table>
         </div>
+                <div class="hide" id="lineas">
+                   <div class="small-2 columns">
+                       <label>bodega
+                           <select id="bodega">                               
+                               <?php
+                                                                                          echo $selectbodega;
+                                            ?>
+                           </select>
+                            </label>
+        </div>
+                <div class="small-4 columns">
+                                          <label>referencia
+                                              <select id="ref">
+                                                  <?php
+                                                         echo $selectprod;
+                                                                    ?>
+                                              </select>
+                                 </label>
+        </div>
+                <div class="small-1 columns">
+                                          <label>cantidad
+                                 <input type="text" id='cantidad'>
+                                 </label>
+        </div>
+                <div class="small-2 columns">
+                                          <label>unidad
+                                 <select id='unidad'>
+                                     </select>
+                                 </label>
+        </div>
+                <div class="small-1 columns">
+                                  <label>precio
+                                 <input type="text" id='precio'>
+                                 </label>
+                            
+        </div>
+         
+                <div class="small-1 columns">
+                    <button id="agregar" type="button">agregar</button>
+                            
+        </div>
         <div class="small-12 columns">
-                            <table id="tblAppendGrid">
-                            </table>    
+            <table id="lineas" width="100%">
+                <thead>
+                <tr>
+                    <th>bodega</th>
+                    <th>referencia</th>
+                    <th>cantidad</th>
+                    <th>unidad</th>
+                    <th>precio</th>
+                    <th>subtotal</th>
+                </tr>
+                </thead>
+                <tbody>
+                    
+                </tbody>
+            </table>
+<!--                            <table id="tblAppendGrid">
+                            </table>    -->
         </div>
         <div class="small-4 columns">
             
@@ -136,6 +197,9 @@ $res=$conex->query($sql_bodega);
   </tbody>
 </table>
         </div>
+                
+                
+    </div>
     </div>
         <button type="submit">crear registro</button>
  </form>   
@@ -148,115 +212,167 @@ $res=$conex->query($sql_bodega);
 
     //{'seleccione':'seleccione','qq':'quintal','g':'gramos','kg':'kilogramos','oz':'onzas',
 //                                                            ,'lb':'libras'}
-  $('#tblAppendGrid').appendGrid({        
-        initRows: 1,
-        idPrefix: 'linea',
-        columns: [
-            {name: 'bodega', display: 'bodega', type: 'select', ctrlAttr: { maxlength: 100,required:true }, ctrlCss: { width: '160px'},
-                  ctrlOptions:<?php            echo json_encode($bodegas);     ?>
-            },
-            { name: 'referencia', display: 'referencia', type: 'select', ctrlAttr: { maxlength: 100,required:true }, ctrlCss: { width: '160px'} ,
-                     ctrlOptions: <?php echo json_encode($productos)?>,
-                     onChange:function(evt,rowIndex){
-                         prod=$($('#tblAppendGrid').appendGrid('getCellCtrl', 'referencia', rowIndex)).val().split('-')[0];
-                         $($('#tblAppendGrid').appendGrid('getCellCtrl', 'unidad', rowIndex)).html(mapa[prod]);
-                      
-                     }
-            },            
-            { name: 'cantidad', display: 'cantidad', type: 'text', ctrlAttr: { maxlength: 100 ,required:true}, ctrlCss: { width: '100px'},
-                   onChange: function (evt, rowIndex) {
-                       var cantidad =parseFloat($($('#tblAppendGrid').appendGrid('getCellCtrl', 'cantidad', rowIndex)).val());
-                       var precio =parseFloat($($('#tblAppendGrid').appendGrid('getCellCtrl', 'precio', rowIndex)).val());
-                       var subt=cantidad*precio;
-                       $($('#tblAppendGrid').appendGrid('getCellCtrl', 'subtotal', rowIndex)).val(parseFloat(subt).toFixed(2));
-                        $($('#tblAppendGrid').appendGrid('getCellCtrl', 'subtotal', rowIndex)).trigger('change');
-                   }
-            },
-            { name: 'unidad', display: 'unidad', type: 'select', ctrlAttr: { required:true}, ctrlCss: { width: '100px'} 
-                      
-            },
-            { name: 'precio', display: 'precio', type: 'text', ctrlAttr: { maxlength: 100,required:true}, ctrlCss: { width: '100px'} ,
-                         onChange: function (evt, rowIndex) {
-                       var cantidad =parseFloat($($('#tblAppendGrid').appendGrid('getCellCtrl', 'cantidad', rowIndex)).val());
-                       var precio =parseFloat($($('#tblAppendGrid').appendGrid('getCellCtrl', 'precio', rowIndex)).val());
-                       var subt=cantidad*precio;
-                       $($('#tblAppendGrid').appendGrid('getCellCtrl', 'subtotal', rowIndex)).val(parseFloat(subt).toFixed(2));
-                       $($('#tblAppendGrid').appendGrid('getCellCtrl', 'subtotal', rowIndex)).trigger('change');
-                   }
-            },
-//            { name: 'proveedor', display: 'proveedor', type: 'select', ctrlAttr: { required:true }, ctrlCss: { width: '150px'},
-//                ctrlOptions: <?php echo json_encode($proveedores)?>,
-//                 emptyCriteria: 'seleccione'
+//  $('#tblAppendGrid').appendGrid({        
+//        initRows: 0,
+//        hideRowNumColumn:true,
+//        idPrefix: 'linea',
+//        columns: [
+//            {name: 'bodega', display: 'bodega', type: 'text', ctrlAttr: { maxlength: 100,required:true,readonly:true }, ctrlCss: { width: '160px'},
+//                  ctrlOptions:<?php            echo json_encode($bodegas);     ?>
 //            },
-            { name: 'subtotal', display: 'subtotal', type: 'text', ctrlAttr: { maxlength: 100,readonly:true }, ctrlCss: { width: '100px'},
-                         onChange: function (evt, rowIndex) {
-                             var i=0;
-                             var total=0;
-                        var filas= $('#tblAppendGrid').appendGrid('getRowCount');
-                        for( ;i<filas;i++){
-                           total+=parseFloat($('#tblAppendGrid').appendGrid('getCtrlValue', 'subtotal', i));                            
-                        }   
-                        
-                         $('[name=total]').val(total.toFixed(2));
-                    }
-            }
-        ],
-        afterRowAppended: function (caller, parentRowIndex, addedRowIndex) {
-        
-        $($('#tblAppendGrid').appendGrid('getCellCtrl', 'bodega', addedRowIndex)).after('<small class="error">requerido</small>').find('option:first').val('');
-        $($('#tblAppendGrid').appendGrid('getCellCtrl', 'referencia', addedRowIndex)).after('<small class="error">requerido</small>').find('option:first').val('');
-        $($('#tblAppendGrid').appendGrid('getCellCtrl', 'cantidad', addedRowIndex)).after('<small class="error">requerido</small>');
-        $($('#tblAppendGrid').appendGrid('getCellCtrl', 'unidad', addedRowIndex)).after('<small class="error">requerido</small>').find('option:first').val('');
-        $($('#tblAppendGrid').appendGrid('getCellCtrl', 'precio', addedRowIndex)).after('<small class="error">requerido</small>');
-        $($('#tblAppendGrid').appendGrid('getCellCtrl', 'proveedor', addedRowIndex)).after('<small class="error">requerido</small>').find('option:first').val('');
-        
-       
-        },
-           hideButtons: {
-            moveDown:true,
-            removeLast: true,
-            moveUp:true,
-            insert:true
-        },
-            maintainScroll:true,            
-            maxBodyHeight:400,
-            beforeRowRemove: function (caller, rowIndex) {
-                    var subt=parseFloat($($('#tblAppendGrid').appendGrid('getCellCtrl', 'subtotal', rowIndex)).val());
-                    
-                    if(!isNaN(subt)){
-                    var total_actual=parseFloat($('[name=total]').val());
-                    var act=total_actual-subt;
-                    $('[name=total]').val(parseFloat(act).toFixed(2));
-                       
-                    }
-                     $('#tblAppendGrid').appendGrid('removeRow', rowIndex);
-        }
-    });
+//            { name: 'referencia', display: 'referencia', type: 'text', ctrlAttr: { maxlength: 100,required:true,readonly:true }, ctrlCss: { width: '160px'} ,
+//                     ctrlOptions: <?php echo json_encode($productos)?>,
+//                     onChange:function(evt,rowIndex){
+//                         prod=$($('#tblAppendGrid').appendGrid('getCellCtrl', 'referencia', rowIndex)).val().split('-')[0];
+//                         $($('#tblAppendGrid').appendGrid('getCellCtrl', 'unidad', rowIndex)).html(mapa[prod]);
+//                      
+//                     }
+//            },            
+//            { name: 'cantidad', display: 'cantidad', type: 'text', ctrlAttr: { maxlength: 100 ,required:true,readonly:true}, ctrlCss: { width: '100px'},
+//                   onChange: function (evt, rowIndex) {
+//                       var cantidad =parseFloat($($('#tblAppendGrid').appendGrid('getCellCtrl', 'cantidad', rowIndex)).val());
+//                       var precio =parseFloat($($('#tblAppendGrid').appendGrid('getCellCtrl', 'precio', rowIndex)).val());
+//                       var subt=cantidad*precio;
+//                       $($('#tblAppendGrid').appendGrid('getCellCtrl', 'subtotal', rowIndex)).val(parseFloat(subt).toFixed(2));
+//                        $($('#tblAppendGrid').appendGrid('getCellCtrl', 'subtotal', rowIndex)).trigger('change');
+//                   }
+//            },
+//            { name: 'unidad', display: 'unidad', type: 'text', ctrlAttr: { required:true}, ctrlCss: { width: '100px'} 
+//                      
+//            },
+//            { name: 'precio', display: 'precio', type: 'text', ctrlAttr: { maxlength: 100,required:true,readonly:true}, ctrlCss: { width: '100px'} ,
+//                         onChange: function (evt, rowIndex) {
+//                       var cantidad =parseFloat($($('#tblAppendGrid').appendGrid('getCellCtrl', 'cantidad', rowIndex)).val());
+//                       var precio =parseFloat($($('#tblAppendGrid').appendGrid('getCellCtrl', 'precio', rowIndex)).val());
+//                       var subt=cantidad*precio;
+//                       $($('#tblAppendGrid').appendGrid('getCellCtrl', 'subtotal', rowIndex)).val(parseFloat(subt).toFixed(2));
+//                       $($('#tblAppendGrid').appendGrid('getCellCtrl', 'subtotal', rowIndex)).trigger('change');
+//                   }
+//            },
+////            { name: 'proveedor', display: 'proveedor', type: 'select', ctrlAttr: { required:true }, ctrlCss: { width: '150px'},
+////                ctrlOptions: <?php echo json_encode($proveedores)?>,
+////                 emptyCriteria: 'seleccione'
+////            },
+//            { name: 'subtotal', display: 'subtotal', type: 'text', ctrlAttr: { maxlength: 100,readonly:true }, ctrlCss: { width: '100px'},
+//                         onChange: function (evt, rowIndex) {
+//                             var i=0;
+//                             var total=0;
+//                        var filas= $('#tblAppendGrid').appendGrid('getRowCount');
+//                        for( ;i<filas;i++){
+//                           total+=parseFloat($('#tblAppendGrid').appendGrid('getCtrlValue', 'subtotal', i));                            
+//                        }   
+//                        
+//                         $('[name=total]').val(total.toFixed(2));
+//                    }
+//            }
+//        ],
+//        afterRowAppended: function (caller, parentRowIndex, addedRowIndex) {
+//        
+//        $($('#tblAppendGrid').appendGrid('getCellCtrl', 'bodega', addedRowIndex)).after('<small class="error">requerido</small>').find('option:first').val('');
+//        $($('#tblAppendGrid').appendGrid('getCellCtrl', 'referencia', addedRowIndex)).after('<small class="error">requerido</small>').find('option:first').val('');
+//        $($('#tblAppendGrid').appendGrid('getCellCtrl', 'cantidad', addedRowIndex)).after('<small class="error">requerido</small>');
+//        $($('#tblAppendGrid').appendGrid('getCellCtrl', 'unidad', addedRowIndex)).after('<small class="error">requerido</small>').find('option:first').val('');
+//        $($('#tblAppendGrid').appendGrid('getCellCtrl', 'precio', addedRowIndex)).after('<small class="error">requerido</small>');
+//        $($('#tblAppendGrid').appendGrid('getCellCtrl', 'proveedor', addedRowIndex)).after('<small class="error">requerido</small>').find('option:first').val('');
+//        
+//       
+//        },
+//           hideButtons: {
+//            moveDown:true,
+//            removeLast: true,
+//            moveUp:true,
+//            insert:true,
+//            append:true
+//        },
+//            maintainScroll:true,            
+//            maxBodyHeight:400,
+//            beforeRowRemove: function (caller, rowIndex) {
+//                    var subt=parseFloat($($('#tblAppendGrid').appendGrid('getCellCtrl', 'subtotal', rowIndex)).val());
+//                    
+//                    if(!isNaN(subt)){
+//                    var total_actual=parseFloat($('[name=total]').val());
+//                    var act=total_actual-subt;
+//                    $('[name=total]').val(parseFloat(act).toFixed(2));
+//                       
+//                    }
+//                     $('#tblAppendGrid').appendGrid('removeRow', rowIndex);
+//        }
+//    });
     
         $("#miforma").foundation('abide','events');
     
     $('#miforma').on('valid.fndtn.abide', function () {
-
-      if($('#tblAppendGrid').appendGrid('getRowCount')>0){
-          
-                                              $.ajax({
-                                        url:'ajax/crea_compra.php',
-                                        data:$(this).serialize(),
+                      $.ajax({
+                                        url:'ajax/crea_compra_enc.php',
+                                        data:$(this).serialize(),                                         
+                                        dataType:'json',
                                         success:function(data){
-                                            $("span#mensaje").html(data);
-                                            setTimeout(function (){
-                                                 window.location.reload();
-                                            },500);
+                                                if(_.has(data,'ok')){
+                                                    $("#lineas").removeClass('hide');
+                                                    $("span#mensaje").html(data.ok);
+                                                    $('[name=tipo_doc]').attr('disabled',true);
+                                                    $('[name=fac_no]').attr('readonly',true);
+                                                    $('[name=fecha]').attr('readonly',true);
+                                                    $('[name=proveedor]').attr('disabled',true);
+                                                }else{
+                                                    $("span#mensaje").html(data.error);
+                                                }
+                                            
+                                    $("span#mensaje").fadeOut(1500);
+//                                            setTimeout(function (){
+//                                                 window.location.reload();
+//                                            },500);
+                                                
+                                              
                                         }
                                     });
-            }
-
-      else{
-          alert('factura vacia');
-      }
+//      if($('#lineas tbody tr').size()>0){
+//
+//                //console.dir(formData);
+//                
+//                                              $.ajax({
+//                                        url:'ajax/crea_compra.php',
+//                                        data:$(this).serialize(),                                         
+//                                        success:function(data){
+//                                            $("span#mensaje").html(data);
+//                                            setTimeout(function (){
+//                                                 window.location.reload();
+//                                            },500);
+//                                        }
+//                                    });
+//                                    
+//           }
+//
+//      else{
+//          alert('factura vacia');
+//      }
 
     
   });
+  
+  $("#agregar").on('click',function(){
+      bod=$('#bodega').val();
+      ref=$('#ref').val();
+      cant=$('#cantidad').val();
+      unidad=$('#unidad').val();
+      precio=$('#precio').val();
+      subtotal=parseFloat(cant)*parseFloat(precio);
+      lineas=`<tr><td>${bod}</td><td>${ref}</td><td>${cant}</td><td>${unidad}</td><td>${precio}</td><td>${subtotal}</td></tr>`;
+            $('#lineas tbody').html(lineas);
+            $.ajax();
+  });
+  
+  $('#ref').on('change',function (){
+      unidad=$(this).find('option:selected').data('unidad');
+      kg="<option value=''>seleccione</option>         <option value='qq'>quintal</option>        <option value='g'>gramos</option>        <option value='kg'>kilogramos</option>         <option value='oz'>onzas</option>         <option value='lb'>libras</option>";
+      lt="<option value=''>seleccione</option>        <option value='lt'>litros</option>        <option value='ml'>mililitros</option>";
+      if(unidad!='kg'){
+      $('#unidad').html(lt);
+  }else{
+            $('#unidad').html(kg);
+  }
+  });
+  
   $('[name=tipo_doc]').on('change',function(){
       if($("[name=fac_no]").val()!==''){
       $("[name=fac_no]").trigger('blur');
