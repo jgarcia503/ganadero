@@ -1,4 +1,5 @@
 <?php   
+session_start();
 include '../plantilla.php';
 $sql="select * from productos";
 $sqlproveedores="select * from contactos where tipo='proveedor'";
@@ -172,7 +173,7 @@ while($fila=$res->fetch()){
                 </tr>
                 </thead>
                 <tbody>
-                    
+                
                 </tbody>
             </table>
 <!--                            <table id="tblAppendGrid">
@@ -185,24 +186,25 @@ while($fila=$res->fetch()){
             
         </div>
          <div class="small-4 columns">
-                         <table  width="100%">
+             <table  width="100%" id="total">
  
-  <tbody>
+  
     <tr>
         <td><label class="inline">total</label></td>
       <td><input type="text" name="total" readonly=""></td>
      
     </tr>
 
-  </tbody>
+
 </table>
         </div>
                 
                 
     </div>
     </div>
-        <button type="submit">crear registro</button>
+        <button type="submit" class="encabezado">crear registro</button>
  </form>   
+           <button type="submit" class='lineas hide' data-id=''>crear lineas</button>
     </div>
 
 
@@ -309,11 +311,15 @@ while($fila=$res->fetch()){
                                         success:function(data){
                                                 if(_.has(data,'ok')){
                                                     $("#lineas").removeClass('hide');
+                                                    $(".lineas").removeClass('hide').attr('data-id',data.id);
+                                                    $(".encabezado").addClass('hide');
+                                                    
                                                     $("span#mensaje").html(data.ok);
                                                     $('[name=tipo_doc]').attr('disabled',true);
                                                     $('[name=fac_no]').attr('readonly',true);
                                                     $('[name=fecha]').attr('readonly',true);
-                                                    $('[name=proveedor]').attr('disabled',true);
+                                                    $('[name=proveedor]').attr('disabled',true);                                                    
+                                                    
                                                 }else{
                                                     $("span#mensaje").html(data.error);
                                                 }
@@ -325,13 +331,31 @@ while($fila=$res->fetch()){
                                                 
                                               
                                         }
+                                    });    
+  });
+  
+  $('.lineas').on('click',function(){
+      if($('#lineas>tbody tr').size()>0){          
+          enc_id=$('.lineas').attr('data-id');
+                         $.ajax({
+                                        url:'ajax/crea_compra_lns.php',     
+                                        data:{enc_id:enc_id},
+                                        success:function(data){                                                                           
+                                        $("span#mensaje").html(data).fadeOut(1500);
+                                            setTimeout(function (){
+                                                 window.location.reload();
+                                            },500);
+                                                
+                                              
+                                        }
                                     });
-//      if($('#lineas tbody tr').size()>0){
-//
-//                //console.dir(formData);
+  }
+  });
+  
+//        if($('#lineas tbody tr').size()>0){              
 //                
 //                                              $.ajax({
-//                                        url:'ajax/crea_compra.php',
+//                                        url:'ajax/crea_compra_lns.php',
 //                                        data:$(this).serialize(),                                         
 //                                        success:function(data){
 //                                            $("span#mensaje").html(data);
@@ -342,13 +366,10 @@ while($fila=$res->fetch()){
 //                                    });
 //                                    
 //           }
-//
+
 //      else{
 //          alert('factura vacia');
 //      }
-
-    
-  });
   
   $("#agregar").on('click',function(){
       bod=$('#bodega').val();
@@ -356,10 +377,32 @@ while($fila=$res->fetch()){
       cant=$('#cantidad').val();
       unidad=$('#unidad').val();
       precio=$('#precio').val();
-      subtotal=parseFloat(cant)*parseFloat(precio);
-      lineas=`<tr><td>${bod}</td><td>${ref}</td><td>${cant}</td><td>${unidad}</td><td>${precio}</td><td>${subtotal}</td></tr>`;
-            $('#lineas tbody').html(lineas);
-            $.ajax();
+      
+      if(bod!=='' && ref!=='' && cant!=='' && unidad!=='' && precio!==''){
+          subtotales=0;
+                            $.ajax({
+                                url:'ajax/lineas_factura_compra_sesion.php',
+                                data:{bod:bod,ref:ref,cant:cant,unidad:unidad,precio:precio},
+                                dataType:'json',
+                                success:function(data){
+                                    linea='';
+                                    _.each(data,function(value,key,list){
+                                     linea+='<tr>';
+                                     linea+='<td>'+data[key].bodega+'</td><td>'+key+'</td><td>'+data[key].cant+'</td><td>'+data[key].unidad+'</td><td>'+data[key].precio+'</td><td>'+numeral(data[key].subtotal).format('0,0.00')+'</td>';
+                                     linea+='</tr>';
+                                     subtotales+=parseFloat(data[key].subtotal);
+                                 });
+                                            //linea=`<tr><td>${bod}</td><td>${ref}</td><td>${cant}</td><td>${unidad}</td><td>${precio}</td><td>${subtotal}</td></tr>`;
+                                           // linea+=`<tr><td>${bod}</td><td>${ref}</td><td>${cant}</td><td>${unidad}</td><td>${precio}</td><td>${subtotal}</td></tr>`;
+                                            $('#lineas>tbody').html(linea);
+                                            $('[name=total]').val(numeral(subtotales).format('0,0.00'));
+
+                                }
+                            });
+                  }else{
+                  alert('complete todos los campos');
+                  return;
+                  }
   });
   
   $('#ref').on('change',function (){

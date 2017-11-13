@@ -1,11 +1,14 @@
 <?php   include '../plantilla.php';
 $res=$conex->query("select * from compras_enc  order by fecha desc");
+$sql_sin_terminar="select count(a.*) from compras_enc a left join compras_lns b on a.id =b.enc_id where b.enc_id is null";
+$res_sin_terminar=$conex->query($sql_sin_terminar)->fetchColumn();
 ?>
 
 <div class="small-10 columns">
     <h2>compras</h2>
+    <?php if(intval($res_sin_terminar)===0) {?>
     <a href="Ccompra.php" class="button primary">crear compras</a>
-    
+    <?php } ?>
     <table class="table" data-filtering='true' data-paging="true">
 	<thead>
 		<tr>
@@ -20,16 +23,20 @@ $res=$conex->query("select * from compras_enc  order by fecha desc");
 <?php
 while($fila=$res->fetch()){
 ?>
-            <tr>
+            <tr style="background-color: <?php echo ($fila[total])===null?'pink':''?>">
                 <td><?php  echo $fila[fecha]?></td>
                 <td><?php  echo $fila[doc_no]?></td>                           
                 <td><?php  echo $fila[tipo_doc]?></td>                           
-                <td><?php  echo $fila[total]?></td>                                
+                <td><?php  echo ($fila[total])===NULL?'sin terminar':$fila[total]?></td>                                
                 <td>
                     <a href="#" class="ver" data-id="<?php  echo  $fila[id] ?>"><i class="fa fa-eye" aria-hidden="true"></i></a>
                     <a href="ajax/print_fact.php?id=<?php  echo  $fila[id] ?>"><i class="fa fa-file-pdf-o" aria-hidden="true"></i></a>
-                    <?php echo ($fila[aplicada]!==TRUE) ?"<a href='#' class='aplicar' data-id='$fila[id]' title='aplicar'><i class='fa fa-check' aria-hidden='true'></i></a>":''?>
-                    
+                    <?php if($fila[total]===NULL){?>
+                           <a href="<?php  echo   $fila[id]?>"><i class="fa fa-pencil" aria-hidden="true"></i></a>                    
+                    <?php }else{ ?>
+                           <a href='#' class='aplicar' data-id='$fila[id]' title='aplicar'><i class='fa fa-check' aria-hidden='true'></i></a>
+                    <?php //echo ($fila[aplicada]!==TRUE) ?"<a href='#' class='aplicar' data-id='$fila[id]' title='aplicar'><i class='fa fa-check' aria-hidden='true'></i></a>":''?>
+                    <?php } ?>
 <!--                    <a href="Umortalidad.php?<?php  echo  base64_encode( $fila[id])?>"><i class="fa fa-pencil" aria-hidden="true"></i></a>                    
                     <a href="Dmortalidad.php?<?php  echo  base64_encode('mortalidad='. $fila[id])?>" id="eliminar"><i class="fa fa-trash" aria-hidden="true"></i></a>-->
                 </td>

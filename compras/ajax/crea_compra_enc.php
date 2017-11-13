@@ -15,6 +15,7 @@ include '../../conexion.php';
         $insert=$conex->prepare($sql);
         //$sql_lns="insert into compras_lns values ";
         if($insert->execute())   {
+            $datos['id']=$insert->fetchColumn();
             $datos['ok']= '<div data-alert class="alert-box success round">
             <h5 style="color:white">registro creado exitosamente</h5>
             <a href="#" class="close">&times;</a>
