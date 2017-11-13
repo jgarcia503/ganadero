@@ -30,11 +30,14 @@ while($fila=$res->fetch()){
                 <td><?php  echo ($fila[total])===NULL?'sin terminar':$fila[total]?></td>                                
                 <td>
                     <a href="#" class="ver" data-id="<?php  echo  $fila[id] ?>"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                    <?php if ($fila[total]!==null){?>
                     <a href="ajax/print_fact.php?id=<?php  echo  $fila[id] ?>"><i class="fa fa-file-pdf-o" aria-hidden="true"></i></a>
-                    <?php if($fila[total]===NULL){?>
-                           <a href="<?php  echo   $fila[id]?>"><i class="fa fa-pencil" aria-hidden="true"></i></a>                    
-                    <?php }else{ ?>
-                           <a href='#' class='aplicar' data-id='$fila[id]' title='aplicar'><i class='fa fa-check' aria-hidden='true'></i></a>
+                    <?php } ?>
+                    <?php if($fila[total]===NULL and !$fila[aplicada]){?>
+                    <a href="Ucompra.php?id=<?php  echo   $fila[id]?>"><i class="fa fa-pencil" aria-hidden="true"></i></a>                    
+                    <?php } 
+                                            if($fila[total]!==NULL  and !$fila[aplicada]){ ?>
+                           <a href='#' class='aplicar' data-id="<?php echo $fila[id]?>" title='aplicar'><i class='fa fa-check' aria-hidden='true'></i></a>
                     <?php //echo ($fila[aplicada]!==TRUE) ?"<a href='#' class='aplicar' data-id='$fila[id]' title='aplicar'><i class='fa fa-check' aria-hidden='true'></i></a>":''?>
                     <?php } ?>
 <!--                    <a href="Umortalidad.php?<?php  echo  base64_encode( $fila[id])?>"><i class="fa fa-pencil" aria-hidden="true"></i></a>                    
