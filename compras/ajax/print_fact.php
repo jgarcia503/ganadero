@@ -71,8 +71,9 @@ $plantilla="<div class='row'>
         <thead>
           <tr>
               <th>total</th>
-            <td>
-            $res2[total]
+            <td>".
+number_format($res2[total],2)
+        ."
             </td>
 
           </tr> 

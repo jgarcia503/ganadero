@@ -27,7 +27,7 @@ while($fila=$res->fetch()){
                 <td><?php  echo $fila[fecha]?></td>
                 <td><?php  echo $fila[doc_no]?></td>                           
                 <td><?php  echo $fila[tipo_doc]?></td>                           
-                <td><?php  echo ($fila[total])===NULL?'sin terminar':$fila[total]?></td>                                
+                <td><?php  echo ($fila[total])===NULL?'sin terminar':number_format($fila[total],2)?></td>                                
                 <td>
                     <a href="#" class="ver" data-id="<?php  echo  $fila[id] ?>"><i class="fa fa-eye" aria-hidden="true"></i></a>
                     <?php if ($fila[total]!==null){?>
