@@ -35,8 +35,8 @@ while($fila=$res->fetch()){
                      <a href="#" class="ver" data-id="<?php  echo base64_encode( $fila[id]) ?>"><i class="fa fa-eye" aria-hidden="true"></i></a>
 <!--                    <a href="Uproducto.php?<?php  echo  base64_encode( $fila[id])?>"><i class="fa fa-pencil" aria-hidden="true"></i></a>                    -->
                     <!--<a href="Dproducto.php?<?php  echo  base64_encode('mortalidad='. $fila[id])?>" id="eliminar"><i class="fa fa-trash" aria-hidden="true"></i></a>-->
-                    <a href="#" class="detalle" data-id='<?php  echo $fila[referencia] ?>' ><i class="fa fa-list" aria-hidden="true"></i></a>
-                    <a href="#" class="mov"><i class="fa fa-address-card-o" aria-hidden="true"></i></a>
+                     <a href="#" class="detalle" data-id='<?php  echo $fila[referencia] ?>' title="existencias" ><i class="fa fa-list" aria-hidden="true"></i></a>
+                    <a href="#" class="mov" title="movimientos"><i class="fa fa-address-card-o" aria-hidden="true"></i></a>
                 </td>
             </tr>
             
