@@ -156,8 +156,9 @@ class kardex{
             #######para insertar en kardex una salida de producto de las actividades 
             $proy_id=$GLOBALS[info][proy_id];
             $acts=$GLOBALS[actividades_insertadas];
-            $sql_costo_promedio="select precio_promedio,referencia from productos where nombre in (";
+            //$sql_costo_promedio="select precio_promedio,referencia from productos where nombre in (";
             foreach ($acts as $key => $value) {
+                $sql_costo_promedio="select precio_promedio,referencia from productos where nombre in (";
                 $salida=  convertir($value[unidad], $value[cantidad_dias]);
                 $sql_costo_promedio.="'$value[producto]')";
                 $info_prod=$this->conex->query($sql_costo_promedio)->fetch();
@@ -165,6 +166,7 @@ class kardex{
                                                 . "values(default,'$bodega_seleccionada','$info_prod[referencia]',now(),'proyecto','$proy_id-$value[id]','$info_prod[precio_promedio]','$salida')";
             
                                         $this->conex->prepare($sql_kardex)->execute();
+                                        $sql_costo_promedio='';
             }
                 
         }
