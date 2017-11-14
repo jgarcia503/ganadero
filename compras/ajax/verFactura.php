@@ -84,7 +84,7 @@ while($lineas=$res->fetch(PDO::FETCH_ASSOC)){
    $datos.="<td>$lineas[cantidad]</td>";
    $datos.="<td>$lineas[unidad]</td>";
    $datos.="<td>$lineas[precio]</td>";   
-   $datos.="<td>".floatval($lineas[cantidad]) * floatval($lineas[precio])."</td>";
+   $datos.="<td>".  number_format(floatval($lineas[cantidad]) * floatval($lineas[precio]),2)."</td>";
    $datos.="</tr>";
 }
 
