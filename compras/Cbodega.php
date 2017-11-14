@@ -21,7 +21,7 @@ if($_POST){
 <div class="small-10 columns">
        <?php echo $mensaje ?>
     <h2>crear bodega</h2>
-    <a href="javascript:history.back(1)" class="regresar">regresar</a>
+    <a href="bodegas.php" class="regresar">regresar</a>
     <span id="mensaje"></span>
     <form data-abide method="post" action="">
             <div class="row">

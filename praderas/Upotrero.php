@@ -44,7 +44,7 @@ $potrero=$conex->query("select * from potreros where id=$id")->fetch();
 
 <form action="" method="post" data-abide>
            <h2>actualizar potrero</h2>
-           <a href="javascript:history.back(1)" class="regresar">regresar</a>
+           <a href="potreros.php" class="regresar">regresar</a>
     <div class="row">
         <div class="small-6 columns">
              <label for="">nombre</label>

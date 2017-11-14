@@ -37,7 +37,7 @@ $palpaciones=$conex->query("select * from palpaciones where id=$id")->fetch();
 
 <div class="small-10 columns">
 <form action="" method="post">
-    <a href="javascript:history.back(1)" class="regresar">regresar</a>
+    <a href="palpaciones.php" class="regresar">regresar</a>
     <div class="row">
         <div class="small-6 columns">
             <label for="">fecha</label>

@@ -34,7 +34,7 @@ $evsanitario=$conex->query("select * from eventos_sanitarios where id=$id")->fet
 
 ?>
 <div class="small-10 columns">
-<a href="javascript:history.back(1)" class="regresar">regresar</a>
+    <a href="eventossanitarios.php" class="regresar">regresar</a>
 <form action="" method="post">
     <label for="">nombre</label>
     <input type="text" name="nombre" value="<?php echo $evsanitario[nombre] ?>">

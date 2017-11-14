@@ -50,7 +50,7 @@ $categorias=$conex->query("select * from categorias");
 
 ?>
 <div class="small-10 columns">
-    <a href="javascript:history.back(1)" class="regresar">regresar</a>
+    <a href="productos.php" class="regresar">regresar</a>
 <form action="" method="post" data-abide>
     
     <div class="row">

@@ -23,7 +23,7 @@ if($_POST){
 <div class="small-10 columns">
     <?php echo $mensaje?>
        <h2>crear categoria</h2>
-       <a href="javascript:history.back(1)" class="regresar">regresar</a>
+       <a href="categorias.php" class="regresar">regresar</a>
 <form action="" method="post" data-abide>
     <div class="row">
         <div class="small-12 columns">

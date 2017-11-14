@@ -28,7 +28,7 @@ $mortalidades=$conex->query("select * from mortalidades where id=$id")->fetch();
 ?>
 
 <div class="small-10 columns">
-    <a href="javascript:history.back(1)" class="regresar">regresar</a>
+    <a href="mortalidad.php" class="regresar">regresar</a>
 <form action="" method="post">
     
     <div class="row">

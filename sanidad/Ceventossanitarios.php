@@ -21,7 +21,7 @@ if($_POST){
 
 <div class="small-10 columns">
        <h2>crear evento sanitario</h2>
-       <a href="javascript:history.back(1)" class="regresar">regresar</a>
+       <a href="eventossanitarios.php" class="regresar">regresar</a>
 <form action="" method="post" data-abide>
     <div class="row">
         <div class="small-12 columns">

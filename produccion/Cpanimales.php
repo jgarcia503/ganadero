@@ -1,5 +1,6 @@
 <?php   include '../plantilla.php';
-$animales=$conex->query("select * from animales");
+$animales=$conex->query("select a.* from animales a inner join grupos b on a.grupo=b.id::varchar
+where b.clasificacion='desarrollo'");
 $contactos=$conex->query("select nombre from contactos where tipo='empleado'");
 ?>
 
@@ -9,6 +10,7 @@ $contactos=$conex->query("select nombre from contactos where tipo='empleado'");
 </span>
 <form action="">
        <h2>crear peso animal</h2>
+       <a href="panimales.php" class="regresar">regresar</a>
     <div class="row">
         <div class="small-6 columns">
             <label for="">fecha</label>

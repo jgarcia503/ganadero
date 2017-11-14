@@ -12,7 +12,7 @@ $contactos=$conex->query("select nombre from contactos where tipo='empleado'");
 
 <form action="" method="post" data-abide>
        <h2>crear aforo</h2>
-       <a href="javascript:history.back(1)" class="regresar">regresar</a>
+       <a href="potreros.php" class="regresar">regresar</a>
     <div class="row">
         <div class="small-6 columns">
                 <label for="">fecha</label>

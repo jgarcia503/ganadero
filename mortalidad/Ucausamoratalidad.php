@@ -34,7 +34,7 @@ $id=base64_decode($_SERVER[QUERY_STRING]);
 $causamortalidades=$conex->query("select * from causas_mortalidades where id=$id")->fetch();
 ?>
 <div class="small-10 columns">
-    <a href="javascript:history.back(1)" class="regresar">regresar</a>
+    <a href="mortalidad.php" class="regresar">regresar</a>
 <form action="" method="post">
     <label for="">nombre</label>
     <input type="text" name="nombre" value="<?php echo  $causamortalidades[nombre] ?>">

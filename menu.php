@@ -48,7 +48,7 @@
             <a href="#produccion">produccion</a>
             <div id="produccion" class="content">
                 <ul class="side-nav">
-                    <!--<li><a href="<?php echo  'http://'.$_SERVER[HTTP_HOST].'/ganadero' ?>/produccion/panimales.php">peso de animales</a></li>  <li class="divider"></li>-->
+                    <li><a href="<?php echo  'http://'.$_SERVER[HTTP_HOST].'/ganadero' ?>/produccion/panimales.php">peso de animales</a></li>  <li class="divider"></li>
                     <li><a href="<?php echo  'http://'.$_SERVER[HTTP_HOST].'/ganadero' ?>/produccion/pleche.php">produccion de leche</a></li>
                 </ul>
             </div>

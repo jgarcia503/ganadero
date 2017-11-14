@@ -33,7 +33,7 @@ $colores=$conex->query("select * from grupos where id=$id")->fetch();
 
 ?>
 <div class="small-10 columns">
-  <a href="javascript:history.back(1)" class="regresar">regresar</a>
+    <a href="grupos.php" class="regresar">regresar</a>
 <form action="" method="post">
     <?php echo $mensaje ?>
     <h2>actualiza grupo</h2>

@@ -40,7 +40,7 @@ $sql2=$conex->prepare($update);
 
 <div class="small-10 columns">
        <h2>corte y reparto en verde</h2>
-       <a href="javascript:history.back(1)" class="regresar">regresar</a>
+       <a href="cosechas.php" class="regresar">regresar</a>
          <?php echo $mensaje ?>
     <form data-abide method="post">
         <div class="row">

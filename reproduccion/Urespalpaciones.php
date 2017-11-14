@@ -25,7 +25,7 @@ $respalpaciones=$conex->query("select * from resul_palpaciones where id=$id")->f
 
 
 <div class="small-10 columns">
-    <a href="javascript:history.back(1)" class="regresar">regresar</a>
+    <a href="respalpaciones.php" class="regresar">regresar</a>
 <form action="" method="post">
     <label for="">nombre</label>
     

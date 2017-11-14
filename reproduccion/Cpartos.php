@@ -37,7 +37,7 @@ if($_POST){
 <form action="" method="post" data-abide>
     <?php echo $mensaje ?>
        <h2>crear partos</h2>
-    <a href="javascript:history.back(1)" class="regresar">regresar</a>
+       <a href="partos.php" class="regresar">regresar</a>
     <div class="row">
         <div class="small-6 columns">
             <label for="">fecha</label>

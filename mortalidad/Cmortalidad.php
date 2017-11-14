@@ -27,7 +27,7 @@ if($_POST){
 
 <form action="" method="post" data-abide>    
         <h2>crear mortalidad</h2>
-        <a href="javascript:history.back(1)" class="regresar">regresar</a>
+        <a href="mortalidad.php" class="regresar">regresar</a>
             <div class="row">
         <?php echo $mensaje ?>
         <div class="small-6 columns">

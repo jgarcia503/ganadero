@@ -15,7 +15,7 @@ $res=$conex->query($sql_bodegas);
 
 <div class="small-10 columns">
        <h2>ensilado de parcela antes del tiempo</h2>
-       <a href="javascript:history.back(1)" class="regresar">regresar</a>
+       <a href="cosechas.php" class="regresar">regresar</a>
          <?php  
                             if($mensaje !==''){
                                     echo $mensaje;

@@ -32,7 +32,7 @@ $tipocontrol=$conex->query("select * from controles_potreros where id=$id")->fet
 
 
 <div class="small-10 columns">
-    <a href="javascript:history.back(1)" class="regresar">regresar</a>
+    <a href="tipocontrolpotrero.php" class="regresar">regresar</a>
 <form action="" method="post" data-abide>
     <div class="row">
         <div class="small-12 columns">

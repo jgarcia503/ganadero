@@ -41,7 +41,7 @@ $vegetacion=$conex->query("select * from vegetaciones where id=$id")->fetch();
 
 <div class="small-10 columns">
 <form action="" method="post">
-    <a href="javascript:history.back(1)" class="regresar">regresar</a>
+    <a href="vegetacion.php" class="regresar">regresar</a>
     <label for="">tipo</label>
     <select name="tipo">
         <option value="seleccione">seleccione</option>

@@ -10,7 +10,7 @@ $bodegas=$conex->query("select distinct codigo,nombre from bodega a
 <div class="small-10 columns">
       <span id="mensaje"></span>
     <h2>siembra</h2>
-<a href="javascript:history.back(1)" class="regresar">regresar</a>
+    <a href="proyectos.php" class="regresar">regresar</a>
     <form data-abide='ajax' id='proyecto'>
         <div class="row">
             <input type="hidden" value="false" name="cerrado">

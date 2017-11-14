@@ -26,7 +26,7 @@ $resclases=$conex->query($clases);
 <div class="small-10 columns">
     <?php echo $mensaje?>
        <h2>crear actividad</h2>
-       <a href="javascript:history.back(1)" class="regresar">regresar</a>
+       <a href="controlpotreros.php" class="regresar">regresar</a>
 <form action="" method="post" data-abide>
     <div class="row">
 

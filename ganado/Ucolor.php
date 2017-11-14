@@ -33,7 +33,7 @@ $colores=$conex->query("select * from colores where id=$id")->fetch();
 <div class="small-10 columns">
 
      <h2>actualizar color</h2>
-     <a href="javascript:history.back(1)" class="regresar">regresar</a>
+     <a href="colores.php" class="regresar">regresar</a>
 <form action="" method="post">
     <label for="">nombre</label>
     <input type="text" name="color" value="<?php echo $colores[nombre]?>">

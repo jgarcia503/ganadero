@@ -38,7 +38,7 @@ $partos=$conex->query("select * from partos where id=$id")->fetch();
 ?>
 
     <div class="small-10 columns">
-        <a href="javascript:history.back(1)" class="regresar">regresar</a>
+        <a href="partos.php" class="regresar">regresar</a>
 <form action="" method="post">
     
     

@@ -16,7 +16,7 @@ $res=$conex->query($sql_bodegas);
 
 <div class="small-10 columns">
     <h2>venta de siembra con silo de zacate</h2>
-    <a href="javascript:history.back(1)" class="regresar">regresar</a>
+    <a href="cosechas.php" class="regresar">regresar</a>
          <span id="mensaje"></span>
     <form data-abide='ajax'  id="myform">
     <div class="row">

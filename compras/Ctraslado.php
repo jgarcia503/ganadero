@@ -4,7 +4,7 @@ $res_bodega=$conex->query($sql_bodega);
 ?>
 <div class="small-10 columns">
     <h2>crear traslados</h2>
-    <a href="javascript:history.back(1)" class="regresar">regresar</a>
+    <a href="traslados.php" class="regresar">regresar</a>
     <span id="mensaje"></span>
     <form data-abide='ajax' id="miforma">
             <div class="row">

@@ -37,7 +37,7 @@ $razas=$conex->query("select * from razas where id=$id")->fetch();
 <div class="small-10 columns">
         
             <h2>actualiza raza</h2>
-  <a href="javascript:history.back(1)" class="regresar">regresar</a>
+            <a href="razas.php" class="regresar">regresar</a>
 <form action="" method="post">
     <label for="">nombre</label>
     <input type="text" name="nombre" value="<?php echo $razas[nombre]?>">

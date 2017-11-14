@@ -100,7 +100,7 @@
     <?php echo $mensaje?>
     
     <h2>actualizar animal</h2>
-  <a href="javascript:history.back(1)" class="regresar">regresar</a>
+    <a href="animales.php" class="regresar">regresar</a>
   <form action="" method="post" enctype="multipart/form-data" >
  <ul class="tabs" data-tab>
   <li class="tab-title active"><a href="#panel1">datos generales</a></li>

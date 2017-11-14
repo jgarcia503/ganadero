@@ -39,7 +39,7 @@ $costo_total=  calcular_costo_proyecto($_GET[proy_id]);
 
 <div class="small-10 columns">
     <h2>venta de elote y zacate antes de tiempo</h2>
-    <a href="javascript:history.back(1)" class="regresar">regresar</a>
+    <a href="cosechas.php" class="regresar">regresar</a>
     <?php echo $mensaje ?>
     <form data-abide method="post">
         <div class="row">

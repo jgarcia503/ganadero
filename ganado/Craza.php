@@ -22,7 +22,7 @@ $insert=$conex->prepare("insert into razas values(default,'$_POST[nombre]',trim(
 <div class="small-10 columns">
        <h2>crear raza</h2>
        <?php echo $mensaje?>
-       <a href="javascript:history.back(1)" class="regresar">regresar</a>
+       <a href="razas.php" class="regresar">regresar</a>
 <form action="" method="post" data-abide>
     <div class="row">
         <div class="small-12 columns">          

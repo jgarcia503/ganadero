@@ -31,7 +31,7 @@ $unidad=$conex->query("select * from unidades where id=$id")->fetch();
 ?>
 <div class="small-10 columns">
 <form action="" method="post" data-abide>
-    <a href="javascript:history.back(1)" class="regresar">regresar</a>
+    <a href="unidades.php" class="regresar">regresar</a>
     <div class="row">
         <div class="small-12 columns">
              <label for="">unidad</label>

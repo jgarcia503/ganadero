@@ -35,7 +35,7 @@ $categoria=$conex->query("select * from categorias where id=$id")->fetch();
 
 ?>
 <div class="small-10 columns">
-    <a href="javascript:history.back(1)" class="regresar">regresar</a>
+    <a href="categorias.php" class="regresar">regresar</a>
     <form action="" method="post" data-abide>
         <div class="row">
             <div class="small-12 columns">
