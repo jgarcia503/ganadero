@@ -33,7 +33,7 @@ try{
                                                                      . "where codigo_bodega='$fila[bodega_id]' "
                                                                     . "and codigo_producto='$fila[producto]'";                                               
 
-                $sql_actualiza_prod="update productos set cantidad_total=(cantidad_total::numeric(10,2)-$cant_conv) where referencia='$fila[producto]'";
+                $sql_actualiza_prod="update productos set cantidad_total=(cantidad_total::numeric(1000,2)-$cant_conv) where referencia='$fila[producto]'";
                     
                 $sql_kardex="insert into kardex values (default,'$fila[bodega_id]','$fila[producto]',now(),'requisicion','$fila[id]','$fila[costo]','','$cant_conv')";
                 
@@ -49,7 +49,7 @@ try{
             
         foreach ($consultas as $value) {
                     if(!$conex->prepare($value)->execute()){
-                                    throw PDOException();                                           
+                                    throw new PDOException();                                           
                   }
         }
                   
