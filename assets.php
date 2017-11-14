@@ -105,7 +105,8 @@
     #nutricion,
     #lluvias,
     #prods,
-    #compras
+    #compras,
+    #graficos
     {
         background-color: #3A4344;
     }

@@ -138,6 +138,14 @@
                 </ul>
             </div>
         </li>
+          <li class="accordion-navigation navegacion">
+            <a href="#graficos">graficos</a>
+            <div id="graficos" class="content">
+                <ul class="side-nav">                       
+                    <li><a href="<?php echo  'http://'.$_SERVER[HTTP_HOST].'/ganadero' ?>/graficos/">graficos</a></li>                    
+                </ul>
+            </div>
+        </li>
     </ul>
 </div>
     
