@@ -4,7 +4,7 @@ include '../conexion.php';
  
 function calcular_costo_proyecto($enc_id){
     global $conex;
-    $sql="select sum(subtotal::numeric(10,2)) total from proyectos_lns where enc_id ='$enc_id'";
+    $sql="select sum(subtotal::numeric(1000,2)) total from proyectos_lns where enc_id ='$enc_id'";
     $costo_total=  floatval($conex->query($sql)->fetch()[total]);
     return $costo_total;
 }

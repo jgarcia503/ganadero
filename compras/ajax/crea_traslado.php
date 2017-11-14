@@ -28,7 +28,7 @@ try{
             while($fila=$lns_ins->fetch(PDO::FETCH_ASSOC)){
                 $cant_conv=  convertir($fila[unidad], $fila[cantidad]);
                 
-                $sql_actualiza_sal="update existencias set existencia=existencia::numeric(10,2)-$cant_conv "
+                $sql_actualiza_sal="update existencias set existencia=existencia::numeric(1000,2)-$cant_conv "
                                                                      . "where codigo_bodega='$fila[bodega_origen]' "
                                                                     . "and codigo_producto='$fila[producto]'";
                                

@@ -8,7 +8,7 @@ $sql_prods_bodega="select a.codigo_producto,a.existencia,b.nombre,b.unidad_stand
                                                     . "from existencias a "
                                                     . "inner join productos b on b.referencia=a.codigo_producto "
                                                     . "where codigo_bodega='$bodega_id' "
-                                                    . "and existencia::numeric(10,2)>0";
+                                                    . "and existencia::numeric(1000,2)>0";
 
 $sql_bod_destino="select * from bodega where codigo<>'$bodega_id'";
 $res_bodga_dst=$conex->query($sql_bod_destino);
