@@ -31,13 +31,13 @@ class kardex{
                                 $cant_convertida=convertir($fila[unidad],$fila[cantidad]);
                                 $costo_unit_conv=  floatval($fila[subtotal])/$cant_convertida;                                                                
                                 
-                                 $sql="select precio_promedio::numeric(10,2)*cantidad_total::numeric(10,2) from productos where referencia='$fila[referencia]'"  ;
+                                 $sql="select precio_promedio::numeric(1000,2)*cantidad_total::numeric(1000,2) from productos where referencia='$fila[referencia]'"  ;
                               
                                  $subtotal_prod=  floatval($GLOBALS[conex]->query($sql)->fetchColumn());
                                  
                                  $subtotal_prod+=floatval($fila[subtotal]);
                                  
-                                 $sql_cant="select cantidad_total::numeric(10,2) from productos where referencia='$fila[referencia]'";
+                                 $sql_cant="select cantidad_total::numeric(1000,2) from productos where referencia='$fila[referencia]'";
                                  
                                  $cant_total=floatval($GLOBALS[conex]->query($sql_cant)->fetchColumn())+$cant_convertida;
                                  
@@ -51,7 +51,7 @@ class kardex{
                             
                               
                               ##formatear cantidad a dos decimales
-                              $sql3="update productos set precio_promedio=precio_promedio::numeric(10,2) where referencia='$fila[referencia]'";
+                              $sql3="update productos set precio_promedio=precio_promedio::numeric(1000,2) where referencia='$fila[referencia]'";
                               $GLOBALS[conex]->prepare($sql3)->execute();
                              
                     
@@ -67,7 +67,7 @@ class kardex{
              $sql="select * from compras_lns where enc_id='$enc_id'";
 
              $sql_insert="insert into existencias values";
-             $sql_update="update existencias set existencia=existencia::numeric(10,2)+";
+             $sql_update="update existencias set existencia=existencia::numeric(1000,2)+";
               $this->res_lns= $GLOBALS[conex]->query($sql);
               while($fila=  $this->res_lns->fetch()){
                                #verificar si existe en la tabla
@@ -126,8 +126,8 @@ class kardex{
             foreach ($array as $key=>$value){
                                    
                     $consultas=[];
-                    $consultas[]="update productos set cantidad_total=(cantidad_total::numeric(10,2)-$value) where referencia='$key'";
-                    $consultas[]="update existencias set existencia=(existencia::numeric(10,2)-$value) where "
+                    $consultas[]="update productos set cantidad_total=(cantidad_total::numeric(1000,2)-$value) where referencia='$key'";
+                    $consultas[]="update existencias set existencia=(existencia::numeric(1000,2)-$value) where "
                                                                 . "codigo_producto='$key' and codigo_bodega='$bodega_seleccionada'";
                     try{
                                                 $this->conex->beginTransaction();
