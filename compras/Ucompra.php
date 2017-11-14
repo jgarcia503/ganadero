@@ -242,8 +242,9 @@ while($fila=$res->fetch()){
                                         data:{enc_id:enc_id},
                                         success:function(data){                                                                           
                                         $("span#mensaje").html(data).fadeOut(1500);
-                                         window.location.href='compras.php';
-                                                
+                                             setTimeout(function(){
+                                                                                   window.location='compras.php';
+                                                                               },2500);                                                                                         
                                               
                                         }
                                     });
