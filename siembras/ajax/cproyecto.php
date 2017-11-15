@@ -8,10 +8,13 @@ $potrero_id=$_GET[potrero];
 $tablon_id=$_GET[tablones];
 $tipo_cultivo=$_GET[tipo];
 $bodega=$_GET[bodega];
+$sql_correlativo="select (count(to_char(fecha_inicio::date,'YYYY'))+1) correlativo from proyectos_enc  where to_char(fecha_inicio::date,'YYYY')='".explode('-', $f_inicio)[2]."'";
+$res_corr=$conex->query($sql_correlativo);
+$correlativo_proyecto=  explode('-', $f_inicio)[2].explode('-', $f_inicio)[1].'_'.$tipo_cultivo.'_'.$res_corr->fetchColumn(); 
 
 $sql="insert into "
-        . "proyectos_enc(id_proyecto,nombre_proyecto,fecha_inicio,cerrado,bodega_seleccionada,tipo_cultivo,notas) "
-        . "values(default,'$nombre','$f_inicio','$estatus','$bodega','$tipo_cultivo','$notas') returning id_proyecto";
+        . "proyectos_enc(id_proyecto,nombre_proyecto,fecha_inicio,cerrado,bodega_seleccionada,tipo_cultivo,notas,correlativo_proyecto) "
+        . "values(default,'$nombre','$f_inicio','$estatus','$bodega','$tipo_cultivo','$notas','$correlativo_proyecto') returning id_proyecto";
 try{
      $conex->beginTransaction();
      $insert=$conex->prepare($sql);
