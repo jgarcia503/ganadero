@@ -61,7 +61,8 @@
                     <li><a href='<?php echo  'http://'.$_SERVER[HTTP_HOST].'/ganadero' ?>/reproduccion/palpaciones.php'>palpaciones</a></li>  <li class="divider"></li>
                     <li><a href="<?php echo  'http://'.$_SERVER[HTTP_HOST].'/ganadero' ?>/reproduccion/respalpaciones.php">resultados palpacion</a></li>  <li class="divider"></li>
                     <li><a href='<?php echo  'http://'.$_SERVER[HTTP_HOST].'/ganadero' ?>/reproduccion/partos.php'>partos</a></li> <li class="divider"></li>
-                    <li><a href='<?php echo  'http://'.$_SERVER[HTTP_HOST].'/ganadero' ?>/reproduccion/lista_negra.php'>lista incompatibilidad</a></li>
+                    <li><a href='<?php echo  'http://'.$_SERVER[HTTP_HOST].'/ganadero' ?>/reproduccion/lista_negra.php'>lista incompatibilidad</a></li><li class="divider"></li>
+                    <li><a href='<?php echo  'http://'.$_SERVER[HTTP_HOST].'/ganadero' ?>/reproduccion/pajillas.php'>pajillas</a></li>
                 </ul>
             </div>
         </li>

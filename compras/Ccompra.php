@@ -118,7 +118,29 @@ while($fila=$res->fetch()){
 
         </tbody>
             </table>
-        </div>
+        </div>                       
+                <span id="otros_gastos">
+                <div class="columns small-2">
+                        <label>valor
+                            <input type="text" id="valor"class="cantidad">
+                        </label>                        
+                    </div>
+           
+                     <div class="columns small-5">
+                        <label>concepto
+                            <input type="text" id="concepto">
+                        </label>
+                        
+                    </div>
+                  <div class="columns small-3">
+                      <button type="button" id="btn_costo">agregar</button>
+                      </div>
+                <div class="columns small-12">
+                    <table id="tblAppendGrid">
+                        
+                    </table>
+                </div>
+                </span>
                 <div class="hide" id="lineas">
                    <div class="small-2 columns">
                        <label>bodega
@@ -210,6 +232,27 @@ while($fila=$res->fetch()){
 
 </div>
 <script>
+       $('#tblAppendGrid').appendGrid({
+        caption: 'Otros gastos',
+        initRows: 0,
+        columns: [           
+            { name: 'valor', display: 'valor', type: 'text', ctrlAttr: { readonly: true }, ctrlCss: { background: 'none',border:'none'} },
+            { name: 'concepto', display: 'concepto', type: 'text', ctrlAttr: { readonly: true }, ctrlCss: {  background: 'none',border:'none'} }            
+        ],
+        hideButtons:{
+        append:true,
+removeLast:true,
+insert:true,
+remove:true,
+moveUp:true,
+moveDown: true
+        },
+        hideRowNumColumn:true,
+         maxBodyHeight: 240, 
+        maintainScroll: true ,
+         idPrefix: 'gastos'
+    });
+
     var mapa=<?php echo json_encode($unit_prod); ?>;
 
     //{'seleccione':'seleccione','qq':'quintal','g':'gramos','kg':'kilogramos','oz':'onzas',
@@ -313,7 +356,7 @@ while($fila=$res->fetch()){
                                                     $("#lineas").removeClass('hide');
                                                     $(".lineas").removeClass('hide').attr('data-id',data.id);
                                                     $(".encabezado").addClass('hide');
-                                                    
+                                                    $('#otros_gastos').addClass('hide');
                                                     $("span#mensaje").html(data.ok);
                                                     $('[name=tipo_doc]').attr('disabled',true);
                                                     $('[name=fac_no]').attr('readonly',true);
@@ -444,5 +487,15 @@ while($fila=$res->fetch()){
   
     $("[name=fecha]").datepicker({ dateFormat: "dd-mm-yy"    ,  changeMonth: true, yearRange: "2000:2050",
       changeYear: true});
+      
+$(".cantidad").mask('000,000,000,000,000.00', {reverse: true});
 
+$('#btn_costo').on('click',function (e){
+    e.preventDefault();
+    valor=$("#valor").val();
+    concepto=$("#concepto").val();
+    $('#tblAppendGrid').appendGrid('appendRow', [ 
+        { valor: valor, concepto: concepto }    
+    ]);
+});
 </script>

@@ -56,6 +56,7 @@ while($fila=$res->fetch()){
                     <option value="opcion5.php">5-cosecha del grano</option>
                     <option value="opcion6.php">6-ensilado antes del tiempo</option>            
                     <option value="opcion7.php">7-corte y reparte en verde</option>            
+                    <option value="opcion8.php">8-otro tipo de cultivo</option>            
                 </select>
                 <button id="sigte">siguiente</button>
             </span>
