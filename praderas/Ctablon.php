@@ -41,8 +41,8 @@ $res=$conex->query("select * from potreros");
         </div>
          <div class="small-6 columns">
              <label for="">nombre</label>
-             <input type="text" name="nombre" required="" pattern="letters_and_spaces" readonly="">
-             <small class="error">elija nombre</small>
+             <input type="text" name="nombre"  pattern="letters_and_spaces" readonly="">
+             
         </div>
     </div>
     <div class="row">
