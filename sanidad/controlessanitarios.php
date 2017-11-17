@@ -8,16 +8,13 @@
 
 
 <?php
-$res=$conex->query("select * from controles_sanitarios  order by fecha desc");
+$res=$conex->query("select distinct animal from controles_sanitarios ");
 ?>
 
 <table class="table" data-filtering='true' data-paging="true">
 	<thead>
 		<tr>
-			<th>fecha</th>
-			<th>hora</th>
-			<th>empleado</th>
-			<th>evento</th>
+			
 			<th>animal</th>			
                         <th data-filterable="false">acciones</th>
 		</tr>
@@ -29,16 +26,14 @@ while($fila=$res->fetch()){
     
     ?>
             <tr>
-                <td><?php  echo $fila[fecha]?></td>
-                <td><?php  echo $fila[hora]?></td>
-                <td><?php  echo $fila[empleado]?></td>
-                <td><?php  echo $fila[evento]?></td>
+               
                 <td><?php  echo $fila[animal]?></td>
                 
                 <td>
-                    <a href="#" class="ver" data-id="<?php  echo base64_encode( $fila[id]) ?>"><i class="fa fa-eye" aria-hidden="true"></i></a>
-                    <a href="Ucontrolsanitario.php?<?php  echo  base64_encode( $fila[id])?>"><i class="fa fa-pencil" aria-hidden="true"></i></a>                    
-                    <a href="Dcontrolsanitario.php?<?php  echo  base64_encode('controlsanitario='. $fila[id])?>" id="eliminar"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                    <!--<a href="#" class="ver" data-id="<?php  echo base64_encode( $fila[id]) ?>"><i class="fa fa-eye" aria-hidden="true"></i></a>-->
+                    <a href="#" class="history" data-animal="<?php  echo  $fila[animal] ?>"><i class="fa fa-history" aria-hidden="true"></i></a>
+                    <!--<a href="Ucontrolsanitario.php?<?php  echo  base64_encode( $fila[id])?>"><i class="fa fa-pencil" aria-hidden="true"></i></a>-->                    
+                    <!--<a href="Dcontrolsanitario.php?<?php  echo  base64_encode('controlsanitario='. $fila[id])?>" id="eliminar"><i class="fa fa-trash" aria-hidden="true"></i></a>-->
                 </td>
             </tr>
             
@@ -73,6 +68,18 @@ while($fila=$res->fetch()){
 
     });
         
+        $('.table').on('click','a.history',function(e){
+            var animal=$(this).attr('data-animal');
+            
+            $.ajax({
+                url:'ajax/ver_controles_sanitarios.php',
+                data:{animal:animal},
+                success:function(datos){
+                    $('#mimodal span').html(datos);
+                    $('#mimodal').foundation('reveal', 'open');
+                }
+            });
+        });
         
         ////////////////////eliminar
         $("a#eliminar").on('click',function(e){        
