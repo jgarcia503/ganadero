@@ -106,7 +106,8 @@
     #lluvias,
     #prods,
     #compras,
-    #graficos
+    #graficos,
+    #activo
     {
         background-color: #3A4344;
     }

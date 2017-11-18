@@ -139,6 +139,15 @@
                 </ul>
             </div>
         </li>
+                 <li class="accordion-navigation navegacion">
+            <a href="#activo">activo</a>
+            <div id="activo" class="content">
+                <ul class="side-nav">   
+                    <li><a href="<?php echo  'http://'.$_SERVER[HTTP_HOST].'/ganadero' ?>/activo/deterioro_activo.php">deterioro de activo</a></li>                     
+                    
+                </ul>
+            </div>
+        </li>
           <li class="accordion-navigation navegacion">
             <a href="#graficos">graficos</a>
             <div id="graficos" class="content">
