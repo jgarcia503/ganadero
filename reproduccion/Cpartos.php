@@ -1,5 +1,8 @@
 <?php    include '../plantilla.php';
-$animales=$conex->query("select * from animales where sexo='Hembra'");
+$animales=$conex->query("select  distinct a.numero,a.nombre
+ from animales a 
+inner join palpaciones b on a.numero||' '||a.nombre=b.animal
+where a.sexo='Hembra' and b.prenada='si'");
 $contactos=$conex->query("select nombre from contactos where tipo='empleado'");
 if($_POST){
     if(isset($_POST[canimal])){
