@@ -22,10 +22,13 @@ where codigo_bodega
 in (
 select bodega_seleccionada from proyectos_enc where id_proyecto =$proy_id
 ) ";
+$activos="select * from deterioro_activo";
+$resactivos=$conex->query($activos);
 $rescontrol=$conex->query($control);
 $resproductos=$conex->query($productos);
 $actividad=['seleccione'];
  $inventario=['seleccione'];
+ $activos=['seleccione'];
 while($filapro=$resproductos->fetch()){
             $inventario[]=$filapro[nombre];
 
@@ -45,6 +48,13 @@ while($fila=$rescontrol->fetch()){
 
  
 }
+$html_act="<select class='hide' id='acts'>";
+while($fila=$resactivos->fetch()){
+    $activos[]=$fila['descripcion'];
+    $html_act.="<option value='$fila[descripcion]'>$fila[costo_deterioro_x_hora]";
+    $html_act.="</option>";
+}
+$html_act.="</select>";
 ?>
 <div class="small-10 columns"  >
     <div id="mensaje"></div>
@@ -79,7 +89,7 @@ while($fila=$rescontrol->fetch()){
         columns: [
             { name: 'fecha', display: 'fecha', type: 'text', ctrlAttr: { maxlength: 4 ,required:true,readonly:true}, ctrlCss: { width: '100px'} },
             { name: 'actividad', display: 'actividad', type: 'select',ctrlOptions: <?php echo json_encode($actividad) ?> , ctrlAttr: { maxlength: 100 ,required:true}, ctrlCss: { width: 'auto'} },
-            { name: 'tipo', display: 'tipo', type: 'select', ctrlOptions:['seleccione','material','mano de obra'], ctrlCss: { width: '100px'} , ctrlAttr: { required:true},
+            { name: 'tipo', display: 'tipo', type: 'select', ctrlOptions:['seleccione','material','mano de obra','deterioro activo'], ctrlCss: { width: '100px'} , ctrlAttr: { required:true},
                  onChange: function (evt, rowIndex) {
                      tipo=$($('#tblAppendGrid').appendGrid('getCellCtrl', 'tipo', rowIndex)).val();
                      switch(tipo){
@@ -89,13 +99,28 @@ while($fila=$rescontrol->fetch()){
                             $($('#tblAppendGrid').appendGrid('getCellCtrl', 'unidad', rowIndex)).attr({'disabled':false,'required':true});
                             $($('#tblAppendGrid').appendGrid('getCellCtrl', 'subtotal', rowIndex)).attr({'readonly':true,'required':false});
                             $($('#tblAppendGrid').appendGrid('getCellCtrl', 'dias_cant', rowIndex)).val('');
+                            $('#tblAppendGrid').appendGrid('hideColumn', 'activo');
+                            $('#tblAppendGrid').appendGrid('showColumn', 'producto');
+                            $('#tblAppendGrid').appendGrid('showColumn', 'unidad');
+                            $('#tblAppendGrid').appendGrid('showColumn', 'dias_cant');
                              break;
                          case 'mano de obra':
                              $($('#tblAppendGrid').appendGrid('getCellCtrl', 'costo', rowIndex)).attr({'readonly':false,'required':true});
                              $($('#tblAppendGrid').appendGrid('getCellCtrl', 'producto', rowIndex)).attr({'disabled':true,'required':false});
                              $($('#tblAppendGrid').appendGrid('getCellCtrl', 'unidad', rowIndex)).attr({'disabled':true,'required':false});
                              $($('#tblAppendGrid').appendGrid('getCellCtrl', 'subtotal', rowIndex)).attr({'readonly':false,'required':true}).val('');
+                             $('#tblAppendGrid').appendGrid('hideColumn', 'activo');
+                             $('#tblAppendGrid').appendGrid('showColumn', 'costo');
+                             $('#tblAppendGrid').appendGrid('showColumn', 'dias_cant');
                              break;
+                         case 'deterioro activo':
+                              $('#tblAppendGrid').appendGrid('showColumn', 'activo');
+                              $('#tblAppendGrid').appendGrid('showColumn', 'costo_hora_uso');
+                              $('#tblAppendGrid').appendGrid('hideColumn', 'unidad');
+                              $('#tblAppendGrid').appendGrid('hideColumn', 'producto');
+                              $('#tblAppendGrid').appendGrid('hideColumn', 'dias_cant');
+                              $('#tblAppendGrid').appendGrid('hideColumn', 'costo');
+                              $($('#tblAppendGrid').appendGrid('getCellCtrl', 'subtotal', rowIndex)).attr({'readonly':true}).val('');
                      }                     
                  }
              },
@@ -105,6 +130,20 @@ while($fila=$rescontrol->fetch()){
                         $($('#tblAppendGrid').appendGrid('getCellCtrl', 'dias_cant', rowIndex)).trigger('change');
                           prod=$($('#tblAppendGrid').appendGrid('getCellCtrl', 'producto', rowIndex)).val();
                          $($('#tblAppendGrid').appendGrid('getCellCtrl', 'unidad', rowIndex)).html(mapa[prod]);
+                    }
+            },
+            {name:'activo',display:'activo',type:'select',ctrlOptions: <?php echo json_encode($activos) ?>,invisible:true,
+                    onChange:function(evt,rowIndex){
+                              var act=$($('#tblAppendGrid').appendGrid('getCellCtrl', 'activo', rowIndex)).find('option:selected').val();
+                              //$('#acts option[value="qweqweqw"]').html()
+                            subt=parseFloat($('#acts option[value='+act+']').html()) * parseFloat($($('#tblAppendGrid').appendGrid('getCellCtrl', 'costo_hora_uso', rowIndex)).val());
+                            $($('#tblAppendGrid').appendGrid('getCellCtrl', 'subtotal', rowIndex)).val(numeral(subt).format('0.00'))
+                }
+            },
+            {name:'costo_hora_uso',display:'horas uso',type:'text',invisible:true,
+                    onChange:function(evt,rowIndex){
+                        $($('#tblAppendGrid').appendGrid('getCellCtrl', 'activo', rowIndex)).trigger('change');
+                        
                     }
             },
             { name: 'unidad', display: 'unidad', type: 'select', ctrlAttr: { required:true}, ctrlCss: { width: '100px'} ,
@@ -337,3 +376,6 @@ while($fila=$rescontrol->fetch()){
 </script>
 
 
+<?php
+echo $html_act;
+?>

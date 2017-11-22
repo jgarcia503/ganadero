@@ -17,6 +17,8 @@ $plantilla_acts='
         <th>producto</th>
         <th>mano de obra</th>
         <th>cantidad/dias</th>
+        <th>activo</th>
+        <th>horas de uso</th>
         <th>unidad</th>
         <th>subtotal</th>      
     </tr>
@@ -35,6 +37,8 @@ while($acts=$res_acts->fetch(PDO::FETCH_ASSOC)){
       <td>$acts[producto]</td>      
       <td>$acts[mano_obra]</td>      
       <td>$acts[cantidad_dias]</td>      
+      <td>$acts[activo]</td>      
+      <td>$acts[horas_uso_activo]</td>      
       <td>$acts[unidad]</td>      
       <td>$acts[subtotal]</td>            
     </tr>";

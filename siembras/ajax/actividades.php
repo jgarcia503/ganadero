@@ -26,8 +26,10 @@ foreach ($info[acts] as $lineas) {
     $sql.="'" . $lineas[actividad] . "'" . ',';
     $sql.="'" . $lineas[tipo] . "'" . ',';
     $sql.=($lineas[tipo]=='material'? "'" . $lineas[producto] . "'" : "''"). ',';
-    $sql.="'" . $lineas[costo] . "'" . ',';
-    $sql.="'" . $lineas[dias_cant] . "'" . ',';
+    //$sql.="'" . $lineas[costo] . "'" . ',';
+    $sql.=$lineas[tipo]=='deterioro activo'?"'',": "'" . $lineas[costo] . "'" . ',';
+    //$sql.="'" . $lineas[dias_cant] . "'" . ',';
+    $sql.= $lineas[tipo]=='deterioro activo'?"'',":  "'" . $lineas[dias_cant] . "'" . ',';
     #$sql.="'".$grupo."'".',';
     #$sql.="now(),";
     $sql.="'" . $lineas[fecha] . "'" . ',';
@@ -35,7 +37,8 @@ foreach ($info[acts] as $lineas) {
     $sql.="'" . $lineas[subtotal] . "'" . ',';
     $sql.="now(),";
     $sql.="'" . $info[proy_id] . "'" . ',';
-    $sql.="'" . $lineas[notas] . "'";
+    $sql.="'" . $lineas[notas] . "'".',';
+    $sql.=($lineas[tipo]=='deterioro activo'? "'" . $lineas[activo] . "','".$lineas[costo_hora_uso]."'" : "'',''");
     $sql.="),";
 
     if ($lineas[tipo] == 'material') {
