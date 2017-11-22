@@ -28,8 +28,9 @@ while($fila=$res->fetch()){
     
                 <td>
                     <a href="#" class="ver" data-id="<?php  echo base64_encode( $fila[id]) ?>"><i class="fa fa-eye" aria-hidden="true"></i></a>
-                    <a href="Ueventosanitario.php?<?php  echo  base64_encode( $fila[id])?>"><i class="fa fa-pencil" aria-hidden="true"></i></a>                    
-                    <a href="Deventosanitario.php?<?php  echo  base64_encode('eventosanitario='. $fila[id])?>" id="eliminar"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                    <a href="#" class="animales" data-id="<?php  echo  $fila[id]?>"><i class="fa fa-venus-double" aria-hidden="true"></i></a>
+                    <!--<a href="Ueventosanitario.php?<?php  echo  base64_encode( $fila[id])?>"><i class="fa fa-pencil" aria-hidden="true"></i></a>-->                    
+                    <!--<a href="Deventosanitario.php?<?php  echo  base64_encode('eventosanitario='. $fila[id])?>" id="eliminar"><i class="fa fa-trash" aria-hidden="true"></i></a>-->
                 </td>
             </tr>
             
@@ -72,7 +73,23 @@ if(isset($_SESSION[error])){
         $('#mimodal').foundation('reveal', 'open');
 
     });
+        /////////////////////////////////ver animales con x evento sanitario
+                            $(".table").on('click','a.animales',function(e){
+        e.preventDefault();
         
+        $.ajax({
+            url:"ajax/animales_x_evento_sani.php?id="+$(this).data('id'),
+            success:function (datos){
+                
+                   $('#mimodal span').html(datos);
+            }
+        });
+
+
+     
+        $('#mimodal').foundation('reveal', 'open');
+
+    });
         
         ////////////////////eliminar
         $("a#eliminar").on('click',function(e){
