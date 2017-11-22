@@ -7,7 +7,7 @@
 
 
 <?php
-$res=$conex->query("select * from animales");
+$res=$conex->query("select *,to_char(current_date,'DD MM YYYY')::date  - (select fecha from partos where animal=numero||'-'||nombre order by fecha::date desc limit 1)::date dias_lactancia from animales");
 ?>
 
 <table class="table" data-filtering='true' data-paging="true">
@@ -35,7 +35,7 @@ while($fila=$res->fetch()){
                 <td><?php  echo $fila[sexo]?></td>
                 <td><?php  echo $fila[estado]?></td>
                 <td><?php  echo $fila[registro]?></td>
-                <td><?php  echo $fila[color]?></td>
+                <td><?php  echo $fila[color]?></td>       
                 <td><?php  echo $fila[procedencia]?></td>
                 <td>
                     <a href="#" class="ver" data-id="<?php  echo base64_encode( $fila[id]) ?>"><i class="fa fa-eye" aria-hidden="true"></i></a>
