@@ -23,7 +23,7 @@ $para_servir='';
 $por_agotarse='';
 while($fila=$res->fetch(PDO::FETCH_ASSOC)){
     $dias_lactancia.="
-        <div class='small-3 columns'>
+        <div class='small-2 columns'>
         <ul class='pricing-table'>
   <li class='title'>$fila[numero]-$fila[nombre]</li>
   <li class='price'>$fila[dias_lactancia] dias</li>
@@ -33,7 +33,7 @@ while($fila=$res->fetch(PDO::FETCH_ASSOC)){
 }
 while($fila=$res2->fetch(PDO::FETCH_ASSOC)){
     $para_servir.="
-        <div class='small-3 columns'>
+        <div class='small-2 columns'>
         <ul class='pricing-table'>
   <li class='title'>$fila[numero]-$fila[nombre]</li>
   <li class='price'>$fila[dias_lactancia] dias</li>
@@ -41,15 +41,34 @@ while($fila=$res2->fetch(PDO::FETCH_ASSOC)){
 </div>";
     
 }
-while($fila=$res3->fetch(PDO::FETCH_ASSOC)){
     $por_agotarse.="
-        <div class='small-3 columns'>
-        <ul class='pricing-table'>
-  <li class='title'>$fila[referencia]-$fila[nombre]</li>
-  <li class='price'>$fila[cantidad_total] $fila[unidad_standar]</li>
-</ul>
-</div>";    
+       <table width='100%'>
+  <thead>
+    <tr>
+      <th >codigo</th>
+      <th>nombre</th>
+      <th >cantidad total</th>
+      
+    </tr>
+  </thead>
+   <tbody>";
+while($fila=$res3->fetch(PDO::FETCH_ASSOC)){
+    $por_agotarse.="<tr>";
+    $por_agotarse.="<td>";
+    $por_agotarse.="$fila[referencia]";   
+    $por_agotarse.="</td>";
+    $por_agotarse.="<td>";
+    $por_agotarse.="$fila[nombre]";   
+    $por_agotarse.="</td>";
+    $por_agotarse.="<td>";
+    $por_agotarse.="$fila[cantidad_total]  $fila[unidad_standar] ";   
+    $por_agotarse.="</td>";
+
+    $por_agotarse.="</tr>";
+
 }
+      $por_agotarse.="</tbody>
+</table>";    
 ?>
 
 
@@ -71,9 +90,13 @@ while($fila=$res3->fetch(PDO::FETCH_ASSOC)){
     </div>
   </li>
   <li class="accordion-navigation">
-    <a href="#panel3a">productos por agotarse</a>
+    <a href="#panel3a">productos abajo del minimo</a>
     <div id="panel3a" class="content">
+              <div class="row">
+              <div class="small-12 column">
       <?php echo $por_agotarse?>
+              </div>
+              </div>
     </div>
   </li>
 </ul>
