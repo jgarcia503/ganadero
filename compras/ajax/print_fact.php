@@ -7,8 +7,11 @@ use Dompdf\Dompdf;
 $id=$_GET[id];
 $sql="select *,b.nombre bodega from compras_lns a inner join bodega b on b.codigo=a.bodega  where enc_id='$id'";
 $sql2="select * from compras_enc where id='$id'";
+#para ver los gastos asociados a esta compra
+$sql3="select concepto,valor from compras_otros_gastos where id_enc=$id";
 $res=$conex->query($sql);
 $res2=$conex->query($sql2)->fetch();
+$res3=$conex->query($sql3);
 
 $plantilla="<div class='row'>
     <div class='small-12 columns'>
@@ -40,9 +43,32 @@ $plantilla="<div class='row'>
             </table>    
 </div>
 <br>
-<br>
-<br>
-<br>
+
+<div class='small-12 columns'>
+<table  width='25%' border='1'>
+  <tbody>
+         <tr>
+              <th>concepto</th>
+              <th>valor</th>
+            </tr>";
+if($res3!==FALSE){
+while($fila=$res3->fetch(PDO::FETCH_ASSOC)){
+        $plantilla.="<tr>";
+        $plantilla.="<td>";
+        $plantilla.=$fila[concepto];
+        $plantilla.="</td>";
+        $plantilla.="<td>";
+        $plantilla.=$fila[valor];
+        $plantilla.="</td>";
+        $plantilla.="</tr>";
+    }
+}
+$plantilla.="
+            </tbody>
+            </table>    
+            </div>
+ <br>
+
 <div class='small-12  columns' >
             <table width=100% border='1'>
           <thead>
