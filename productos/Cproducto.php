@@ -194,4 +194,16 @@ $proveedores=$conex->query("select * from contactos where tipo='proveedor'");
                $("[name=fecha_ingreso],[name=fecha_vencimiento]").attr('readonly',true).datepicker({ dateFormat: "dd-mm-yy"});
                $('.flexdatalist').flexdatalist({  minLength: 1,searchContain:true,focusFirstResult:true});
                
+               $("[name=referencia]").on('blur',function(){
+                           $.ajax({
+          url:"ajax/check_cod_producto.php",
+          data:{cod:$(this).val()},
+          success:function(data){
+              if(data!==''){
+                  alert('ya existe el documento');
+                  $('[name=referencia]').val('');
+              }
+          }
+      });
+               });
 </script>
