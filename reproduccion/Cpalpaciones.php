@@ -51,19 +51,17 @@ if($_POST){
        <a href="palpaciones.php" class="regresar">regresar</a>
 <form action="" method="post" data-abide>
     <div class="row">
-        <div class="small-6 columns">
+        <div class="small-3 columns">
             <label for="">fecha</label>
             <input type="text" name="fecha" required="">
             <small class="error">eliga fecha</small>
         </div>
-        <div class="small-6 columns">
+        <div class="small-3 columns">
              <label for="">hora</label>
              <input type="text" name="hora" required="">
              <small class="error">eliga hora</small>
         </div>
-    </div>
-    <div class="row">
-        <div class="small-6 columns">
+                <div class="small-3 columns">
             <label for="">animal</label>
             
             <small class='error'>elija un animal</small>
@@ -76,7 +74,7 @@ if($_POST){
         ?>
     </select>
         </div>
-        <div class="small-6 columns">
+        <div class="small-3 columns">
             <label for="">palpador</label>
     <select name="palpador" >
         <option value="">seleccione</option>
@@ -88,14 +86,14 @@ if($_POST){
     </select></div>
     </div>
     <div class="row">
-        <div class="small-6 columns">
+        <div class="small-5 columns">
             <label for="">resultado</label>
             <select name="resultado"  required="">
                     <option value="">seleccione</option>
                     <?php
             while($fila=$resul_palpaciones->fetch()){
                 ?>
-                    <option value="<?php echo $fila[nombre] ?>"><?php echo  $fila[nombre] ?></option>
+                    <option value="<?php echo $fila[nombre] ?>" data-id="<?php echo $fila[id]?>"><?php echo  $fila[nombre] ?></option>
 
     <?php
             }
@@ -103,10 +101,38 @@ if($_POST){
     </select>
             <small class="error">seleccione opcion</small>
         </div>
-        <div class="small-6 columns">
+        <div class="small-2 columns">
+
+            <label for="" id="suciedad" class="hide">nivel suciedad
+                   <select name="grado_suciedad" required="">
+                <option value="">seleccione</option>
+                <option value="leve">leve</option>
+                <option value="regular">regular</option>
+                <option value="severo">severo</option>
+            </select>
+                   <small class="error">seleccione opcion</small>
+            </label>
+             
+            <label for="" id="cuerno" class="hide">cuerno
+                   <select name="nivel" required="">
+                <option value="">seleccione</option>
+                <option value="izquierdo">izquierdo</option>
+                <option value="derecho">derecho</option>                    
+            </select>
+                <small class="error">seleccione opcion</small>
+                </label>
+            
+        </div>
+        <div class="small-2 columns">
             <label for="">prenada</label>
             <input type="radio" name="prenada" value="si"  >  si
             <input type="radio" name="prenada" value="no" checked="">  no
+        </div>
+              <div class="small-2 columns">
+                  <label for="" class="hide">meses de preñez
+                <input type="text" name="meses" required="">
+                <small class="error">requerido</small>
+            </label>            
         </div>
     </div>
     <div class="row">
@@ -138,15 +164,32 @@ if($_POST){
               $("[name=fecha]").attr('readonly',true).datepicker( { dateFormat: "dd-mm-yy"});
               $("[name=hora]").timepicker({disableTextInput:true,step:15});
               
-//              $("[type=radio]").on('change',function(){
-//                switch($(this).val()){
-//                  case 'si':
-//                      $("[name=dias_prenez]").parent('label').fadeIn();
-//                      break;
-//                  case 'no':
-//                      $("[name=dias_prenez]").parent('label').fadeOut();
-//                      $("[name=dias_prenez]").val("");
-//                      break;
-//                            }
-//              });
+              $('[name=resultado]').on('change',function(e){
+                                switch($(this).find('option:selected').data('id')){
+                                    case 11:
+                                        $("#suciedad").fadeIn();
+                                        $("#cuerno").fadeOut();
+                                        break;
+                                    case 9:
+                                     $("#cuerno").fadeIn();
+                                         $("#suciedad").fadeOut();                                         
+                                         break;
+                                                                            
+                                    default:
+                                         $("#suciedad").fadeOut();
+                                         $("#cuerno").fadeOut();
+                                         break;
+                                }
+              });
+              $("[type=radio]").on('change',function(){
+                switch($(this).val()){
+                  case 'si':
+                      $("[name=meses]").parent('label').fadeIn();
+                      break;
+                  case 'no':
+                      $("[name=meses]").parent('label').fadeOut();
+                      $("[name=meses]").val("");
+                      break;
+                            }
+              });
 </script>
