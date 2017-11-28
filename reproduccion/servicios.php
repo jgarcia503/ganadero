@@ -18,8 +18,8 @@ $res=$conex->query("select * from servicios  order by fecha desc");
 			<th>tipo</th>
 			<th>animal</th>
 			<th>padre</th>
-			<th>donadora</th>
-			<th>inseminador</th>
+                                                                  <th>inseminador</th>
+			<th>donadora</th>			
                                                                   <th data-filterable="false"></th>
 		</tr>
 	</thead>
@@ -33,9 +33,9 @@ while($fila=$res->fetch()){
                 <td><?php  echo $fila[fecha]?></td>
                 <td><?php  echo $fila[hora]?></td>
                 <td><?php  echo $fila[tipo]?></td>
-                <td><?php  echo $fila[animal]?></td>
-                <td><?php  echo $fila[inseminador]?></td>
+                <td><?php  echo $fila[animal]?></td>                
                 <td><?php  echo $fila[padre]?></td>
+                <td><?php  echo $fila[inseminador]?></td>
                 <td><?php  echo $fila[donadora]?></td>
                 <td>
                     <a href="#" class="ver" data-id="<?php  echo base64_encode( $fila[id]) ?>"><i class="fa fa-eye" aria-hidden="true"></i></a>
