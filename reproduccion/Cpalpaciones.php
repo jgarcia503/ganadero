@@ -8,7 +8,7 @@ $contactos=$conex->query("select nombre from contactos where tipo='empleado'");
 
 
 if($_POST){
-    
+    $resultado=$conex->query("select nombre from resul_palpaciones where id=$_POST[resultado]")->fetchColumn();
     if($_POST[prenada]==='si'){
     $fecha_servicio=$conex->query("select fecha from servicios where animal='$_POST[animal]' order by fecha::date desc limit 1");
     $datetime1 = new DateTime($fecha_servicio->fetchColumn());
@@ -20,10 +20,33 @@ if($_POST){
         $dias_prenez=0;
     }
     
+ $sql="insert into palpaciones"
+          . " values(default,'$_POST[fecha]','$_POST[hora]','$_POST[animal]','$resultado','$_POST[palpador]'"
+          . ",'$dias_prenez','$_POST[prenada]',trim('$_POST[notas]'),";
  
-  $insert =$conex->prepare("insert into palpaciones"
-          . " values(default,'$_POST[fecha]','$_POST[hora]','$_POST[animal]','$_POST[resultado]','$_POST[palpador]'"
-          . ",'$dias_prenez','$_POST[prenada]',trim('$_POST[notas]'))");
+  if($_POST['resultado']=='9'){
+     $sql.="'$_POST[cuerno]','',";
+ }
+ 
+ if($_POST['resultado']=='11'){
+     $sql.="'','$_POST[grado_suciedad]',";
+ }
+ 
+ if($_POST['resultado']!=='9' and $_POST['resultado']!=='11'){
+     $sql.="'','',";
+ }
+ 
+    if($_POST[prenada]==='si'){
+        
+        $sql.="'$_POST[meses]')";
+        
+    }
+    else{
+        
+        $sql.="'')";
+        
+    }
+  $insert =$conex->prepare($sql);
   
        if($insert->execute()){
         $mensaje= '<div data-alert class="alert-box success round">
@@ -93,7 +116,7 @@ if($_POST){
                     <?php
             while($fila=$resul_palpaciones->fetch()){
                 ?>
-                    <option value="<?php echo $fila[nombre] ?>" data-id="<?php echo $fila[id]?>"><?php echo  $fila[nombre] ?></option>
+                    <option value="<?php echo $fila[id] ?>" data-id="<?php echo $fila[id]?>"><?php echo  $fila[nombre] ?></option>
 
     <?php
             }
@@ -114,7 +137,7 @@ if($_POST){
             </label>
              
             <label for="" id="cuerno" class="hide">cuerno
-                   <select name="nivel" required="">
+                   <select name="cuerno" required="">
                 <option value="">seleccione</option>
                 <option value="izquierdo">izquierdo</option>
                 <option value="derecho">derecho</option>                    
