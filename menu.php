@@ -123,6 +123,7 @@
                     <li><a href="<?php echo  'http://'.$_SERVER[HTTP_HOST].'/ganadero' ?>/compras/bodegas.php">bodegas</a></li>  <li class="divider"></li>         
                     <li><a href="<?php echo  'http://'.$_SERVER[HTTP_HOST].'/ganadero' ?>/compras/traslados.php">traslados</a></li>  <li class="divider"></li>         
                     <li><a href="<?php echo  'http://'.$_SERVER[HTTP_HOST].'/ganadero' ?>/compras/requisiciones.php">requisiciones</a></li>  <li class="divider"></li>         
+                    <li><a href="<?php echo  'http://'.$_SERVER[HTTP_HOST].'/ganadero' ?>/compras/motrequisiciones.php">motivos requesiciones</a></li>  <li class="divider"></li>         
                     <li><a href="<?php echo  'http://'.$_SERVER[HTTP_HOST].'/ganadero' ?>/compras/servicios.php">servicios</a></li>
                 </ul>                
             </div>

@@ -1,6 +1,8 @@
 <?php   include '../plantilla.php';
 $sql_bodega="select * from bodega where codigo in (select distinct codigo_bodega from existencias)";
+$sql_reque="select * from motivos_requesiciones";
 $res_bodega=$conex->query($sql_bodega);
+$res_motivo=$conex->query($sql_reque);
 ?>
 <div class="small-10 columns">
     <h2>crear requisicion</h2>
@@ -32,6 +34,19 @@ $res_bodega=$conex->query($sql_bodega);
                          <small class="error">obligatorio</small>
                     </td>
                       
+                    <td>
+                 <label class="inline">motivo </label>                 
+                    </td>
+                    <td>
+                        <select name="motivo">
+                            <option value="">seleccione</option>
+                            <?php
+                                                        while($fila=$res_motivo->fetch()){
+                                                                       echo "<option value='$fila[id]'>$fila[descripcion]</option>";
+                                                                  }
+                                    ?>
+                        </select>
+                    </td>
           </tr>
           <tr>
            
@@ -194,6 +209,7 @@ $res_bodega=$conex->query($sql_bodega);
       if($('#tblAppendGrid').appendGrid('getRowCount')>0){
           datos={};
           datos.traslados=$('#tblAppendGrid').appendGrid('getAllValue');
+          datos.motivo=$('[name=motivo]').val();
           //datos.doc_no=$("[name=fac_no]").val();
           datos.bod_org=$("[name=bodega_origen]").val();
           //datos.bod_dst=$("[name=bodega_destino]").val();

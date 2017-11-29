@@ -3,7 +3,7 @@
 require_once '../../conexion.php';
 require_once '../../php funciones/funciones.php';
 extract($_GET);
-$sql_enc="insert into requisicion_enc values (default,'$fecha',now(),'$bod_org','$total',trim('$notas')) returning id";
+$sql_enc="insert into requisicion_enc values (default,'$fecha',now(),'$bod_org','$total',trim('$notas'),$motivo) returning id";
 $sql_lns="insert into requisicion_lns values ";
 //$sql_kardex="insert into kardex values ";
 try{

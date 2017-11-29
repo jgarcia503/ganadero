@@ -1,5 +1,5 @@
 <?php   include '../plantilla.php';
-$res=$conex->query("select a.*,b.nombre from requisicion_enc a inner join bodega b on a.bodega_id=b.codigo  order by fecha desc");
+$res=$conex->query("select a.*,b.nombre from requisicion_enc a inner join bodega b on a.bodega_id::integer=b.codigo  order by fecha desc");
 ?>
 
 <div class="small-10 columns">
