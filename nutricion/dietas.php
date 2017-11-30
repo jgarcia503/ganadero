@@ -8,15 +8,15 @@
 
 
 <?php
-$res=$conex->query("select * from dietas");
+$res=$conex->query("select * from alimentacion_enc");
 ?>
 
 <table class="table" data-filtering='true' data-paging="true">
 	<thead>
 		<tr>
-			<th>dieta</th>
-			<th>productos</th>			
-                        <th data-filterable="false"></th>
+			<th>fecha</th>
+			<th>grupo</th>			
+                                                                  <th data-filterable="false"></th>
 		</tr>
 	</thead>
 	<tbody>
@@ -26,12 +26,13 @@ while($fila=$res->fetch()){
     
     ?>
             <tr>
-                <td><?php  echo $fila[nombre]?></td>
-                <td><a href="#" class="prods" data-id="<?php echo $fila[id]?>">productos</a></td>        
+                <td><?php  echo $fila[fecha]?></td>
+                <td><?php  echo $fila[grupo]?></td>
+                <!--<td><a href="#" class="prods" data-id="<?php echo $fila[id]?>">productos</a></td>-->        
                 <td>
                     <a href="#" class="ver" data-id="<?php  echo base64_encode( $fila[id]) ?>"><i class="fa fa-eye" aria-hidden="true"></i></a>
-                    <a href="Udieta.php?<?php  echo  base64_encode( $fila[id])?>"><i class="fa fa-pencil" aria-hidden="true"></i></a>                    
-                    <a href="Ddieta.php?<?php  echo  base64_encode('raza='. $fila[id])?>" id="eliminar"><i class="fa fa-trash" aria-hidden="true"></i></a>
+<!--                    <a href="Udieta.php?<?php  echo  base64_encode( $fila[id])?>"><i class="fa fa-pencil" aria-hidden="true"></i></a>                    
+                    <a href="Ddieta.php?<?php  echo  base64_encode('raza='. $fila[id])?>" id="eliminar"><i class="fa fa-trash" aria-hidden="true"></i></a>-->
                 </td>
             </tr>
             
