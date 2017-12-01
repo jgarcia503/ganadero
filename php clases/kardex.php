@@ -65,24 +65,31 @@ class kardex{
          */
         public function actualiza_existencias($enc_id){            
              $sql="select * from compras_lns where enc_id='$enc_id'";
-
-             $sql_insert="insert into existencias values";
-             $sql_update="update existencias set existencia=existencia::numeric(1000,2)+";
+             
               $this->res_lns= $GLOBALS[conex]->query($sql);
               while($fila=  $this->res_lns->fetch()){
+                               $sql_insert="insert into existencias values";
+                               $sql_update="update existencias set existencia=existencia::numeric(1000,2)+";
                                #verificar si existe en la tabla
-             $existe="select count(id) from existencias where codigo_producto='$fila[referencia]' and codigo_bodega='$fila[bodega]'";
-             $res=  $this->conex->query($existe)->fetch()[count];
+                            $existe="select *  from existencias where codigo_producto='$fila[referencia]' and codigo_bodega='$fila[bodega]'";
+                            $res=$this->conex->query($existe);
+             
              $cant_convertida=convertir($fila[unidad],$fila[cantidad]);                                    
-             if($res==1){
+             if($res->rowCount()!==0){
                  $sql_update.="$cant_convertida where codigo_producto='$fila[referencia]' and codigo_bodega='$fila[bodega]'";
-                 $this->conex->prepare($sql_update)->execute();
+                 if(!$this->conex->prepare($sql_update)->execute()){
+                     
+                                          throw new PDOException;
+                 }
              }else{
                      
-                     $sql_insert.="(default,'$fila[referencia]','$fila[bodega]','$cant_convertida')";
-                     $this->conex->prepare($sql_insert)->execute();
+                     $sql_insert.=" (default,'$fila[referencia]','$fila[bodega]','$cant_convertida')";
+                     if(!$this->conex->prepare($sql_insert)->execute()){                         
+                                throw new PDOException;
+                     }
              }
-                                
+                            $sql_update='';
+                            $sql_insert='';
               }#cierro while
           
               

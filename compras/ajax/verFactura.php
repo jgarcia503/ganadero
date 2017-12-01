@@ -90,9 +90,9 @@ $plantilla.="
         <tbody>
           <tr>
               <td>total</td>
-            <td>
-            $res2[total]
-            </td>
+            <td>".
+number_format($res2[total],2).
+            "</td>
 
           </tr> 
 

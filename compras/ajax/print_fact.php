@@ -5,7 +5,7 @@ use Dompdf\Dompdf;
 
 
 $id=$_GET[id];
-$sql="select *,b.nombre bodega from compras_lns a inner join bodega b on b.codigo=a.bodega  where enc_id='$id'";
+$sql="select *,b.nombre bodega from compras_lns a inner join bodega b on b.codigo::text=a.bodega  where enc_id='$id'";
 $sql2="select * from compras_enc where id='$id'";
 #para ver los gastos asociados a esta compra
 $sql3="select concepto,valor from compras_otros_gastos where id_enc=$id";
