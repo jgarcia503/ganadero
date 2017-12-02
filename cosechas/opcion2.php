@@ -42,18 +42,25 @@ $res=$conex->query($sql_bodegas);
      </div>
      </div>
               <div class="row">
-        <div class="small-3 columns">
+        <div class="small-2 columns">
             <label>
             precio x red
             <input type="text"  name="precio_red" class="cantidad">
    
         </label>
         </div>
-        <div class="small-3 columns end">
+        <div class="small-2 columns">
                 <label>
                 venta de elote
                 <input type="text" readonly="" name="vta_elote" min="0">
                 
+            </label>
+        </div>
+                      <div class="small-2 columns end">
+                <label>
+               reclamacion de costo (%)
+               <input type="text"  name="porcentaje_costo" min="0" required="">
+                <small class="error">obligatorio</small>
             </label>
         </div>
                  <div class="small-6 columns "> 

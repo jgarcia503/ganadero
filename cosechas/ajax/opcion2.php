@@ -22,7 +22,7 @@ try{
     $costo_plastico= floatval($costo_plastico);
     $costo_compactacion=floatval($costo_compactacion);
     $costo_insumos=floatval($costo_insumos);
-    
+    $reclamo_costo=  floatval($costo_proyecto-($vta_total*($porcentaje_costo/100)));
     
     $costo_silo+=($costo_cosecha_mano_obra+$costo_picar_mano_obra+$costo_transporte+$costo_plastico+$costo_compactacion+$costo_insumos);
     $consultas=[];
@@ -34,7 +34,7 @@ try{
             . ",'$costo_proyecto','$costo_cosecha_mano_obra','$ton_forraje','$costo_picar_mano_obra'"
             . ",'$costo_transporte','$costo_plastico','$costo_compactacion'"
             . ",'$costo_insumos','$fecha_inicio','$fecha_cierre'"
-            . ",'$notas','$proy_id')";
+            . ",'$notas','$proy_id','$reclamo_costo')";
     
     ########update proyectos
     $consultas[]="update proyectos_enc set opcion='2' where id_proyecto=$proy_id";

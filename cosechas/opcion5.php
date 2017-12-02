@@ -10,11 +10,11 @@ if($_POST){
      $costo_proyecto=  floatval($costo_proyecto) +  floatval($costo_tapizca)+  floatval($costo_desgranado) ;
              
     if(isset($es_vta)){
-      $costo_proyecto=$costo_proyecto-  floatval($precio_vta);
-    
+        $reclamo_costo=  floatval($costo_proyecto-($precio_vta*($porcentaje_costo/100)));
+      $costo_proyecto=$costo_proyecto-  floatval($precio_vta);   
     }else{
         $costo_proyecto=$costo_proyecto+floatval($costo_moler_1)+floatval($costo_envasar_1);
-
+        $reclamo_costo=0;
     }
     
     $costo_tuza_olote=floatval($costo_tuza_olote)+  floatval($costo_moler_2)+floatval($costo_envasar_2);
@@ -38,7 +38,7 @@ if($_POST){
             $sql.= isset($es_vta)?"'si'":"'no'";            
             $sql.=",";
             $sql.=isset($es_vta)?"'$precio_vta'":"''";
-            $sql.=",'$notas','$proy_id')";
+            $sql.=",'$notas','$proy_id','$reclamo_costo')";
             
     $consultas[]=$sql;
     $consultas[]="update proyectos_enc set opcion='5' where id_proyecto=$proy_id";
@@ -58,7 +58,7 @@ if($_POST){
    $consultas[]=   "insert into productos values(default,'$cod_3','rastrojo','kg','$costo_promedio_3','consumible','Paso Firme','$kg_prod_3','$notas')";
     
    ##existencias   
-   $consultas[]=isset($es_vta)?'':"insert into existencias values (default,'$cod_1','$bodega','$kg_prod_1')";
+   $consultas[]=isset($es_vta)?'':"insert into existencias values (default,'$cod_1',$bodega,'$kg_prod_1')";
    $consultas[]="insert into existencias values (default,'$cod_2','$bodega','$kg_prod_2')";
    $consultas[]="insert into existencias values (default,'$cod_3','$bodega','$kg_prod_3')";
    
@@ -69,6 +69,7 @@ if($_POST){
    try{
        $conex->beginTransaction();
        foreach ($consultas as $value){
+           if($value==='')   continue;
             if(!$conex->prepare($value)->execute()){                
                 throw new PDOException();
             }
@@ -154,7 +155,7 @@ $res=$conex->query($sql_bodegas);
            </div>
                
                <div class="row">
-                               <div class="columns small-3 ">
+                               <div class="columns small-2">
                    <label>ton. maiz en grano
                        <input type="text" name="ton_maiz" required=""  class="cantidad">
                        <small class="error">obligatorio</small>
@@ -162,17 +163,24 @@ $res=$conex->query($sql_bodegas);
                             </div>
                                   <div class="columns small-1">
                    <label>precio venta
-                       <input type="text" name="precio_vta" class="cantidad">
+                       <input type="text" name="precio_vta" class="cantidad" required="" disabled="">
                        <small class="error">obligatorio</small>
                    </label>
                                           
                </div>       
-                                      <div class="columns small-1 end">
+                                      <div class="columns small-2">
+                   <label>reclamacion de costo (%)       
+                       <input type="text"  name="porcentaje_costo" min="0" required="" disabled="">                       
+                       <small class="error">obligatorio</small>
+                   </label>
+              
+               </div>     
+                                  <div class="columns small-1 end">
                    <label>es venta        
                    </label>
               <input type="checkbox" name="es_vta" style="vertical-align: middle">
                        
-               </div>     
+               </div>    
                </div>
                
                <div class="row">
@@ -245,4 +253,13 @@ $res=$conex->query($sql_bodegas);
 
 <script>
     $(".cantidad").mask('000,000,000,000,000.00', {reverse: true});
+    $('[name=es_vta]').on('click',function(){
+        if($(this).is(':checked')){
+                $('[name=porcentaje_costo]').attr('disabled',false);
+                $('[name=precio_vta]').attr('disabled',false);            
+        }else{
+            $('[name=porcentaje_costo]').val('').attr('disabled',true);
+            $('[name=precio_vta]').val('').attr('disabled',true);
+        }
+    });
 </script>
