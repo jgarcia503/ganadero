@@ -151,7 +151,7 @@ $html_act.="</select>";
                         $($('#tblAppendGrid').appendGrid('getCellCtrl', 'dias_cant', rowIndex)).trigger('change');
                     }
             },
-            { name: 'dias_cant', display: 'dias/cant.', type: 'text', ctrlAttr: { maxlength: 4,required:true }, ctrlCss: { width: '60px'} ,
+            { name: 'dias_cant', display: 'dias/cant.', type: 'text', ctrlAttr: { maxlength: 10,required:true }, ctrlCss: { width: '60px'} ,
                 onChange:function(evt,rowIndex){
                     tipo=$($('#tblAppendGrid').appendGrid('getCellCtrl', 'tipo', rowIndex)).val();
                     if(tipo==='material'){

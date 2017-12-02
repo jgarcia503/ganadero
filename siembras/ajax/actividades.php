@@ -38,7 +38,8 @@ foreach ($info[acts] as $lineas) {
     $sql.="now(),";
     $sql.="'" . $info[proy_id] . "'" . ',';
     $sql.="'" . $lineas[notas] . "'".',';
-    $sql.=($lineas[tipo]=='deterioro activo'? "'" . $lineas[activo] . "','".$lineas[costo_hora_uso]."'" : "'',''");
+    $sql.=($lineas[tipo]=='deterioro activo'? "'" . $lineas[activo] . "','".$lineas[costo_hora_uso]."'," : "'','',");
+    $sql.=($lineas[tipo]=='material'?"35":"''");
     $sql.="),";
 
     if ($lineas[tipo] == 'material') {

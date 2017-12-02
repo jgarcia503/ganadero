@@ -37,7 +37,7 @@ if($_POST){
 ?>
 
 <div class="small-10 column">
-    <h2>motivos requesiciones</h2>
+    <h2>motivos requisiciones</h2>
     <?php echo $mensaje?>
     <div class="row">
         <div class="small-6 column">
@@ -59,7 +59,12 @@ while($fila=$res->fetch()){
                 <td><?php  echo $fila[cuenta_id]?></td>
                 
                 <td>
-                    <a href="#" class="ver" data-id="<?php  echo  $fila[id] ?>"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                    <?php
+                    if($fila[id]!==35){
+                        echo "<a href='#' class='ver' data-id='$fila[id]'><i class='fa fa-eye' aria-hidden='true'></i></a>";
+                    }
+                ?>
+                    
 <!--                    <a href="Umortalidad.php?<?php  echo  base64_encode( $fila[id])?>"><i class="fa fa-pencil" aria-hidden="true"></i></a>                    
                     <a href="Dmortalidad.php?<?php  echo  base64_encode('mortalidad='. $fila[id])?>" id="eliminar"><i class="fa fa-trash" aria-hidden="true"></i></a>-->
                 </td>
