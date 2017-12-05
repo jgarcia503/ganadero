@@ -5,20 +5,32 @@ include '../php funciones/funciones.php';
 if($_POST){
 
     extract($_POST);
-    
+    $costo_proyecto=filter_var($costo_proyecto,FILTER_SANITIZE_NUMBER_FLOAT,FILTER_FLAG_ALLOW_FRACTION);
+    $costo_tapizca=filter_var($costo_tapizca,FILTER_SANITIZE_NUMBER_FLOAT,FILTER_FLAG_ALLOW_FRACTION);
+    $costo_desgranado=filter_var($costo_desgranado,FILTER_SANITIZE_NUMBER_FLOAT,FILTER_FLAG_ALLOW_FRACTION);
+    $precio_vta=filter_var($precio_vta,FILTER_SANITIZE_NUMBER_FLOAT,FILTER_FLAG_ALLOW_FRACTION);
+    $costo_moler_1=filter_var($costo_moler_1,FILTER_SANITIZE_NUMBER_FLOAT,FILTER_FLAG_ALLOW_FRACTION);
+    $costo_moler_2=filter_var($costo_moler_2,FILTER_SANITIZE_NUMBER_FLOAT,FILTER_FLAG_ALLOW_FRACTION);
+    $costo_moler_3=filter_var($costo_moler_3,FILTER_SANITIZE_NUMBER_FLOAT,FILTER_FLAG_ALLOW_FRACTION);
+    $costo_envasar_1=filter_var($costo_envasar_1,FILTER_SANITIZE_NUMBER_FLOAT,FILTER_FLAG_ALLOW_FRACTION);
+    $costo_envasar_2=filter_var($costo_envasar_2,FILTER_SANITIZE_NUMBER_FLOAT,FILTER_FLAG_ALLOW_FRACTION);
+    $costo_envasar_3=filter_var($costo_envasar_3,FILTER_SANITIZE_NUMBER_FLOAT,FILTER_FLAG_ALLOW_FRACTION);
+    //$precio_vta=filter_var($precio_vta,FILTER_SANITIZE_NUMBER_FLOAT,FILTER_FLAG_ALLOW_FRACTION);
+    #costo_proyecto
+     $costo_proyecto_1=$costo_proyecto;
     ##calculos
-     $costo_proyecto=  floatval($costo_proyecto) +  floatval($costo_tapizca)+  floatval($costo_desgranado) ;
+     $costo_proyecto=  $costo_proyecto +  $costo_tapizca+ $costo_desgranado ;
              
     if(isset($es_vta)){
-        $reclamo_costo=  floatval($costo_proyecto-($precio_vta*($porcentaje_costo/100)));
-      $costo_proyecto=$costo_proyecto-  floatval($precio_vta);   
+        $reclamo_costo=  $costo_proyecto_1-($precio_vta*($porcentaje_costo/100));
+      $costo_proyecto=$costo_proyecto-  $precio_vta;   
     }else{
-        $costo_proyecto=$costo_proyecto+floatval($costo_moler_1)+floatval($costo_envasar_1);
+        $costo_proyecto=$costo_proyecto+$costo_moler_1+$costo_envasar_1;
         $reclamo_costo=0;
     }
     
-    $costo_tuza_olote=floatval($costo_tuza_olote)+  floatval($costo_moler_2)+floatval($costo_envasar_2);
-    $costo_rastrojo=  floatval($costo_rastrojo)+  floatval($costo_moler_3)+floatval($costo_envasar_3);
+    $costo_tuza_olote=$costo_tuza_olote+ $costo_moler_2+$costo_envasar_2;
+    $costo_rastrojo=  $costo_rastrojo+  $costo_moler_3+$costo_envasar_3;
     
     ##fin calculos
     

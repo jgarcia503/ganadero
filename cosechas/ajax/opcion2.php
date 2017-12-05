@@ -12,17 +12,19 @@ $params=[];
     }
     extract($params);
     $silos=$_POST[silos];
-try{
-    $vta_total=  floatval($vta_elote);
-    $costo_silo=  floatval($costo_proyecto)-$vta_total;
+try{    
+    $vta_total=  filter_var($vta_elote,FILTER_SANITIZE_NUMBER_FLOAT,FILTER_FLAG_ALLOW_FRACTION);
+    $costo_silo= filter_var($costo_proyecto,FILTER_SANITIZE_NUMBER_FLOAT,FILTER_FLAG_ALLOW_FRACTION)-$vta_total;
+    $costo_proyecto= filter_var($costo_proyecto,FILTER_SANITIZE_NUMBER_FLOAT,FILTER_FLAG_ALLOW_FRACTION);
     
-    $costo_cosecha_mano_obra=floatval($costo_cosecha_mano_obra);
-    $costo_picar_mano_obra=  floatval($costo_picar_mano_obra);
-    $costo_transporte=  floatval($costo_transporte);
-    $costo_plastico= floatval($costo_plastico);
-    $costo_compactacion=floatval($costo_compactacion);
-    $costo_insumos=floatval($costo_insumos);
-    $reclamo_costo=  floatval($costo_proyecto-($vta_total*($porcentaje_costo/100)));
+    $costo_cosecha_mano_obra=  filter_var($costo_cosecha_mano_obra,FILTER_SANITIZE_NUMBER_FLOAT,FILTER_FLAG_ALLOW_FRACTION);
+    $costo_picar_mano_obra=  filter_var($costo_picar_mano_obra,FILTER_SANITIZE_NUMBER_FLOAT,FILTER_FLAG_ALLOW_FRACTION);
+    $costo_transporte=  filter_var($costo_transporte,FILTER_SANITIZE_NUMBER_FLOAT,FILTER_FLAG_ALLOW_FRACTION);
+    $costo_plastico= filter_var($costo_plastico,FILTER_SANITIZE_NUMBER_FLOAT,FILTER_FLAG_ALLOW_FRACTION);
+    $costo_compactacion=filter_var($costo_compactacion,FILTER_SANITIZE_NUMBER_FLOAT,FILTER_FLAG_ALLOW_FRACTION);
+    $costo_insumos=filter_var($costo_insumos,FILTER_SANITIZE_NUMBER_FLOAT,FILTER_FLAG_ALLOW_FRACTION);
+    
+    $reclamo_costo= filter_var($costo_proyecto-($vta_total*($porcentaje_costo/100)));
     
     $costo_silo+=($costo_cosecha_mano_obra+$costo_picar_mano_obra+$costo_transporte+$costo_plastico+$costo_compactacion+$costo_insumos);
     $consultas=[];
@@ -39,8 +41,8 @@ try{
     ########update proyectos
     $consultas[]="update proyectos_enc set opcion='2' where id_proyecto=$proy_id";
     
-    $kg_forraje= convertir('ton', floatval($_POST[ton_forraje]));
-    $costo_promedio= number_format(floatval($costo_silo)/$kg_forraje,2);
+    $kg_forraje= convertir('ton', filter_var($_POST[ton_forraje],FILTER_SANITIZE_NUMBER_FLOAT,FILTER_FLAG_ALLOW_FRACTION));
+    $costo_promedio= number_format(filter_var($costo_silo,FILTER_SANITIZE_NUMBER_FLOAT,FILTER_FLAG_ALLOW_FRACTION)/$kg_forraje,2);
     foreach ($silos as  $value) {
 
                 $kg_forraje= convertir('ton', floatval($value[ton_silo]));

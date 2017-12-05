@@ -14,7 +14,7 @@ $sql="select numero,nombre,to_char(current_date,'DD MM YYYY')::date  - (select f
 $sql2="select numero,nombre,to_char(current_date,'DD MM YYYY')::date  - (select fecha from partos where animal=numero||'-'||nombre order by fecha::date desc limit 1)::date dias_lactancia from animales
 where (to_char(current_date,'DD MM YYYY')::date  - (select fecha from partos where animal=numero||'-'||nombre order by fecha::date desc limit 1)::date)>=60";
 #alerta para emitir orden de compra
-$sql3="select referencia,unidad_standar,nombre,cantidad_total,alerta_min from productos where cantidad_total::numeric(10,2)<=alerta_min";
+$sql3="select referencia,unidad_standar,nombre,cantidad_total,alerta_min from productos where cantidad_total::numeric(1000,2)<=alerta_min";
 $res=$conex->query($sql);
 $res2=$conex->query($sql2);
 $res3=$conex->query($sql3);

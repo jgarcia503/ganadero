@@ -23,21 +23,21 @@ try{
     
     $consultas[]="update proyectos_enc set opcion='3' where id_proyecto=$proy_id";
     
-    $costo_silo=  floatval($costo_proyecto);
+    $costo_silo=  filter_var($costo_proyecto,FILTER_SANITIZE_NUMBER_FLOAT,FILTER_FLAG_ALLOW_FRACTION);
     
-    $costo_cosecha_mano_obra=floatval($costo_cosecha_mano_obra);
-    $costo_picar_mano_obra=  floatval($costo_picar_mano_obra);
-    $costo_transporte=  floatval($costo_transporte);
-    $costo_plastico= floatval($costo_plastico);
-    $costo_compactacion=floatval($costo_compactacion);
-    $costo_insumos=floatval($costo_insumos);
+    $costo_cosecha_mano_obra=filter_var($costo_cosecha_mano_obra,FILTER_SANITIZE_NUMBER_FLOAT,FILTER_FLAG_ALLOW_FRACTION);
+    $costo_picar_mano_obra=  filter_var($costo_picar_mano_obra,FILTER_SANITIZE_NUMBER_FLOAT,FILTER_FLAG_ALLOW_FRACTION);
+    $costo_transporte=  filter_var($costo_transporte,FILTER_SANITIZE_NUMBER_FLOAT,FILTER_FLAG_ALLOW_FRACTION);
+    $costo_plastico= filter_var($costo_plastico,FILTER_SANITIZE_NUMBER_FLOAT,FILTER_FLAG_ALLOW_FRACTION);
+    $costo_compactacion=filter_var($costo_compactacion,FILTER_SANITIZE_NUMBER_FLOAT,FILTER_FLAG_ALLOW_FRACTION);
+    $costo_insumos=filter_var($costo_insumos,FILTER_SANITIZE_NUMBER_FLOAT,FILTER_FLAG_ALLOW_FRACTION);
     
     $costo_silo+=($costo_cosecha_mano_obra+$costo_picar_mano_obra+$costo_transporte+$costo_plastico+$costo_compactacion+$costo_insumos);
 
-        $kg_forraje= convertir('ton', floatval($_POST[ton_forraje]));
-        $costo_promedio= number_format(floatval($costo_silo)/$kg_forraje,2);
+        $kg_forraje= convertir('ton', filter_var($_POST[ton_forraje],FILTER_SANITIZE_NUMBER_FLOAT,FILTER_FLAG_ALLOW_FRACTION));
+        $costo_promedio= number_format(filter_var($costo_silo,FILTER_SANITIZE_NUMBER_FLOAT,FILTER_FLAG_ALLOW_FRACTION)/$kg_forraje,2);
         foreach ($silos as  $value) {
-            $kg_forraje= convertir('ton', floatval($ton_forraje));
+            $kg_forraje= convertir('ton', filter_var($ton_forraje,FILTER_SANITIZE_NUMBER_FLOAT,FILTER_FLAG_ALLOW_FRACTION));
                 $consultas[]="insert into opcion_3_lns values(default,'$value[cod_silo]','$value[ton_silo]','$value[descripcion]','$proy_id')";
                 $consultas[]="insert into productos values(default,'$value[cod_silo]','silo','kg','$costo_promedio','silos','Paso Firme','$kg_forraje')";
                 $consultas[]="insert into existencias values (default,'$value[cod_silo]','$cod_bodega','$kg_forraje')";
