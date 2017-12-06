@@ -3,15 +3,14 @@ $res=$conex->query("select * from deterioro_activo");
 ?>
 
 <div class="small-10 columns">
-    <h2>adquirir servicios</h2>
-    <a href="Cdeterioro_activo.php" class="button primary">crear deterioro</a>
+    <h2>crear activo</h2>
+    <a href="Cdeterioro_activo.php" class="button primary">crear activo</a>
     
     <table class="table" data-filtering='true' data-paging="true">
 	<thead>
 		<tr>
-			<th>descripcion</th>
-			<th>costo deterioro por hora</th>						
-				
+			<th>referencia</th>
+			<th>nombre</th>										
                         <th data-filterable="false">acciones</th>
 		</tr>
 	</thead>
@@ -20,8 +19,8 @@ $res=$conex->query("select * from deterioro_activo");
 while($fila=$res->fetch()){
 ?>
             <tr>
-                <td><?php  echo $fila[descripcion]?></td>
-                <td><?php  echo $fila[costo_deterioro_x_hora]?></td>                           
+                <td><?php  echo $fila[referencia]?></td>
+                <td><?php  echo $fila[nombre]?></td>                           
       
                 <td>
                     <a href="#" class="ver" data-id="<?php  echo  $fila[id] ?>"><i class="fa fa-eye" aria-hidden="true"></i></a>

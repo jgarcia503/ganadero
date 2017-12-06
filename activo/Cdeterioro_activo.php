@@ -1,9 +1,8 @@
 <?php
 include '../plantilla.php';
 if($_POST){
-    $desc=$_POST['descripcion'];
-    $costo=$_POST['costo_x_hora'];
-    $res=$conex->prepare("insert into deterioro_activo values (default,'$desc',$costo)");
+    extract($_POST);
+    $res=$conex->prepare("insert into deterioro_activo (id,referencia,nombre,marca,vida_util) values (default,'$referencia','$nombre','$marca','$vida_util')");
     if($res->execute()){
                 $mensaje= '<div data-alert class="alert-box success round">
  <h5 style="color:white">registro creado exitosamente</h5>
@@ -17,23 +16,50 @@ if($_POST){
                     }
     }
 
+    $sql_marcas="select * from marcas";
+    $res_marcas=$conex->query($sql_marcas);
 ?>
 
 <div class="small-10 columns"  >
     <?php echo $mensaje ?>
     <h2>deterioro de activo</h2>
+    <a href="deterioro_activo.php" class="regresar">regresar</a>
     <div class="row">
-     <form action="" method="post">
+        
+     <form action="" method="post" data-abide>
+         
              <div class="columns small-6">
-                      <label>descripcion activo
-                          <input type="text" name="descripcion">
+                      <label>referencia
+                          <input type="text" name="referencia" required="">
+                          <small class="error">obligatorio</small>
         </label>
         </div>
             <div class="columns small-6">
-                   <label>costo deterioro por hora
-                       <input type="text" name="costo_x_hora">
+                   <label>nombre
+                       <input type="text" name="nombre" required="">
+                       <small class="error">obligatorio</small>
         </label>
         </div>
+          <div class="columns small-6">
+                      <label>marca
+                          <select name="marca" required="">
+                              <option value="">seleccione</option>
+                              <?php
+                                            while($fila=$res_marcas->fetch()){
+                                                echo "<option value='$fila[nombre]'>$fila[nombre]</option>";
+                                            }
+                                        ?>
+                          </select>
+                          <small class="error">obligatorio</small>
+                        </label>
+        </div>
+           <div class="columns small-6">
+                      <label>vida util (horas)
+                          <input type="text" name="vida_util" required="" pattern="integer">
+                          <small class="error">obligatorio</small>
+        </label>
+        </div>
+
          <div class="columns small-12">
              <input type="submit" class="button primary" value="crear registro">
          </div>

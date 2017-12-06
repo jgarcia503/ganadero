@@ -144,7 +144,8 @@
             <a href="#activo">activo</a>
             <div id="activo" class="content">
                 <ul class="side-nav">   
-                    <li><a href="<?php echo  'http://'.$_SERVER[HTTP_HOST].'/ganadero' ?>/activo/deterioro_activo.php">deterioro de activo</a></li>                     
+                    <li><a href="<?php echo  'http://'.$_SERVER[HTTP_HOST].'/ganadero' ?>/activo/deterioro_activo.php">deterioro de activo</a></li><li class="divider"></li>                                   
+                    <li><a href="<?php echo  'http://'.$_SERVER[HTTP_HOST].'/ganadero' ?>/activo/compra_activo.php">compra activo</a></li>                     
                     
                 </ul>
             </div>
