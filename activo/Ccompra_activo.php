@@ -1,7 +1,7 @@
 <?php   
 session_start();
 include '../plantilla.php';
-$sql="select * from deterioro_activo";
+$sql="select * from activo";
 $sqlproveedores="select * from contactos where tipo='proveedor'";
 $resprods=$conex->query($sql);
 $resproveedores=$conex->query($sqlproveedores);
@@ -148,12 +148,7 @@ while($fila=$res->fetch()){
                                  <input type="text" id='cantidad'>
                                  </label>
         </div>
-                <div class="small-2 columns">
-                                          <label>unidad
-                                 <select id='unidad'>
-                                     </select>
-                                 </label>
-        </div>
+           
                 <div class="small-1 columns">
                                   <label>precio
                                  <input type="text" id='precio'>
@@ -172,7 +167,7 @@ while($fila=$res->fetch()){
                     <th>bodega</th>
                     <th>referencia</th>
                     <th>cantidad</th>
-                    <th>unidad</th>
+                    
                     <th>precio</th>
                     <th>subtotal</th>
                 </tr>
@@ -401,20 +396,20 @@ moveDown: true
       bod=$('#bodega').val();
       ref=$('#ref').val();
       cant=$('#cantidad').val();
-      unidad=$('#unidad').val();
+      
       precio=$('#precio').val();
       
-      if(bod!=='' && ref!=='' && cant!=='' && unidad!=='' && precio!==''){
+      if(bod!=='' && ref!=='' && cant!==''  && precio!==''){
           subtotales=0;
                             $.ajax({
                                 url:'ajax/lineas_factura_compra_sesion.php',
-                                data:{bod:bod,ref:ref,cant:cant,unidad:unidad,precio:precio},
+                                data:{bod:bod,ref:ref,cant:cant,precio:precio},
                                 dataType:'json',
                                 success:function(data){
                                     linea='';
                                     _.each(data,function(value,key,list){
                                      linea+='<tr>';
-                                     linea+='<td>'+data[key].bodega+'</td><td>'+key+'</td><td>'+data[key].cant+'</td><td>'+data[key].unidad+'</td><td>'+data[key].precio+'</td><td>'+numeral(data[key].subtotal).format('0,0.00')+'</td>';
+                                     linea+='<td>'+data[key].bodega+'</td><td>'+key+'</td><td>'+data[key].cant+'</td><td>'+data[key].precio+'</td><td>'+numeral(data[key].subtotal).format('0,0.00')+'</td>';
                                      linea+='</tr>';
                                      subtotales+=parseFloat(data[key].subtotal);
                                  });

@@ -2,7 +2,7 @@
 include '../plantilla.php';
 if($_POST){
     extract($_POST);
-    $res=$conex->prepare("insert into deterioro_activo (id,referencia,nombre,marca,vida_util) values (default,'$referencia','$nombre','$marca','$vida_util')");
+    $res=$conex->prepare("insert into activo values (default,'$referencia','$nombre','0','$marca','0','$vida_util')");
     if($res->execute()){
                 $mensaje= '<div data-alert class="alert-box success round">
  <h5 style="color:white">registro creado exitosamente</h5>

@@ -1,7 +1,6 @@
 <?php
 
-include '../../conexion.php';
-include '../../php clases/kardex.php';
+include '../../php clases/kardex_activo.php';
 $id=$_GET[id];
 try{
     $conex->beginTransaction();
@@ -11,10 +10,9 @@ $res=$conex->prepare($sql);
 
 if($res->execute()){
     ##aqui va ir kardex, existencia,inventario
-            $kardex=new kardex();
-                                                      $kardex->actualiza_inventario('+',$id);
-                                                      $kardex->actualiza_existencias( $id);
-                                                      $kardex->actualiza_kardex($id);
+            $kardex=new kardex_activo();
+            $kardex->registrar_activo($id);
+
                                                       $conex->commit();
     echo 'aplicada con exito';
 }else{

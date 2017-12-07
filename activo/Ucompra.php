@@ -4,7 +4,7 @@ include '../plantilla.php';
 $sql_compra="select * from compras_activo_enc where id=$_GET[id]";
 $res_compra=$conex->query($sql_compra)->fetchAll(PDO::FETCH_ASSOC)[0];
 
-$sql="select * from deterioro_activo";
+$sql="select * from activo";
 $sqlproveedores="select * from contactos where tipo='proveedor'";
 $resprods=$conex->query($sql);
 $resproveedores=$conex->query($sqlproveedores);

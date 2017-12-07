@@ -1,5 +1,5 @@
 <?php   include '../plantilla.php';
-$res=$conex->query("select * from deterioro_activo");
+$res=$conex->query("select * from activo");
 ?>
 
 <div class="small-10 columns">
