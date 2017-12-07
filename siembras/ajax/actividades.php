@@ -2,6 +2,7 @@
 
 include '../../conexion.php';
 include '../../php clases/kardex.php';
+include '../../php clases/kardex_activo.php';
 
 $info = $_GET[datos];
 $sql = "with insertados as (insert into proyectos_lns values ";
@@ -39,8 +40,8 @@ foreach ($info[acts] as $lineas) {
     $sql.="'" . $info[proy_id] . "'" . ',';
     $sql.="'" . $lineas[notas] . "'".',';
     $sql.=($lineas[tipo]=='deterioro activo'? "'" . $lineas[activo] . "','".$lineas[costo_hora_uso]."'," : "'','',");
-    $sql.=($lineas[tipo]=='material'?"35":"''");
-    $sql.="),";
+    $sql.=($lineas[tipo]=='material'?"35,":"'',");
+    
 
     if ($lineas[tipo] == 'material') {
         $sql_prod = "select referencia from productos where nombre='$lineas[producto]'";
@@ -54,9 +55,17 @@ foreach ($info[acts] as $lineas) {
         }
     }
 
+if($lineas[tipo]=='deterioro activo'){
+    $sql_costo_hora_uso="select (precio_promedio::numeric(10,5)/vida_util::numeric(10,5))::numeric(10,4) costo_hora_uso "
+                                                                . "from activo where  referencia ='$lineas[activo]'";
+    $res=$conex->query($sql_costo_hora_uso)->fetchColumn();
+    $sql.="$res";
+    
+}else{
+    $sql.="'-'";
+}
 
-
-
+$sql.="),";
 
 //    foreach ($lineas[lineas] as $sublinea=>$value){
 //        $sql_sublinea.="(default,";
@@ -86,14 +95,14 @@ $insert = $conex->prepare($sql);
 if ($insert->execute()) {
     $actividades_insertadas=$insert->fetchAll(PDO::FETCH_ASSOC);
     $kardex = new kardex();
-    $kardex->decrease_inventario($decrease_inventario, $find_bodega);
+    $kardex->decrease_inventario($decrease_inventario, $find_bodega);    
     echo '<div data-alert class="alert-box success round">
         <h5 style="color:white">registro creado exitosamente</h5>
         <a href="#" class="close">&times;</a>
         </div>';
 } else {
-    echo '<div data-alert class="alert-box alert round">
-       <h5 style="color:white">Error al insertar el registro</h5>
-       <a href="#" class="close">&times;</a>
-       </div>';
+    echo "<div data-alert class='alert-box alert round'>
+       <h5 style='color:white'>Error al insertar el registro</h5>
+       <a href='#' class='close'>&times;</a>
+       </div>";
 }
