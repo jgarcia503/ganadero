@@ -22,7 +22,7 @@ where codigo_bodega
 in (
 select bodega_seleccionada from proyectos_enc where id_proyecto =$proy_id
 ) ";
-$activos="select * from deterioro_activo";
+$activos="select * from activo";
 $resactivos=$conex->query($activos);
 $rescontrol=$conex->query($control);
 $resproductos=$conex->query($productos);

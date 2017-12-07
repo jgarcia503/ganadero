@@ -1,6 +1,6 @@
 <?php   include '../plantilla.php';
 $res=$conex->query("select * from compras_activo_enc  order by fecha desc");
-$sql_sin_terminar="select count(a.*) from compras_enc a left join compras_lns b on a.id =b.enc_id where b.enc_id is null";
+$sql_sin_terminar="select count(a.*) from compras_activo_enc a left join compras_activo_lns b on a.id =b.enc_id where b.enc_id is null";
 $res_sin_terminar=$conex->query($sql_sin_terminar)->fetchColumn();
 ?>
 

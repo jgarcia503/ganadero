@@ -47,7 +47,7 @@ while($fila=$res->fetch()){
                         e.preventDefault();
                         var id=$(this).data('id');                        
                         $.ajax({
-                            url:"ajax/ver_compra_servicio.php",
+                            url:"ajax/verActivo.php",
                             method:'get',
                             data:{id:id},
                             success: function (data) {                                
