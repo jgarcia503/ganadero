@@ -22,7 +22,7 @@ where codigo_bodega
 in (
 select bodega_seleccionada from proyectos_enc where id_proyecto =$proy_id
 ) ";
-$activos="select * from activo";
+$activos="select *,(precio_promedio::numeric(10,5)/vida_util::numeric(10,5))::numeric(10,4) costo_hora_uso from activo";
 $resactivos=$conex->query($activos);
 $rescontrol=$conex->query($control);
 $resproductos=$conex->query($productos);
@@ -50,8 +50,8 @@ while($fila=$rescontrol->fetch()){
 }
 $html_act="<select class='hide' id='acts'>";
 while($fila=$resactivos->fetch()){
-    $activos[]=$fila['descripcion'];
-    $html_act.="<option value='$fila[descripcion]'>$fila[costo_deterioro_x_hora]";
+    $activos[]=$fila['referencia'];
+    $html_act.="<option value='$fila[referencia]'>$fila[costo_hora_uso]";
     $html_act.="</option>";
 }
 $html_act.="</select>";
@@ -134,13 +134,13 @@ $html_act.="</select>";
             },
             {name:'activo',display:'activo',type:'select',ctrlOptions: <?php echo json_encode($activos) ?>,invisible:true,
                     onChange:function(evt,rowIndex){
-                              var act=$($('#tblAppendGrid').appendGrid('getCellCtrl', 'activo', rowIndex)).find('option:selected').val();
-                              //$('#acts option[value="qweqweqw"]').html()
+                              var act=$($('#tblAppendGrid').appendGrid('getCellCtrl', 'activo', rowIndex)).find('option:selected').val();                              
+                              //$('#acts option[value="qweqweqw"]').html()                              
                             subt=parseFloat($('#acts option[value='+act+']').html()) * parseFloat($($('#tblAppendGrid').appendGrid('getCellCtrl', 'costo_hora_uso', rowIndex)).val());
-                            $($('#tblAppendGrid').appendGrid('getCellCtrl', 'subtotal', rowIndex)).val(numeral(subt).format('0.00'))
+                            $($('#tblAppendGrid').appendGrid('getCellCtrl', 'subtotal', rowIndex)).val(numeral(subt).format('0.00000'))
                 }
             },
-            {name:'costo_hora_uso',display:'horas uso',type:'text',invisible:true,
+            {name:'costo_hora_uso',display:'horas uso',type:'text',invisible:true,cellCss: { 'width': '30px' },
                     onChange:function(evt,rowIndex){
                         $($('#tblAppendGrid').appendGrid('getCellCtrl', 'activo', rowIndex)).trigger('change');
                         
