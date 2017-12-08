@@ -1,8 +1,10 @@
 <?php   include '../plantilla.php';
 if($_POST){
-
+$sql_costo_uso_x_dia="select costo_uso_x_dia from potreros where id=$_POST[potrero]";
+$res=$conex->query($sql_costo_uso_x_dia)->fetchColumn();
+$costo_uso_dia_tablon=$res/floatval($_POST[extension]);
      $insert=$conex->prepare("insert into tablones "
-             . "values(default,'$_POST[nombre]','$_POST[potrero]','$_POST[extension]','libre',trim('$_POST[notas]'))");
+             . "values(default,'$_POST[nombre]','$_POST[potrero]','$_POST[extension]','libre',trim('$_POST[notas]'),'$costo_uso_dia_tablon')");
                                     if($insert->execute()){
                                 $mensaje= '<div data-alert class="alert-box success round">
                          <h5 style="color:white">registro creado exitosamente</h5>
