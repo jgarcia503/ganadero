@@ -80,8 +80,10 @@ while($acts=$res_acts->fetch(PDO::FETCH_ASSOC)){
 }
 
 echo $datos;
-echo '<div style="overflow-y: auto;height: 700px">';
+echo '<div class="row" style="overflow-y: auto;height: 700px">';
+echo "<div class='small-12 columns'>";
 echo preg_replace('/{}/', $lineas, $plantilla_acts);
+echo "</div>";
 echo "</div>";
 
 
