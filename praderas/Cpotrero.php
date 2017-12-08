@@ -69,7 +69,7 @@ $extension=floatval($conversiones[$_POST[unidad]])*floatval($_POST[extension]);
             </a>            
             </div>
         <div class="small-6 columns">
-            <label for="">terreno?</label>
+            <label for="">terreno</label>
             <select name="propiedad" id="propiedad" required="">
                 <option value="">seleccione</option>
                 <option value="propio">propio</option>
@@ -118,18 +118,19 @@ $extension=floatval($conversiones[$_POST[unidad]])*floatval($_POST[extension]);
     
     $("#propiedad").on('change',function(){
         if($("#propiedad option:selected").val()==='propio'){
-                $("[name='valor_alquiler']").parent('div').hide(1000)
-                $("[name='valor_terreno']").parent('div').show(1000)
-                $("[name='costo_uso']").parent('div').show(1000)
+                $("[name='valor_alquiler']").val('').parent('div').hide(1000);
+                $("[name='valor_terreno']").parent('div').show(1000);                
+                 $("[name='costo_uso']").val('');
             }else{
                 $("[name='valor_alquiler']").parent('div').show(1000);
-                $("[name='valor_terreno']").parent('div').hide(1000);
-                $("[name='costo_uso']").parent('div').hide(1000);
-            }
-    
+                $("[name='valor_terreno']").val('').parent('div').hide(1000);                
+            }   
     });
     
-    //$("[name='valor_alquiler']").parent('div').hide();
+    $("[name='valor_alquiler']").on('change',function(){
+        valor_alquilado_x_dia=$(this).val()/365;
+                $("[name='costo_uso']").val(valor_alquilado_x_dia);
+    });    
 
 $("#mapa").on('click',myMap);
 ////////////////////////////////////////////////////
