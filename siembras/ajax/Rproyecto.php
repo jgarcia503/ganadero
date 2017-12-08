@@ -4,10 +4,11 @@ include '../../conexion.php';
 $id=base64_decode($_SERVER[QUERY_STRING]);
 $sql="select a.*,b.nombre nombre_cultivo from proyectos_enc a,tipo_vegetacion b where id_proyecto=$id and a.tipo_cultivo::integer=b.id";
 $actividades_proyecto="select * from proyectos_lns where  enc_id='$id'";
-$nombre_tablon="select * from tablones where id=(select id_tablones::integer from proyecto_tablones where id_proyecto ='$id')";
+#$nombre_tablon="select * from tablones where id=(select id_tablones::integer from proyecto_tablones where id_proyecto ='$id')";
+$nombre_tablon="select btrim(array(select nombre from tablones where id::text in (select regexp_split_to_table(id_tablones,',') from proyecto_tablones where id_proyecto ='$id'))::text,'{}')";
 $res_acts=$conex->query($actividades_proyecto);
 $res=$conex->query($sql);
-$res_nombre_tablon=$conex->query($nombre_tablon)->fetch()[nombre];
+$res_nombre_tablon=$conex->query($nombre_tablon)->fetchColumn();
 $animal=$res->fetch(PDO::FETCH_ASSOC);
 
 $plantilla='<input type="text" value="{}" readonly>';
