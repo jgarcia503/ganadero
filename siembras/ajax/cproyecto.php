@@ -21,7 +21,9 @@ try{
      if($insert->execute()){
                             $proyecto_id = $insert->fetchColumn();
         $tablones_id = implode(',', $tablon_id);
-        $sql2 = "insert into proyecto_tablones values(default,'$proyecto_id','$potrero_id','$tablones_id')";
+        $sql_tablon_uso_dia="select btrim(array(select costo_uso_x_dia from tablones where id in($tablones_id))::text,'{}')";
+        $res_costo_uso=$conex->query($sql_tablon_uso_dia)->fetchColumn();
+        $sql2 = "insert into proyecto_tablones values(default,'$proyecto_id','$potrero_id','$tablones_id','$res_costo_uso')";
         $insert2 = $conex->prepare($sql2);
         if ($insert2->execute()) {
             $sql3 = "update tablones set estatus='ocupado' where id in ($tablones_id)";
