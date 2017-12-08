@@ -6,7 +6,7 @@ $conversiones=['hectarea'=>10000,'manzana'=>7000];
 $extension=floatval($conversiones[$_POST[unidad]])*floatval($_POST[extension]);
 
      $insert=$conex->prepare("insert into potreros "
-             . "values(default,'$_POST[nombre]','$_POST[longitud]','$_POST[latitud]','$_POST[unidad]','$extension','$_POST[propiedad]','$_POST[valor_alquiler]',trim('$_POST[notas]'))");
+             . "values(default,'$_POST[nombre]','$_POST[longitud]','$_POST[latitud]','$_POST[unidad]','$extension','$_POST[propiedad]','$_POST[valor_alquiler]',trim('$_POST[notas]'),'$_POST[valor_terreno]','$_POST[costo_uso]')");
                                     if($insert->execute()){
                                 $mensaje= '<div data-alert class="alert-box success round">
                          <h5 style="color:white">registro creado exitosamente</h5>
@@ -84,6 +84,16 @@ $extension=floatval($conversiones[$_POST[unidad]])*floatval($_POST[extension]);
                <input type="text" name="valor_alquiler" pattern="number" required="">
                   <small class="error">solo numeros</small>
            </div>
+             <div class="small-3 columns">
+               <label for="">valor del terreno</label>
+               <input type="text" name="valor_terreno" pattern="number" required="">
+                  <small class="error">solo numeros</small>
+           </div>
+           <div class="small-3 columns end">
+               <label for="">costo de uso por dia</label>
+               <input type="text" name="costo_uso" pattern="number" required="">
+                  <small class="error">solo numeros</small>
+           </div>
        </div>
     
     <div class="row">
@@ -109,13 +119,17 @@ $extension=floatval($conversiones[$_POST[unidad]])*floatval($_POST[extension]);
     $("#propiedad").on('change',function(){
         if($("#propiedad option:selected").val()==='propio'){
                 $("[name='valor_alquiler']").parent('div').hide(1000)
+                $("[name='valor_terreno']").parent('div').show(1000)
+                $("[name='costo_uso']").parent('div').show(1000)
             }else{
                 $("[name='valor_alquiler']").parent('div').show(1000);
+                $("[name='valor_terreno']").parent('div').hide(1000);
+                $("[name='costo_uso']").parent('div').hide(1000);
             }
     
     });
     
-    $("[name='valor_alquiler']").parent('div').hide();
+    //$("[name='valor_alquiler']").parent('div').hide();
 
 $("#mapa").on('click',myMap);
 ////////////////////////////////////////////////////
