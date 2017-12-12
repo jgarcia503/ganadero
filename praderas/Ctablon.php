@@ -35,7 +35,7 @@ $res=$conex->query("select * from potreros");
                 <option value="">seleccione</option>
                 <?php
                                                                 while($fila=$res->fetch()){
-                                                                    echo "<option value='$fila[id]' data-extension='$fila[extension]'>$fila[nombre]</option>";
+                                                                    echo "<option value='$fila[id]' data-extension=''>$fila[nombre]</option>";
                                                                 }
                                                 ?>
             </select>
@@ -89,24 +89,35 @@ $res=$conex->query("select * from potreros");
 <script>
 
     $('[name=potrero]').on('change',function(){
-        var ext=parseFloat($(this).find('option:selected').data('extension'));
-        $('[name=extension]').trigger('change');
         
-        
-        
-        $('[name=nombre]').val($(this).find('option:selected').html()+'-'+1);
+        id_terreno=$(this).val();
+        $this=$(this);
+        $.ajax({
+            url:'ajax/crear_tablones_correlativo.php',
+            data:{id_terreno:id_terreno},
+            dataType:'json',
+            success:function(data){
+                $('[name=nombre]').val($this.find('option:selected').html()+'-'+data['sigte']);
+                $('[name=extension]').attr('data-extension',data['dispo']);
+                $('[name=extension]').trigger('change');
+            }
+        });
+                
     });
 
 $('[name=extension]').on('change',function(){
 
     var ext_tab=parseFloat($(this).val());
-    var ext_terreno=parseFloat($('[name=potrero] option:selected').data('extension'));
-    
+    var ext_terreno=parseFloat($(this).attr('data-extension'));
+    if(ext_tab!==0 || ext_tab!==0.00){
     if(ext_tab>ext_terreno){
+        alert('extension no valida, disponible '+ext_terreno);
+        $(this).val('');
+    }
+    }else{
         alert('extension no valida');
         $(this).val('');
     }
-    
 });
 
 
