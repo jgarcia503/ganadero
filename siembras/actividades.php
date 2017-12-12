@@ -59,6 +59,22 @@ $html_act.="</select>";
 <div class="small-10 columns"  >
     <div id="mensaje"></div>
     <h2>actividades</h2>
+    <a data-dropdown="drop1" aria-controls="drop1" aria-expanded="false">tablones | </a>
+
+    <?php
+    $sql_tablon_uso_dia="select nombre,costo_uso_x_dia from tablones a where id::text in (
+select regexp_split_to_table(id_tablones,',')
+from proyecto_tablones b where id_proyecto =$proy_id
+)";
+    $res=$conex->query($sql_tablon_uso_dia);
+    $tablita='<ul id="drop1" class="small f-dropdown" data-dropdown-content aria-hidden="true" tabindex="-1">';           
+    $tablita.='  <li><a href="#"><strong>Nombre</strong>---<strong>Costo uso por dia</strong></a></li>';           
+            while($fila=$res->fetch()){
+                $tablita.= '<li><a href="#">'. $fila[nombre].'--- $'.number_format($fila[costo_uso_x_dia],2).'</a></li>';                
+            }
+                $tablita.='</ul>';
+            echo $tablita;
+    ?>
     <a href="" class="actividades">actividades</a>
                        <form data-abide='ajax' id='actividades'>
                             <table id="tblAppendGrid">
