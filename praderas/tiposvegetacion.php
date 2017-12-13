@@ -30,8 +30,8 @@ while($fila=$res->fetch()){
           
                 <td>
                       <a href="#" class="ver" data-id="<?php  echo base64_encode( $fila[id]) ?>"><i class="fa fa-eye" aria-hidden="true"></i></a>
-                    <a href="Utipovegetacion.php?<?php  echo  base64_encode( $fila[id])?>"><i class="fa fa-pencil" aria-hidden="true"></i></a>                    
-                    <a href="Dtipovegetacion.php?<?php  echo  base64_encode('tipovegetacion='. $fila[id])?>" id="eliminar"><i class="fa fa-trash" aria-hidden="true"></i></a>
+<!--                    <a href="Utipovegetacion.php?<?php  echo  base64_encode( $fila[id])?>"><i class="fa fa-pencil" aria-hidden="true"></i></a>                    
+                    <a href="Dtipovegetacion.php?<?php  echo  base64_encode('tipovegetacion='. $fila[id])?>" id="eliminar"><i class="fa fa-trash" aria-hidden="true"></i></a>-->
                 </td>
             </tr>
             

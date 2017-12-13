@@ -7,7 +7,7 @@
 
 
 <?php
-$res=$conex->query("select a.nombre subtipo,b.nombre tipo,a.notas from vegetaciones a inner join tipo_vegetacion b on b.id::varchar=a.id_tipo_cultivo");
+$res=$conex->query("select a.id,a.nombre subtipo,b.nombre tipo,a.notas from vegetaciones a inner join tipo_vegetacion b on b.id::varchar=a.id_tipo_cultivo");
 ?>
 
 <table class="table" data-filtering='true' data-paging="true">
@@ -34,8 +34,8 @@ while($fila=$res->fetch()){
  
                 <td>
                      <a href="#" class="ver" data-id="<?php  echo base64_encode( $fila[id]) ?>"><i class="fa fa-eye" aria-hidden="true"></i></a>
-                    <a href="Uvegetacion.php?<?php  echo  base64_encode( $fila[id])?>"><i class="fa fa-pencil" aria-hidden="true"></i></a>                    
-                    <a href="Dvegetacion.php?<?php  echo  base64_encode('vegetacion='. $fila[id])?>" id="eliminar"><i class="fa fa-trash" aria-hidden="true"></i></a>
+<!--                    <a href="Uvegetacion.php?<?php  echo  base64_encode( $fila[id])?>"><i class="fa fa-pencil" aria-hidden="true"></i></a>                    
+                    <a href="Dvegetacion.php?<?php  echo  base64_encode('vegetacion='. $fila[id])?>" id="eliminar"><i class="fa fa-trash" aria-hidden="true"></i></a>-->
                 </td>
             </tr>
             

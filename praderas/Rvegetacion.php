@@ -10,7 +10,7 @@ $plantilla='<input type="text" value="{}" readonly>';
 $datos='';
 
 foreach ($animal as $key=>$valor){
-    if($key!='id'){
+    if($key!='id' and $key!='id_tipo_cultivo'){
             if($valor==null){
                 $datos.="$key ".preg_replace('/{}/', '', $plantilla);
             }else{
