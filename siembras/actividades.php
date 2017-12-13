@@ -131,7 +131,7 @@ from proyecto_tablones b where id_proyecto =$proy_id
                              $($('#tblAppendGrid').appendGrid('getCellCtrl', 'costo', rowIndex)).attr({'readonly':false,'required':true});
                              $($('#tblAppendGrid').appendGrid('getCellCtrl', 'producto', rowIndex)).attr({'disabled':true,'required':false});
                              $($('#tblAppendGrid').appendGrid('getCellCtrl', 'unidad', rowIndex)).attr({'disabled':true,'required':false});
-                             $($('#tblAppendGrid').appendGrid('getCellCtrl', 'subtotal', rowIndex)).attr({'readonly':false,'required':true}).val('');
+                             $($('#tblAppendGrid').appendGrid('getCellCtrl', 'subtotal', rowIndex)).attr({'readonly':true,'required':true}).val('');
                              $('#tblAppendGrid').appendGrid('hideColumn', 'activo');
                              $('#tblAppendGrid').appendGrid('showColumn', 'costo');
                              $('#tblAppendGrid').appendGrid('showColumn', 'dias_cant');
@@ -147,7 +147,11 @@ from proyecto_tablones b where id_proyecto =$proy_id
                      }                     
                  }
              },
-            { name: 'costo', display: 'mano de obra', type: 'text', ctrlAttr: { maxlength: 4,required:true }, ctrlCss: { width: '80px'} },
+            { name: 'costo', display: 'precio x hora', type: 'text', ctrlAttr: { maxlength: 4,required:true }, ctrlCss: { width: '80px'},
+                onChange:function(evt,rowIndex){
+                                            $($('#tblAppendGrid').appendGrid('getCellCtrl', 'dias_cant', rowIndex)).trigger('change');
+                }
+            },
             { name: 'producto', display: 'producto', type: 'select',ctrlOptions: <?php echo json_encode($inventario) ?> , ctrlAttr: { maxlength: 4,required:true }, ctrlCss: { width: '100px'},
                     onChange:function(evt,rowIndex){
                         $($('#tblAppendGrid').appendGrid('getCellCtrl', 'dias_cant', rowIndex)).trigger('change');
@@ -174,7 +178,7 @@ from proyecto_tablones b where id_proyecto =$proy_id
                         $($('#tblAppendGrid').appendGrid('getCellCtrl', 'dias_cant', rowIndex)).trigger('change');
                     }
             },
-            { name: 'dias_cant', display: 'dias/cant.', type: 'text', ctrlAttr: { maxlength: 10,required:true }, ctrlCss: { width: '60px'} ,
+            { name: 'dias_cant', display: 'horas/cant.', type: 'text', ctrlAttr: { maxlength: 10,required:true }, ctrlCss: { width: '60px'} ,
                 onChange:function(evt,rowIndex){
                     tipo=$($('#tblAppendGrid').appendGrid('getCellCtrl', 'tipo', rowIndex)).val();
                     if(tipo==='material'){
@@ -199,8 +203,13 @@ from proyecto_tablones b where id_proyecto =$proy_id
 
                                             });
                                         }
+                   }else{
+                       costo_hora=cant=parseFloat( $($('#tblAppendGrid').appendGrid('getCellCtrl', 'costo', rowIndex)).val());
+                       cant=parseFloat( $($('#tblAppendGrid').appendGrid('getCellCtrl', 'dias_cant', rowIndex)).val());
+                       
+                                                                               $($('#tblAppendGrid').appendGrid('getCellCtrl', 'subtotal', rowIndex)).val(costo_hora*cant);
                    }
-                                //alert($($('#tblAppendGrid').appendGrid('getCellCtrl', 'dias_cant', rowIndex)).val());
+                                
                 }
             },            
             { name: 'subtotal', display: 'subtotal', type: 'text', ctrlAttr: { maxlength: 4,required:true }, ctrlCss: { width: '60px'} },            
