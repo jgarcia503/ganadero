@@ -93,7 +93,7 @@
                     <!--<li><a href="<?php echo  'http://'.$_SERVER[HTTP_HOST].'/ganadero' ?>/praderas/clases.php">clase</a></li><li class="divider"></li>-->
                     <!--<li><a href="<?php echo  'http://'.$_SERVER[HTTP_HOST].'/ganadero' ?>/praderas/controlpotreros.php">control de potreros</a></li>  <li class="divider"></li>-->
                     <li><a href="<?php echo  'http://'.$_SERVER[HTTP_HOST].'/ganadero' ?>/praderas/tipocontrolpotrero.php">actividades</a></li>  <li class="divider"></li>
-                    <!--<li><a href="<?php echo  'http://'.$_SERVER[HTTP_HOST].'/ganadero' ?>/praderas/vegetacion.php">vegetacion</a></li>  <li class="divider"></li>-->
+                    <li><a href="<?php echo  'http://'.$_SERVER[HTTP_HOST].'/ganadero' ?>/praderas/vegetacion.php">vegetacion</a></li>  <li class="divider"></li>
                     <li><a href="<?php echo  'http://'.$_SERVER[HTTP_HOST].'/ganadero' ?>/praderas/tiposvegetacion.php">tipos de cultivo</a></li>
                 </ul>
             </div>

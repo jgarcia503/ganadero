@@ -24,7 +24,7 @@ if($_POST){
 <div class="small-10 columns">
     <?php echo $mensaje?>
        <h2>crear vegetacion</h2>
-       <a href="javascript:history.back(1)" class="regresar">regresar</a>
+       <a href="vegetacion.php" class="regresar">regresar</a>
 <form action="" method="post" data-abide>
     <div class="row">
         <div class="small-12 columns">
@@ -33,7 +33,7 @@ if($_POST){
         <option value="">seleccione</option>
         <?php
                 while($fila=$tipo_vegetacion->fetch()){
-                   echo  "<option value='$fila[nombre]'>$fila[nombre]</option>";
+                   echo  "<option value='$fila[id]'>$fila[nombre]</option>";
                 }
                       ?>
     </select>

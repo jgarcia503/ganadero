@@ -7,14 +7,14 @@
 
 
 <?php
-$res=$conex->query("select * from vegetaciones");
+$res=$conex->query("select a.nombre subtipo,b.nombre tipo,a.notas from vegetaciones a inner join tipo_vegetacion b on b.id::varchar=a.id_tipo_cultivo");
 ?>
 
 <table class="table" data-filtering='true' data-paging="true">
 	<thead>
 		<tr>
 			<th>tipo</th>
-			<th>nombre</th>
+			<th>subtipo</th>
 			<th>notas</th>
 		
                         <th data-filterable="false"></th>
@@ -28,7 +28,7 @@ while($fila=$res->fetch()){
     ?>
             <tr>
                 <td><?php  echo $fila[tipo]?></td>
-                <td><?php  echo $fila[nombre]?></td>
+                <td><?php  echo $fila[subtipo]?></td>
                 <td><?php  echo $fila[notas]?></td>
                 
  

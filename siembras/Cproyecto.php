@@ -14,17 +14,30 @@ $bodegas=$conex->query("select distinct codigo,nombre from bodega a
     <form data-abide='ajax' id='proyecto'>
         <div class="row">
             <input type="hidden" value="false" name="cerrado">
-             <div class="small-6 columns">
+             <div class="small-4 columns">
       
                      <label for="">nombre </label>
                      <input type="text" name="nombre" id="nombre"  required="">
                      <small class="error">requerido</small>
              </div>
-            <div class="small-6 columns">
+            <div class="small-4 columns">
                   
                 <label for="">fecha inicio</label>
                 <input type="text" name="fecha_inicio" class="fecha" id="fecha_inicio" required="">
                 <small class="error">requerido</small>
+                </div>
+                    <div class="small-4 columns">    
+                    <label>bodega
+                        <select name="bodega" required="">
+                            <option value="">seleccione</option>
+                            <?php
+                                                                                                    while($fila=$bodegas->fetch()){
+                                                                                                        echo "<option value='$fila[codigo]'>$fila[nombre]</option>";
+                                                                                                    }
+                                                                                    ?>
+                        </select>
+                        <small class="error">requerido</small>
+                    </label>
                 </div>
             </div>
         <div class="row">
@@ -54,7 +67,7 @@ $bodegas=$conex->query("select distinct codigo,nombre from bodega a
          <div class="row">
         <div class="small-6 columns">    
             <label>tipo cultivo
-                <select name="tipo" required="">
+                <select name="tipo" required="" id="tipo">
                     <option value="">seleccione</option>
                               <?php
                                                         while($fila=$tipos_cultivo->fetch()){
@@ -66,17 +79,11 @@ $bodegas=$conex->query("select distinct codigo,nombre from bodega a
             <small class="error">requerido</small>
         </div>
                 <div class="small-6 columns">    
-                    <label>bodega
-                        <select name="bodega" required="">
-                            <option value="">seleccione</option>
-                            <?php
-                                                                                                    while($fila=$bodegas->fetch()){
-                                                                                                        echo "<option value='$fila[codigo]'>$fila[nombre]</option>";
-                                                                                                    }
-                                                                                    ?>
-                        </select>
+                    <label>seleccione el subtipo
+                        <select id="subtipo"  name="subtipo" required="">                         
+                    </select>
                         <small class="error">requerido</small>
-                    </label>
+                 </label>
                 </div>
         
             </div>
@@ -126,8 +133,9 @@ $bodegas=$conex->query("select distinct codigo,nombre from bodega a
         
                 function setear_vals(){
                     $(".fecha").attr('readonly', true).datepicker({dateFormat: "dd-mm-yy", changeYear: true,  changeMonth: true});
-                    $('#tablon').multipleSelect();
+                    $('#tablon').multipleSelect();                    
                     $('#potrero').on('change',tablones);
+                    $('#tipo').on('change',subtipos);
          
                 }
                 
@@ -150,6 +158,23 @@ $bodegas=$conex->query("select distinct codigo,nombre from bodega a
                                                  $('#tablon').multipleSelect('refresh');
                                  }
                                       
+                }
+                
+                function subtipos(){
+                    var tipo_id=$(this).val();
+                    if(tipo_id!=='seleccione'){
+                             $.ajax({
+                                                                    url:'ajax/subtipos_cultivo.php',
+                                                                    method:'get',
+                                                                    type:'json',
+                                                                    data:{tipo_id:tipo_id},
+                                                                        success: function (datos) {
+                                                                              $('#subtipo').html(datos);
+                                                                        }
+                                                        });
+                                  }else{
+                                        $('#subtipo').html('');
+                                 }
                 }
                 
 </script>
