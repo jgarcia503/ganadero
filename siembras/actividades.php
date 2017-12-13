@@ -59,7 +59,11 @@ $html_act.="</select>";
 <div class="small-10 columns"  >
     <div id="mensaje"></div>
     <h2>actividades</h2>
-    <a data-dropdown="drop1" aria-controls="drop1" aria-expanded="false">tablones | </a>
+    <?php 
+    $cuenta_tablones="select count(*) from  (select regexp_split_to_table(id_tablones,',') from proyecto_tablones where id_proyecto=$proy_id) as d";
+    $res_cuenta_tablones=$conex->query($cuenta_tablones)->fetchColumn();
+    ?>
+    <a data-dropdown="drop1" aria-controls="drop1" aria-expanded="false">tablones <?php echo $res_cuenta_tablones ?> | </a>
 
     <?php
     $sql_tablon_uso_dia="select nombre,costo_uso_x_dia from tablones a where id::text in (
@@ -74,8 +78,11 @@ from proyecto_tablones b where id_proyecto =$proy_id
             }
                 $tablita.='</ul>';
             echo $tablita;
+            
+             $cuenta_actividades="select count(*) from proyectos_lns where  enc_id='$proy_id'";
+             $n_act=$conex->query($cuenta_actividades)->fetchColumn();
     ?>
-    <a href="" class="actividades">actividades</a>
+    <a href="" class="actividades">actividades <?php echo $n_act ?></a>
                        <form data-abide='ajax' id='actividades'>
                             <table id="tblAppendGrid">
                             </table>    
