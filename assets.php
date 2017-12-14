@@ -108,7 +108,8 @@
     #compras,
     #graficos,
     #activo,
-    #alertas
+    #alertas,
+    #ventas
     {
         background-color: #3A4344;
     }

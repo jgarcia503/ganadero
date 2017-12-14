@@ -49,7 +49,8 @@
             <div id="produccion" class="content">
                 <ul class="side-nav">
                     <li><a href="<?php echo  'http://'.$_SERVER[HTTP_HOST].'/ganadero' ?>/produccion/panimales.php">peso de animales</a></li>  <li class="divider"></li>
-                    <li><a href="<?php echo  'http://'.$_SERVER[HTTP_HOST].'/ganadero' ?>/produccion/pleche.php">produccion de leche</a></li>
+                    <li><a href="<?php echo  'http://'.$_SERVER[HTTP_HOST].'/ganadero' ?>/produccion/pleche.php">produccion de leche</a></li><li class="divider"></li>
+                    <li><a href="<?php echo  'http://'.$_SERVER[HTTP_HOST].'/ganadero' ?>/produccion/analisis.php">analisis de leche</a></li>
                 </ul>
             </div>
         </li>
@@ -125,6 +126,14 @@
                     <li><a href="<?php echo  'http://'.$_SERVER[HTTP_HOST].'/ganadero' ?>/compras/requisiciones.php">requisiciones</a></li>  <li class="divider"></li>         
                     <li><a href="<?php echo  'http://'.$_SERVER[HTTP_HOST].'/ganadero' ?>/compras/motrequisiciones.php">motivos requesiciones</a></li>  <li class="divider"></li>         
                     <li><a href="<?php echo  'http://'.$_SERVER[HTTP_HOST].'/ganadero' ?>/compras/servicios.php">servicios</a></li>
+                </ul>                
+            </div>
+        </li>
+         <li class="accordion-navigation navegacion">
+            <a href="#ventas">ventas</a>
+            <div id="ventas" class="content">
+                <ul class="side-nav">
+                    <li><a href="<?php echo  'http://'.$_SERVER[HTTP_HOST].'/ganadero' ?>/ventas/ventas.php">ventas</a></li>
                 </ul>                
             </div>
         </li>
