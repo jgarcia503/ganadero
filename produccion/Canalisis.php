@@ -3,7 +3,7 @@ include '../plantilla.php';
 if($_POST){
     extract($_POST);
     $sql="insert into analisis_leche values(default,'$fecha','$cantidad','$recepcion','$grasa','$grasa_val','$proteina','$proteina_val','$rcs','$rcs_val',"
-            . "'$reductasa','$reductasa_val','$acidez','$acidez_val','$temperatura','$temperatura_val','$agua','$agua_val')";
+            . "'$reductasa','$reductasa_val','$acidez','$acidez_val','$temperatura_val','$temperatura','$agua','$agua_val')";
     
     $res=$conex->prepare($sql);
 if($res->execute()){
