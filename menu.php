@@ -175,6 +175,14 @@
                 </ul>
             </div>
         </li>
+             <li class="accordion-navigation navegacion">
+            <a href="#configuracion">configuracion</a>
+            <div id="configuracion" class="content">
+                <ul class="side-nav">                       
+                    <li><a href="<?php echo  'http://'.$_SERVER[HTTP_HOST].'/ganadero' ?>/configuracion/">configuracion</a></li>                    
+                </ul>
+            </div>
+        </li>
     </ul>
 </div>
     

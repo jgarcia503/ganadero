@@ -109,7 +109,8 @@
     #graficos,
     #activo,
     #alertas,
-    #ventas
+    #ventas,
+    #configuracion
     {
         background-color: #3A4344;
     }

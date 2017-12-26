@@ -21,7 +21,7 @@ $id=$_GET[id];
 $sql="with total as(select grasa_valor::float+proteina_valor::float
                                     +rcs_x_1000::float+reductasa_valor::float
                                     +temperatura_valor::float+agua_valor::float
-                                    +(0.37*cantidad_botellas::integer) total
+                                    +((select precio_leche::float from configuraciones)*cantidad_botellas::integer) total
                                         ,cantidad_botellas::integer
                                         from analisis_leche 
                             where id=$id)
