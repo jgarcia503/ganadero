@@ -28,7 +28,7 @@ while($fila=$res->fetch()){
     
     ?>
             <tr>
-                <td><?php  echo $fila[nombre]?></td>
+                <td><a href="#" class="lista" data-id="<?php echo $fila[id]?>"><?php  echo $fila[nombre]?></a></td>
                 <td><?php  echo $fila[extension]?></td>
                 <td><?php  echo $fila[latitud].','.$fila[longitud]?></td>
                 <td><?php  echo $fila[propiedad]?></td>
@@ -73,6 +73,20 @@ if(isset($_SESSION[error])){
         
         $.ajax({
             url:"Rpotreros.php?"+$(this).data('id'),
+            success:function (datos){                
+                   $('#mimodal span').html(datos);
+            }
+        });
+
+        $('#mimodal').foundation('reveal', 'open');
+
+    });
+    
+                        $(".table").on('click','a.lista',function(e){
+        e.preventDefault();
+        
+        $.ajax({
+            url:"ajax/lista_tablones.php?id="+$(this).data('id'),
             success:function (datos){                
                    $('#mimodal span').html(datos);
             }

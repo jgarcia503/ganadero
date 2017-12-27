@@ -43,7 +43,7 @@ $res=$conex->query("select * from potreros");
         </div>
          <div class="small-6 columns">
              <label for="">nombre</label>
-             <input type="text" name="nombre"  pattern="letters_and_spaces" readonly="">
+             <input type="text" name="nombre"  pattern="letters_and_spaces" >
              
         </div>
     </div>
@@ -97,7 +97,8 @@ $res=$conex->query("select * from potreros");
             data:{id_terreno:id_terreno},
             dataType:'json',
             success:function(data){
-                $('[name=nombre]').val($this.find('option:selected').html()+'-'+data['sigte']);
+                //$('[name=nombre]').val($this.find('option:selected').html()+'-'+data['sigte']);
+                $('[name=nombre]').val(aleatorio()+'-'+data['sigte']);
                 $('[name=extension]').attr('data-extension',data['dispo']);
                 $('[name=extension]').trigger('change');
             }
@@ -119,6 +120,17 @@ $('[name=extension]').on('change',function(){
         $(this).val('');
     }
 });
+
+function aleatorio() {
+  var text = "";
+  var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+
+  for (var i = 0; i < 10; i++)
+    text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+  return text;
+}
+
 
 
 </script>
