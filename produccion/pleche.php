@@ -15,7 +15,7 @@ $res=$conex->query("select * from pesos_leches order by fecha desc");
 		<tr>
 			<th>fecha</th>
 			<th>animal</th>                        
-			<th>peso (botellas)</th>                        
+			<th>botellas</th>                        
 			<th>hora</th>                        
                         <th data-filterable="false"></th>
 		</tr>

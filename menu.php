@@ -163,7 +163,7 @@
             <a href="#graficos">graficos</a>
             <div id="graficos" class="content">
                 <ul class="side-nav">                       
-                    <li><a href="<?php echo  'http://'.$_SERVER[HTTP_HOST].'/ganadero' ?>/graficos/">graficos</a></li>                    
+                    <li><a href="<?php echo  'http://'.$_SERVER[HTTP_HOST].'/ganadero' ?>/graficos/">produccion de leche</a></li>                    
                 </ul>
             </div>
         </li>

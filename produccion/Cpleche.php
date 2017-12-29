@@ -61,7 +61,7 @@ else{
     </select>
         </div>
         <div class="columns small-6">
-            <label for="">peso (botellas)</label>
+            <label for="">botellas</label>
              <input type="text" name="peso" required="">
                      
         </div>
