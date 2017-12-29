@@ -9,7 +9,7 @@ $datos=$conex->query($sql);
 
 $tabla="
 <h1>registro sanitario de $_GET[animal]</h1>    
-<table>
+<table id='tabla_modal' class='table' data-filtering='true' data-paging='true'>
   <thead>
     <tr>
       <th width='100px' >fecha</th>     

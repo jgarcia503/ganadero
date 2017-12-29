@@ -82,6 +82,7 @@ if(isset($_SESSION[error])){
             success:function (datos){
                 
                    $('#mimodal span').html(datos);
+                   $('#tabla_modal').footable();
             }
         });
 

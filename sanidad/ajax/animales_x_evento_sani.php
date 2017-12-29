@@ -10,7 +10,7 @@ $res=$conex->query($sql);
 
 $tabla="
     <h4>animales con el evento $res2</h4>
-<table>
+<table id='tabla_modal' class='table' data-filtering='true' data-paging='true'>
   <thead>
     <tr>
       <th width='100px' >fecha</th>     

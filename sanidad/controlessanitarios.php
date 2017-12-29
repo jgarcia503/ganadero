@@ -76,6 +76,7 @@ while($fila=$res->fetch()){
                 data:{animal:animal},
                 success:function(datos){
                     $('#mimodal span').html(datos);
+                    $('#tabla_modal').footable()
                     $('#mimodal').foundation('reveal', 'open');
                 }
             });

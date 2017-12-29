@@ -3,9 +3,9 @@ include '../plantilla.php';
 $res=$conex->query("select a.*,b.nombre origen,c.nombre destino 
 from traslados_enc a 
 inner join bodega b
-on b.codigo=a.bodega_origen
+on b.codigo=a.bodega_origen::integer
 inner join bodega c 
-on c.codigo=a.bodega_destino
+on c.codigo=a.bodega_destino::integer
 order by fecha desc");
 
 ?>
