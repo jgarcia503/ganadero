@@ -2,10 +2,22 @@
 include '../plantilla.php';
 if($_POST){
     extract($_POST);
+    if($acidez_val===''){
+        $acidez_val=0.0000;
+    }
+    if($temperatura_val===''){
+        $temperatura_val=0.0000;
+    }
+    if($agua_val===''){
+                $agua_val=0.0000;
+    }
+    if($reductasa_val===''){
+        $reductasa_val=0.0000;
+    }
     $sql="insert into analisis_leche values(default,'$fecha','$cantidad','$recepcion','$grasa','$grasa_val','$proteina','$proteina_val','$rcs','$rcs_val',"
-            . "'$reductasa','$reductasa_val','$acidez','$acidez_val','$temperatura_val','$temperatura','$agua','$agua_val')";
-    
+            . "'$reductasa','$reductasa_val','$acidez',$acidez_val,$temperatura_val,'$temperatura','$agua',$agua_val)";    
     $res=$conex->prepare($sql);
+    error_log($sql);
 if($res->execute()){
     $mensaje=  '<div data-alert class="alert-box success round">
                     <h5 style="color:white">registro creado exitosamente</h5>
@@ -50,7 +62,7 @@ else{
                     </label>
                     
                     <label>valor
-                    <input type="text" name="grasa_val">
+                        <input type="text" name="grasa_val" readonly="">
                     </label>
                 </fieldset>
             </div>
@@ -62,7 +74,7 @@ else{
                     </label>
                     
                     <label>valor
-                    <input type="text" name="proteina_val">
+                        <input type="text" name="proteina_val" readonly="">
                     </label>
                 </fieldset>
             </div>
@@ -74,7 +86,7 @@ else{
                     </label>
                     
                     <label>valor
-                    <input type="text" name="rcs_val">
+                        <input type="text" name="rcs_val" readonly="">
                     </label>
                 </fieldset>
             </div>
@@ -136,4 +148,51 @@ else{
 <script>
 $("[name=fecha]").datepicker({ dateFormat: "dd-mm-yy"    ,  changeMonth: true, yearRange: "2000:2050",
       changeYear: true});
+  
+  $('[name=grasa]').on('change',function(){
+        base_grasa=3.5;//es porcentaje  abajo castigo, arriba premio
+  grasa_val=parseFloat($('[name=grasa]').val());
+  valor_x_botella=(grasa_val-base_grasa)/100;
+  num_botellas=parseInt($('[name=cantidad]').val());
+  total=num_botellas*valor_x_botella;
+  $("[name=grasa_val]").val(total.toFixed(4));
+  });
+  
+    $('[name=proteina]').on('change',function(){
+    valores=[3.11,3.12,3.13,3.14,3.15];    
+  proteina_val=parseFloat($('[name=proteina]').val());
+  if(_.indexOf(valores,proteina_val)===-1){
+      //castigo
+      if(proteina_val<3.11){
+          valor_x_botella=(3.11-proteina_val)/100;
+          num_botellas=parseInt($('[name=cantidad]').val());
+            total=num_botellas*valor_x_botella;
+            $("[name=proteina_val]").val(Math.abs(total.toFixed(4)));
+      }
+      //premio
+      if(proteina_val>3.15){
+          valor_x_botella=(3.15-proteina_val)/100;
+          num_botellas=parseInt($('[name=cantidad]').val());
+            total=num_botellas*valor_x_botella;
+            $("[name=proteina_val]").val(Math.abs(total.toFixed(4)));
+      }
+  }else{
+                valor_x_botella=(valores[_.indexOf(valores,proteina_val)]-proteina_val)/100;
+          num_botellas=parseInt($('[name=cantidad]').val());
+            total=num_botellas*valor_x_botella;
+            $("[name=proteina_val]").val(Math.abs(total.toFixed(4)));
+  }
+  
+  
+  });
+  
+    $('[name=rcs]').on('change',function(){
+        base_rcs=600;//x1000 abajo premio,arriba castigo
+  rcs_val=parseFloat($('[name=rcs]').val());
+  valor_x_botella=((rcs_val-base_rcs)/1000)/20;//se divide entre 20 porque cada 20 es un punto
+  num_botellas=parseInt($('[name=cantidad]').val());
+  total=num_botellas*valor_x_botella;
+  $("[name=rcs_val]").val(Math.abs(total.toFixed(4)));
+  });
+  
 </script>
