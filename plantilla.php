@@ -35,6 +35,7 @@ else{
 }
 
 ?>
+    </div>
 <script>
 $(document).on('ready',function(){
             $(document).foundation({abide : {
