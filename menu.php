@@ -245,6 +245,7 @@
                             <li><a href="<?php echo  'http://'.$_SERVER[HTTP_HOST].'/ganadero' ?>/sanidad/controlessanitarios.php">controles sanitarios</a></li>  <li class="divider"></li>
                             <li><a href='<?php echo  'http://'.$_SERVER[HTTP_HOST].'/ganadero' ?>/sanidad/eventossanitarios.php'>eventos sanitarios</a></li>   <li class="divider"></li>
                             <li><a href='<?php echo  'http://'.$_SERVER[HTTP_HOST].'/ganadero' ?>/sanidad/cmt/cmt.php'>pruebas CMT</a></li>   
+                            <li><a href='<?php echo  'http://'.$_SERVER[HTTP_HOST].'/ganadero' ?>/sanidad/visita_medica/'>visitas medica</a></li>   
                         </ul>
                     </li>
                                <li class="has-dropdown not-click"><a href="#">nutricion</a>
