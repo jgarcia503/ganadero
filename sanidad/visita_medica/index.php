@@ -8,13 +8,14 @@
 
 
 <?php
-$res=$conex->query("select * from eventos_sanitarios");
+$res=$conex->query("select * from visita_medica");
 ?>
 
 <table class="table" data-filtering='true' data-paging="true">
 	<thead>
 		<tr>
-			<th>nombre</th>			
+			<th>fecha</th>			
+			<th>tipo</th>			
                         <th data-filterable="false">acciones</th>
 		</tr>
 	</thead>
@@ -25,11 +26,12 @@ while($fila=$res->fetch()){
     
     ?>
             <tr>
-                <td><?php  echo $fila[nombre]?></td>
+                <td><?php  echo $fila[fecha]?></td>
+                <td><?php  echo $fila[tipo_visita]?></td>
     
                 <td>
-                    <a href="#" class="ver" data-id="<?php  echo base64_encode( $fila[id]) ?>"><i class="fa fa-eye" aria-hidden="true"></i></a>
-                    <a href="#" class="animales" data-id="<?php  echo  $fila[id]?>"><i class="fa fa-venus-double" aria-hidden="true"></i></a>
+                    <a href="#" class="ver" data-id="<?php  echo $fila[id] ?>"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                    <!--<a href="#" class="animales" data-id="<?php  echo  $fila[id]?>"><i class="fa fa-venus-double" aria-hidden="true"></i></a>-->
                     <!--<a href="Ueventosanitario.php?<?php  echo  base64_encode( $fila[id])?>"><i class="fa fa-pencil" aria-hidden="true"></i></a>-->                    
                     <!--<a href="Deventosanitario.php?<?php  echo  base64_encode('eventosanitario='. $fila[id])?>" id="eliminar"><i class="fa fa-trash" aria-hidden="true"></i></a>-->
                 </td>
@@ -62,9 +64,9 @@ if(isset($_SESSION[error])){
         e.preventDefault();
         
         $.ajax({
-            url:"Reventossanitarios.php?"+$(this).data('id'),
+            url:"Rvisitas.php?id="+$(this).data('id'),
             success:function (datos){
-                console.log(datos);
+                
                    $('#mimodal span').html(datos);
             }
         });
