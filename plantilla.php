@@ -57,3 +57,4 @@ $(document).on('ready',function(){
 unset($_SESSION['inventario']);
 unset($_SESSION['traslado']);
 unset($_SESSION['codigo_silos']);
+unset($_SESSION['lineas_fact']);

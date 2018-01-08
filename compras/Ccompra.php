@@ -449,12 +449,16 @@ moveDown: true
   });
   
   $('#ref').on('change',function (){
-      unidad=$(this).find('option:selected').data('unidad');
+      unidad=$(this).find('option:selected').data('unidad');     
       kg="<option value=''>seleccione</option>         <option value='qq'>quintal</option>        <option value='g'>gramos</option>        <option value='kg'>kilogramos</option>         <option value='oz'>onzas</option>         <option value='lb'>libras</option>";
       lt="<option value=''>seleccione</option>        <option value='lt'>litros</option>        <option value='ml'>mililitros</option>";
-      if(unidad!='kg'){
+      if(unidad==='kg'){
       $('#unidad').html(lt);
-  }else{
+  }
+  if(unidad==='unidad'){
+            $('#unidad').html('<option value="unidad">unidad</option>');
+  }
+  else{
             $('#unidad').html(kg);
   }
   });

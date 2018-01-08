@@ -76,6 +76,7 @@ $proveedores=$conex->query("select * from contactos where tipo='proveedor'");
                   <option value="">seleccione</option>
                   <option value="kg">kilogramos</option>
                   <option value="lt">litros</option>
+                  <option value="unidad">unidad</option>
               </select>
               <small class="error">elija opcion</small>
         </div>
