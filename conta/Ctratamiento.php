@@ -1,6 +1,6 @@
 <?php   include '../plantilla.php'; 
 $animales=$conex->query("select * from animales");
-$productos=$conex->query("select * from productos where bodega='farmacia'");
+$productos=$conex->query("select a.referencia,a.nombre from existencias b inner join productos a on a.referencia=b.codigo_producto where b.codigo_bodega ='2'");
 $productos_farm[]='seleccione';
     $inventario[]='seleccione';
 while($fila=$productos->fetch()){
@@ -109,9 +109,9 @@ var productos_added=new Array();
         
         $($('#tblAppendGrid').appendGrid('getCellCtrl', 'producto', addedRowIndex)).after('<small class="error">requerido</small>').find('option:first').val('');
         $($('#tblAppendGrid').appendGrid('getCellCtrl', 'cantidad', addedRowIndex)).after('<small class="error">requerido</small>');
-        $($('#tblAppendGrid').appendGrid('getCellCtrl', 'desde', addedRowIndex)).after('<small class="error">requerido</small>').    $("[name=fecha]").datepicker({ dateFormat: "dd-mm-yy"    ,  changeMonth: true, yearRange: "2000:2050",
+        $($('#tblAppendGrid').appendGrid('getCellCtrl', 'desde', addedRowIndex)).after('<small class="error">requerido</small>').datepicker({ dateFormat: "dd-mm-yy"    ,  changeMonth: true, yearRange: "2000:2050",
       changeYear: true});
-        $($('#tblAppendGrid').appendGrid('getCellCtrl', 'hasta', addedRowIndex)).after('<small class="error">requerido</small>').    $("[name=fecha]").datepicker({ dateFormat: "dd-mm-yy"    ,  changeMonth: true, yearRange: "2000:2050",
+        $($('#tblAppendGrid').appendGrid('getCellCtrl', 'hasta', addedRowIndex)).after('<small class="error">requerido</small>').datepicker({ dateFormat: "dd-mm-yy"    ,  changeMonth: true, yearRange: "2000:2050",
       changeYear: true});
         $($('#tblAppendGrid').appendGrid('getCellCtrl', 'medida', addedRowIndex)).after('<small class="error">requerido</small>').find('option:first').val('');        
         $($('#tblAppendGrid').appendGrid('getCellCtrl', 'frecuencia', addedRowIndex)).after('<small class="error">requerido</small>').find('option:first').val('');        
@@ -163,7 +163,7 @@ var productos_added=new Array();
     <?php
     $partes=  explode(' ', $_SESSION[fecha]);
     ?>
-        $("[name=fecha]").attr('readonly',true).    $("[name=fecha]").datepicker({ dateFormat: "dd-mm-yy"    ,  changeMonth: true, yearRange: "2000:2050",
+        $("[name=fecha]").attr('readonly',true).datepicker({ dateFormat: "dd-mm-yy"    ,  changeMonth: true, yearRange: "2000:2050",
       changeYear: true});
           
 
