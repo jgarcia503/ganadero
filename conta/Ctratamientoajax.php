@@ -19,11 +19,11 @@ if($insert->execute()){
     $ultimo_id=$insert->fetch()[id];
     foreach ($lineas as $linea){
                 $nombre=$linea[producto];
-                $cantidad=$linea[cantidad];
+                $cantidad=$linea[cant];
                 $medida=$linea[medida];
                 $desde=$linea[desde];
                 $hasta=$linea[hasta];
-                $frecuencia=$linea[frecuencia];
+                $frecuencia=$linea[veces];
                                             
                 $valores.="(default,'$nombre','$cantidad','$desde','$hasta','$medida','$frecuencia',$ultimo_id),";         
                 }
