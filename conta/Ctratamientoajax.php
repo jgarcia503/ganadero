@@ -24,11 +24,14 @@ if($insert->execute()){
                 $desde=$linea[desde];
                 $hasta=$linea[hasta];
                 $frecuencia=$linea[veces];
-                                            
+                                            $f1 = new DateTime($desde);
+                                            $f2  = new DateTime($hasta);
+                                            $dias = $f2->diff($f1)->days;
+   
                 $valores.="(default,'$nombre','$cantidad','$desde','$hasta','$medida','$frecuencia',$ultimo_id),";      
-                $decrease_inv[$nombre]=($cantidad*$frecuencia);                
+                $decrease_inv[$nombre]=($cantidad*$frecuencia*$dias);                
                 }
-                
+
                              
                $sql2.=trim($valores,',');
                $sql2.=' returning id_producto,cantidad';

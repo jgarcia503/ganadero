@@ -17,6 +17,7 @@
 <script src="https://code.highcharts.com/modules/exporting.js"></script>
 <script src="<?php echo  'http://'.$_SERVER[HTTP_HOST].'/ganadero' ?>/assets/select2/select2.min.js"></script>
 <script src="<?php echo  'http://'.$_SERVER[HTTP_HOST].'/ganadero' ?>/assets/numeral/numeral.min.js"></script>
+<script src="<?php echo  'http://'.$_SERVER[HTTP_HOST].'/ganadero' ?>/assets/momentjs/moment.js"></script>
 
 <link rel="stylesheet" href="<?php echo  'http://'.$_SERVER[HTTP_HOST].'/ganadero' ?>/assets/appendgrid/jquery.appendGrid-1.6.3.min.css">
 <link rel="stylesheet" href="<?php echo  'http://'.$_SERVER[HTTP_HOST].'/ganadero' ?>/assets/jquery-ui/jquery-ui.min.css">

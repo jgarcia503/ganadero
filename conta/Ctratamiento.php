@@ -247,8 +247,11 @@ $('#add').on('click',function(e){
         alert('complete todos los campos');
         return;
     }
-    
-    if(disponible>=(cant*veces)){
+    f1=moment(desde,'DD-MM-YYYY');
+f2=moment(hasta,'DD-MM-YYYY');
+dias=parseInt(f2.diff(f1,'days'));
+
+    if(disponible>=(cant*veces*dias)){
             if(_.indexOf(productos, producto)===-1){
                     productos.push(producto);
                          $('#tblAppendGrid').appendGrid('appendRow', [ 
