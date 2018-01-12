@@ -452,18 +452,32 @@ moveDown: true
       unidad=$(this).find('option:selected').data('unidad');           
       kg="<option value=''>seleccione</option>         <option value='qq'>quintal</option>        <option value='g'>gramos</option>        <option value='kg'>kilogramos</option>         <option value='oz'>onzas</option>         <option value='lb'>libras</option>";
       lt="<option value=''>seleccione</option>        <option value='lt'>litros</option>        <option value='ml'>mililitros</option>";
-      if(unidad==='kg'){
-      $('#unidad').html(kg);
-  }
-  if(unidad==='unidad'){
-            $('#unidad').html('<option value="unidad">unidad</option>');
-  }
-  if(unidad==='cc'){
-            $('#unidad').html('<option value="cc">cc</option>');
-  }
-  else{
-            $('#unidad').html(lt);
-  }
+      switch(unidad){
+          case 'kg':
+              $('#unidad').html(kg);
+              break;
+          case 'unidad':
+              $('#unidad').html('<option value="unidad">unidad</option>');
+              break;
+          case 'cc':
+               $('#unidad').html('<option value="cc">cc</option>');
+              break;
+          case 'lt':
+               $('#unidad').html(lt);
+              break;
+      }
+//      if(unidad==='kg'){
+//      $('#unidad').html(kg);
+//  }
+//  if(unidad==='unidad'){
+//            $('#unidad').html('<option value="unidad">unidad</option>');
+//  }
+//  if(unidad==='cc'){
+//            $('#unidad').html('<option value="cc">cc</option>');
+//  }
+//  else{
+//            $('#unidad').html(lt);
+//  }
   });
   
   $('[name=tipo_doc]').on('change',function(){

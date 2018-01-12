@@ -22,7 +22,7 @@ function convertir($unidad,$cantidad){
     #de volumen
     $conversiones['ml']=0.001;
     $conversiones['lt']=1;
-    if(in_array($unidad, $conversiones)){
+    if(array_key_exists($unidad, $conversiones)){
     $resultado=$conversiones[$unidad]*floatval($cantidad);
     
     return $resultado;    

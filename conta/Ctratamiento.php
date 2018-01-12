@@ -1,6 +1,6 @@
 <?php   include '../plantilla.php'; 
 $animales=$conex->query("select * from animales");
-$productos=$conex->query("select a.referencia,a.nombre from existencias b inner join productos a on a.referencia=b.codigo_producto where b.codigo_bodega ='2'");
+$productos=$conex->query("select a.referencia,a.nombre,b.existencia from existencias b inner join productos a on a.referencia=b.codigo_producto where b.codigo_bodega ='2'");
 ?>
 
 
@@ -51,9 +51,9 @@ $productos=$conex->query("select a.referencia,a.nombre from existencias b inner 
                     <option value="">seleccione</option>
                     <?php
                     
-                    $productos=$conex->query("select a.referencia,a.nombre,a.unidad_standar from existencias b inner join productos a on a.referencia=b.codigo_producto where b.codigo_bodega ='2'");
+                    $productos=$conex->query("select a.referencia,a.nombre,b.existencia,a.unidad_standar from existencias b inner join productos a on a.referencia=b.codigo_producto where b.codigo_bodega ='2'");
                     while($fila=$productos->fetch()){
-                        echo "<option value='$fila[referencia]' data-unidad='$fila[unidad_standar]'>". $fila[referencia].'-'.$fila[nombre]."</option>";
+                        echo "<option value='$fila[referencia]' data-unidad='$fila[unidad_standar]' data-existencia='$fila[existencia]'>". $fila[referencia].'-'.$fila[nombre]."</option>";
 
                             }
                     ?>
@@ -234,6 +234,7 @@ $('#add').on('click',function(e){
     hasta=$('[name=hasta]').val();
     medida=$('[name=medida]').val();
     veces=$('[name=veces_x_dia]').val();
+    disponible=$('[name=producto]').find('option:selected').data('existencia');
     //limpiar
     $('[name=producto]').val('');
     $('[name=cant]').val('');
@@ -242,13 +243,21 @@ $('#add').on('click',function(e){
     $('[name=medida]').val('');
     $('[name=veces_x_dia]').val('')
     
-    if(_.indexOf(productos, producto)===-1){
-            productos.push(producto);
-                     $('#tblAppendGrid').appendGrid('appendRow', [ 
+    if(producto==='' || cant==='' || desde==='' || hasta==='' || medida==='' || veces===''){
+        alert('complete todos los campos');
+        return;
+    }
+    
+    if(disponible>=(cant*veces)){
+            if(_.indexOf(productos, producto)===-1){
+                    productos.push(producto);
+                         $('#tblAppendGrid').appendGrid('appendRow', [ 
                             { producto: producto, cant: cant, desde: desde,hasta:hasta,medida:medida,veces:veces}
                         ]);
         }    
-    
+    }else{
+        alert('cantidad insuficiente, hay '+disponible)
+    }
 });
     </script>
 

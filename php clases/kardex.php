@@ -187,6 +187,41 @@ class kardex{
             $prod[$referencia]=$disponible.'/'.$precio_prom;
             return $prod;
         }
+        
+           public function decrease_inventario_farmacia($array,$bodega_seleccionada=NULL) {               
+           $sql="select precio_promedio from productos where referencia ='$GLOBALS[nombre]'";
+            foreach ($array as $key=>$value){
+                                   $costo_promedio=  $this->conex->query($sql)->fetchColumn();
+                    $consultas=[];
+                    $consultas[]="update productos set cantidad_total=(cantidad_total::numeric(1000,2)-$value) where referencia='$key'";
+                    $consultas[]="update existencias set existencia=(existencia::numeric(1000,2)-$value) where "
+                                                                . "codigo_producto='$key' and codigo_bodega='$bodega_seleccionada'";
+                    $consultas[]="insert into kardex values (default,'$bodega_seleccionada','$key',now(),'requisicion-tratamiento','$GLOBALS[ultimo_id]','$costo_promedio','','$value')";
+                    try{
+                                               
+                                                foreach ($consultas as $value) {
+                                                    
+                                                   if(!$this->conex->prepare($value)->execute())   {
+                                                       throw  new PDOException();
+                                                   }
+                                                    
+                                                   
+                                                }
+                                         
+                    }
+                    catch (PDOException $pe){
+                        $this->conex->rollBack();
+                                   echo '<div data-alert class="alert-box alert round">
+                 <h5 style="color:white">Error al insertar el registro</h5>
+                 <a href="#" class="close">&times;</a>
+                 </div>';
+                                   exit($pe->getMessage());
+                    }
+                                            
+            }#foreach    
+                                   
+                
+        }
 
 }
 

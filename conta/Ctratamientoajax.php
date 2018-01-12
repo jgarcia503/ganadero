@@ -13,7 +13,7 @@ $sql2="insert into tratamientos_lns values ";
 try{
 $conex->beginTransaction();
 $insert=$conex->prepare($sql);
-
+$decrease_inv=[];
 
 if($insert->execute()){
     $ultimo_id=$insert->fetch()[id];
@@ -25,17 +25,21 @@ if($insert->execute()){
                 $hasta=$linea[hasta];
                 $frecuencia=$linea[veces];
                                             
-                $valores.="(default,'$nombre','$cantidad','$desde','$hasta','$medida','$frecuencia',$ultimo_id),";         
+                $valores.="(default,'$nombre','$cantidad','$desde','$hasta','$medida','$frecuencia',$ultimo_id),";      
+                $decrease_inv[$nombre]=($cantidad*$frecuencia);                
                 }
                 
                              
                $sql2.=trim($valores,',');
-               $sql2.=' returning nombre,cantidad';
+               $sql2.=' returning id_producto,cantidad';
                $insert=$conex->prepare($sql2);
                
                if($insert->execute()){  
                    
-
+                                                include '../php clases/kardex.php';
+                                                $kardex=new kardex();
+                                                $kardex->decrease_inventario_farmacia($decrease_inv,2);
+                                                
                                                 $conex->commit();
                                                 echo '<div data-alert class="alert-box success round">
                     <h5 style="color:white">registro creado exitosamente</h5>
