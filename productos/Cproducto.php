@@ -19,7 +19,7 @@ if($_POST){
            $conex->beginTransaction();
  $insert =$conex->prepare("insert into productos"
          . " values(default,'$_POST[referencia]','$_POST[nombre]','$_POST[unidad_std]','0','$_POST[categoria]'"
-         . ",'$_POST[marca]','0',trim('$_POST[notas]'),$_POST[alerta_min])");
+         . ",'$_POST[marca]','0',trim('$_POST[notas]'),$_POST[alerta_min],'$_POST[id_activo]')");
  
 // $insert_farmacia=$conex->prepare("insert into $almacen values(default,'$_POST[referencia]','$_POST[fecha_ingreso]'"
 //         . ",'$_POST[fecha_vencimiento]','$_POST[proveedor]','$_POST[cantidad]','$_POST[cantidad]')");
@@ -65,12 +65,25 @@ $proveedores=$conex->query("select * from contactos where tipo='proveedor'");
              <input type="text" name="referencia" required="">
              <small class="error">escriba nombre</small>
         </div>
-        <div class="small-4 columns">
+        <div class="small-3 columns">
               <label for="">nombre</label>
               <input type="text" name="nombre" required="" pattern="letters_and_spaces">
               <small class="error">escriba nombre</small>
         </div>
-        <div class="small-4 columns">
+             <div class="small-3 columns">
+              <label for="">nombre activo</label>
+              <select name="id_activo">
+                  <option value="">seleccione</option>
+                  <?php
+                  $res=$conex->query('select * from compuestos');
+                  while($fila=$res->fetch()){
+                      echo "<option value='$fila[id]'>$fila[nombre]</option>";
+                  }
+                  ?>
+              </select>
+              
+        </div>
+        <div class="small-2 columns">
               <label for="">unidad estandard</label>
               <select name="unidad_std" required="">
                   <option value="">seleccione</option>
@@ -202,7 +215,7 @@ $proveedores=$conex->query("select * from contactos where tipo='proveedor'");
           data:{cod:$(this).val()},
           success:function(data){
               if(data!==''){
-                  alert('ya existe el documento');
+                  alert('ya existe el producto');
                   $('[name=referencia]').val('');
               }
           }

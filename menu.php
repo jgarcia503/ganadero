@@ -328,6 +328,7 @@
                     <li><a href="<?php echo  'http://'.$_SERVER[HTTP_HOST].'/ganadero' ?>/productos/categorias.php">categorias</a></li>  <li class="divider"></li>                    
                     <li><a href="<?php echo  'http://'.$_SERVER[HTTP_HOST].'/ganadero' ?>/productos/marcas.php">marcas</a></li>  <li class="divider"></li>                    
                     <li><a href="<?php echo  'http://'.$_SERVER[HTTP_HOST].'/ganadero' ?>/productos/unidades.php">unidades</a></li>  
+                    <li><a href="<?php echo  'http://'.$_SERVER[HTTP_HOST].'/ganadero' ?>/productos/compuestos.php">compuestos</a></li>  
                             
                         </ul>
                     </li>
