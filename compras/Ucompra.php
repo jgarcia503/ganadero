@@ -140,7 +140,7 @@ while($fila=$res->fetch()){
                                  </label>
         </div>
                 <div class="small-1 columns">
-                                  <label>precio
+                                  <label>precio unitario
                                  <input type="text" id='precio'>
                                  </label>
                             
