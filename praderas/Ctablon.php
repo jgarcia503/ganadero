@@ -21,7 +21,7 @@ $costo_uso_dia_tablon=$res/floatval($_POST[extension]);
 $res=$conex->query("select * from potreros");
 
 ?>
-<div class="small-10 columns">
+<div class="small-12 columns">
 
 <form action="" method="post" data-abide>
     <?php echo $mensaje ?>

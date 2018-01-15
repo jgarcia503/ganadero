@@ -30,7 +30,7 @@ $controlsanitario=$conex->query("select * from controles_sanitarios where id=$id
 ?>
 
 
-<div class="small-10 columns">
+<div class="small-12 columns">
     <a href="controlessanitarios.php" class="regresar">regresar</a>
     <form action="" method="post">
         <div class="row">

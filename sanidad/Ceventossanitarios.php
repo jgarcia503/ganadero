@@ -19,7 +19,7 @@ if($_POST){
 
 ?>
 
-<div class="small-10 columns">
+<div class="small-12 columns">
        <h2>crear evento sanitario</h2>
        <a href="eventossanitarios.php" class="regresar">regresar</a>
 <form action="" method="post" data-abide>

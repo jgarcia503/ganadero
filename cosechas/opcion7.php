@@ -45,7 +45,7 @@ $sql2=$conex->prepare($update);
 }
 ?>
 
-<div class="small-10 columns">
+<div class="small-12 columns">
        <h2>corte y reparto en verde</h2>
        <a href="cosechas.php" class="regresar">regresar</a>
          <?php echo $mensaje ?>

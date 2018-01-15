@@ -24,7 +24,7 @@ $respalpaciones=$conex->query("select * from resul_palpaciones where id=$id")->f
 
 
 
-<div class="small-10 columns">
+<div class="small-12 columns">
     <a href="respalpaciones.php" class="regresar">regresar</a>
 <form action="" method="post">
     <label for="">nombre</label>

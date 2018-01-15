@@ -33,7 +33,7 @@ $id=base64_decode($_SERVER[QUERY_STRING]);
 $evsanitario=$conex->query("select * from eventos_sanitarios where id=$id")->fetch();
 
 ?>
-<div class="small-10 columns">
+<div class="small-12 columns">
     <a href="eventossanitarios.php" class="regresar">regresar</a>
 <form action="" method="post">
     <label for="">nombre</label>

@@ -21,7 +21,7 @@ if($_POST){
 
 ?>
 
-<div class="small-10 columns">
+<div class="small-12 columns">
        <h2>crear color</h2>
           <?php echo $mensaje?>
        <a href="colores.php" class="regresar">regresar</a>

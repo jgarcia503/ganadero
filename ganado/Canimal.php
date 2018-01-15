@@ -48,7 +48,7 @@
   $contactos=$conex->query("select nombre from contactos where tipo='admin'");
     $grupo=$conex->query("select * from grupos");
   ?>
-<div class="small-10 columns">
+<div class="small-12 columns">
     <h2>crear animal</h2>
     <?php echo $mensaje?>
     <a href="animales.php" class="regresar">regresar</a>

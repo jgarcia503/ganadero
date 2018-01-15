@@ -7,7 +7,7 @@ $bodegas=$conex->query("select distinct codigo,nombre from bodega a
                         a.codigo=b.codigo_bodega");
 ?>
 
-<div class="small-10 columns">
+<div class="small-12 columns">
       <span id="mensaje"></span>
     <h2>siembra</h2>
     <a href="proyectos.php" class="regresar">regresar</a>

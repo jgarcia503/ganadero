@@ -20,7 +20,7 @@ if($_POST){
     $res_marcas=$conex->query($sql_marcas);
 ?>
 
-<div class="small-10 columns"  >
+<div class="small-12 columns"  >
     <?php echo $mensaje ?>
     <h2>deterioro de activo</h2>
     <a href="deterioro_activo.php" class="regresar">regresar</a>

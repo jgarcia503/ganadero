@@ -45,7 +45,7 @@ $res=$conex->query($sql_costo_uso_tablones)->fetchColumn();
 $costo_total+=$res;
 ?>
 
-<div class="small-10 columns">
+<div class="small-12 columns">
     <h2>venta de elote y zacate antes de tiempo</h2>
     <a href="cosechas.php" class="regresar">regresar</a>
     <?php echo $mensaje ?>

@@ -2,7 +2,7 @@
 include '../plantilla.php';
 ?>
 
-<div class="column small-10">
+<div class="column small-12">
 
     <h2>notificaciones</h2>
 <?php

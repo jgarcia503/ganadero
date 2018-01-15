@@ -2,7 +2,7 @@
 $sql_bodega="select * from bodega where codigo in (select distinct codigo_bodega from existencias)";
 $res_bodega=$conex->query($sql_bodega);
 ?>
-<div class="small-10 columns">
+<div class="small-12 columns">
     <h2>crear traslados</h2>
     <a href="traslados.php" class="regresar">regresar</a>
     <span id="mensaje"></span>

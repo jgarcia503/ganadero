@@ -4,7 +4,7 @@ $productos=$conex->query("select a.referencia,a.nombre,b.existencia from existen
 ?>
 
 
-<div class="small-10 columns">
+<div class="small-12 columns">
     <span id="mensaje"></span>
     <form action="" method="post" data-abide='ajax' id="miforma">    
         <h2>crear tratamiento medico</h2>

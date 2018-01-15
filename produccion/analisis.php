@@ -1,6 +1,6 @@
 <?php   include '../plantilla.php';?>
 
- <div class="small-10 columns">
+ <div class="small-12 columns">
 <h2>analisis de leche</h2>
 
 <a href="Canalisis.php" class="button primary">registrar analisis</a>

@@ -19,7 +19,7 @@ $insert=$conex->prepare("insert into razas values(default,'$_POST[nombre]',trim(
    
 }
 ?>
-<div class="small-10 columns">
+<div class="small-12 columns">
        <h2>crear raza</h2>
        <?php echo $mensaje?>
        <a href="razas.php" class="regresar">regresar</a>

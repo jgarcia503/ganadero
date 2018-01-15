@@ -1,6 +1,6 @@
 <?php   include '../plantilla.php'; ?>
 
-<div class="small-10 columns">
+<div class="small-12 columns">
 <h2>admon tablones</h2>
 
 <a href="Ctablon.php" class="button primary">crear tablon</a>

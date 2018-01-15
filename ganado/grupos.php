@@ -2,7 +2,7 @@
 
 
 
- <div class="small-10 columns">
+ <div class="small-12 columns">
 <h2>admon grupos</h2>
 
 <a href="Cgrupo.php" class="button primary">crear grupo</a>

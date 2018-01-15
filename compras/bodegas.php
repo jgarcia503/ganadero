@@ -2,7 +2,7 @@
 $res=$conex->query("select * from bodega");
 ?>
 
-<div class="small-10 columns">
+<div class="small-12 columns">
     <h2>crear bodega</h2>
     <a href="Cbodega.php" class="button primary">crear bodega</a>
     

@@ -22,7 +22,7 @@ $extension=floatval($conversiones[$_POST[unidad]])*floatval($_POST[extension]);
 }
 
 ?>
-<div class="small-10 columns">
+<div class="small-12 columns">
 
     <form action="" method="post" data-abide>
     <?php echo $mensaje ?>

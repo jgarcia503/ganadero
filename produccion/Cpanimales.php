@@ -4,7 +4,7 @@ where b.clasificacion='desarrollo'");
 $contactos=$conex->query("select nombre from contactos where tipo='empleado'");
 ?>
 
-  <div class="small-10 columns">
+  <div class="small-12 columns">
   <span id="mensaje">
 
 </span>

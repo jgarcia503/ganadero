@@ -20,7 +20,7 @@ if($_POST){
 
 
 ?>
-<div class="small-10 columns">
+<div class="small-12 columns">
     <?php echo $mensaje?>
        <h2>crear categoria</h2>
        <a href="categorias.php" class="regresar">regresar</a>

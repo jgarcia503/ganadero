@@ -133,7 +133,7 @@ $res_bodega=$conex->query($sql_bodega);
 $res_motivo=$conex->query($sql_reque);
 $res_grupo=$conex->query($sql_grupo);
 ?>
-<div class="small-10 columns">
+<div class="small-12 columns">
     <h2>crear dieta</h2>
     <a href="dietas.php" class="regresar">regresar</a>
     <span id="mensaje"></span>

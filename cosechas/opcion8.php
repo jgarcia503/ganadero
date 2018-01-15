@@ -34,7 +34,7 @@ $sql_bodegas="select * from bodega";
 $res=$conex->query($sql_bodegas);
 ?>
 
-<div class="small-10 columns">
+<div class="small-12 columns">
            <h2>cosecha de frijol</h2>
            <a href="cosechas.php" class="regresar">regresar</a>
                     <?php  

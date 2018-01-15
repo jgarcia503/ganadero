@@ -20,7 +20,7 @@ else{
 }
 ?>
 
-  <div class="small-10 columns">  
+  <div class="small-12 columns">  
     <div class="row">
         <div class="small-12 columnns">
             <span id="mensaje">  <?php  echo $mensaje ?>      </span>

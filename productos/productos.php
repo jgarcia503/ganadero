@@ -3,7 +3,7 @@ $bod_sql="select * from bodega";
 $res_bod=$conex->query($bod_sql);
 ?>
 
- <div class="small-10 columns">
+ <div class="small-12 columns">
 <h2>admon producto</h2>
 
 <a href="Cproducto.php" class="button primary">crear producto</a>

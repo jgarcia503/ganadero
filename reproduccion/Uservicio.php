@@ -31,7 +31,7 @@ $servicios=$conex->query("select * from servicios where id=$id")->fetch();
 ?>
 
 
-<div class="small-10 columns">
+<div class="small-12 columns">
     <a href="servicios.php" class="regresar">regresar</a>
     <form action="" method="post">
     <div class="row">

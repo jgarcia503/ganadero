@@ -34,7 +34,7 @@ $prod=$conex->query("select * from productos where id=$id")->fetch();
 
 ?>
 
-<div class="small-10 columns">
+<div class="small-12 columns">
     <?php echo $mensaje?>
        <h2>acualizar producto</h2>
        <a href="productos.php" class="regresar">regresar</a>

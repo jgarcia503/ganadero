@@ -34,7 +34,7 @@ $id=base64_decode($_SERVER[QUERY_STRING]);
 $razas=$conex->query("select * from razas where id=$id")->fetch();
 
 ?>
-<div class="small-10 columns">
+<div class="small-12 columns">
         
             <h2>actualiza raza</h2>
             <a href="razas.php" class="regresar">regresar</a>

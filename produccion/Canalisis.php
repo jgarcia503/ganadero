@@ -32,7 +32,7 @@ else{
     }
 }
 ?>
-<div class="small-10 columns">
+<div class="small-12 columns">
     <h2>analisis de leche</h2>
     <?php echo $mensaje?>
     <form action="" method="post">

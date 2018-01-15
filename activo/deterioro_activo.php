@@ -2,7 +2,7 @@
 $res=$conex->query("select * from activo");
 ?>
 
-<div class="small-10 columns">
+<div class="small-12 columns">
     <h2>crear activo</h2>
     <a href="Cdeterioro_activo.php" class="button primary">crear activo</a>
     

@@ -2,7 +2,7 @@
 $res=$conex->query("select * from compras_servicios  order by fecha desc");
 ?>
 
-<div class="small-10 columns">
+<div class="small-12 columns">
     <h2>adquirir servicios</h2>
     <a href="Cservicios.php" class="button primary">comprar servicio</a>
     

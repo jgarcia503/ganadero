@@ -38,7 +38,7 @@ $marcas=$conex->query("select * from marcas where id=$id")->fetch();
 
 
 
-<div class="small-10 columns">
+<div class="small-12 columns">
     <a href="marcas.php" class="regresar">regresar</a>
     <form action="" method="post" data-abide>
         <div class="row">

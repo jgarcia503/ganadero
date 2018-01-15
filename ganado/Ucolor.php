@@ -30,7 +30,7 @@ $id=base64_decode($_SERVER[QUERY_STRING]);
 $colores=$conex->query("select * from colores where id=$id")->fetch();
 
 ?>
-<div class="small-10 columns">
+<div class="small-12 columns">
 
      <h2>actualizar color</h2>
      <a href="colores.php" class="regresar">regresar</a>

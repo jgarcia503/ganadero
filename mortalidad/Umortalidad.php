@@ -27,7 +27,7 @@ $id=base64_decode($_SERVER[QUERY_STRING]);
 $mortalidades=$conex->query("select * from mortalidades where id=$id")->fetch();
 ?>
 
-<div class="small-10 columns">
+<div class="small-12 columns">
     <a href="mortalidad.php" class="regresar">regresar</a>
 <form action="" method="post">
     

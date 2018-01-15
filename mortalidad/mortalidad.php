@@ -1,6 +1,6 @@
 <?php    include '../plantilla.php'; ?>
 
-<div class="small-10 columns">
+<div class="small-12 columns">
 <h2>admon mortalidades</h2>
 
 <a href="Cmortalidad.php" class="button primary">crear mortalidad</a>

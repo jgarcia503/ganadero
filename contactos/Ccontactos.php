@@ -23,7 +23,7 @@ $insert=$conex->prepare("insert into contactos"
 
 ?>
 
-<div class="small-10 columns">
+<div class="small-12 columns">
     <h2>crear contacto</h2>
 <form action="" method="post" data-abide>
     <?php echo $mensaje ?>

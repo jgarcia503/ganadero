@@ -22,7 +22,7 @@ if($_POST['categoria']=='volumen'){$prefijo=$volumen[$_POST[unidad]];}else{$pref
 
 
 ?>
-<div class="small-10 columns">
+<div class="small-12 columns">
     <?php echo $mensaje ?>
        <h2>crear unidad</h2>
        <a href="unidades.php" class="regresar">regresar</a>

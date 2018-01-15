@@ -20,7 +20,7 @@ if($_POST){
     }
 }
 ?>
-<div class="small-10 column"> 
+<div class="small-12 column"> 
      <?php echo $mensaje ?>
     <h2>lista incompatibilidad</h2>
     <a href="lista_negra.php" class="regresar">regresar</a>

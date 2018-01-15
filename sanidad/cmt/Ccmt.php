@@ -4,7 +4,7 @@ $animales=$conex->query("select * from animales");
 
 ?>
 
-<div class="small-10 columns">
+<div class="small-12 columns">
     <h2>pruebas CMT</h2>
     <a href="javascript:history.back(1)" class="regresar">regresar</a>
     <div class="row">

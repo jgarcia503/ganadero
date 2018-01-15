@@ -21,7 +21,7 @@ $res_uso=$conex->query($sql_costo_uso_tablones)->fetchColumn();
 $costo_total+=$res_uso;
 ?>
 
-<div class="small-10 columns">
+<div class="small-12 columns">
        <h2>ensilado de parcela antes del tiempo</h2>
        <a href="cosechas.php" class="regresar">regresar</a>
          <?php  

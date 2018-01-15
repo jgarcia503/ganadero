@@ -29,7 +29,7 @@ if($_POST){
 $id=base64_decode($_SERVER[QUERY_STRING]);
 $unidad=$conex->query("select * from unidades where id=$id")->fetch();
 ?>
-<div class="small-10 columns">
+<div class="small-12 columns">
 <form action="" method="post" data-abide>
     <a href="unidades.php" class="regresar">regresar</a>
     <div class="row">

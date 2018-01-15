@@ -4,7 +4,7 @@ $sql_reque="select * from motivos_requesiciones";
 $res_bodega=$conex->query($sql_bodega);
 $res_motivo=$conex->query($sql_reque);
 ?>
-<div class="small-10 columns">
+<div class="small-12 columns">
     <h2>crear requisicion</h2>
     <a href="requisiciones.php" class="regresar">regresar</a>
     <span id="mensaje"></span>

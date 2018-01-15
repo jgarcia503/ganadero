@@ -2,7 +2,7 @@
 
 
 
- <div class="small-10 columns">
+ <div class="small-12 columns">
 <h2>admon causa mortalidad</h2>
 
 <a href="Ccausamortalidad.php" class="button primary">crear causa mortalidad</a>

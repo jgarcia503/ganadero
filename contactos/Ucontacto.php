@@ -31,7 +31,7 @@ $id=base64_decode($_SERVER[QUERY_STRING]);
 $contactos=$conex->query("select * from contactos where id=$id")->fetch();
 
 ?>
-<div class="small-10 columns"> 
+<div class="small-12 columns"> 
 <form action="" method="post">
     <div class="row">
         <div class="small-6 columns">

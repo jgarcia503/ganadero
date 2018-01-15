@@ -23,7 +23,7 @@ $resclases=$conex->query($clases);
 
 
 
-<div class="small-10 columns">
+<div class="small-12 columns">
     <?php echo $mensaje?>
        <h2>crear actividad</h2>
        <a href="controlpotreros.php" class="regresar">regresar</a>

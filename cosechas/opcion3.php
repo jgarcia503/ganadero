@@ -19,7 +19,7 @@ from proyecto_tablones where id_proyecto =$proy_id) as a";
 $res_uso=$conex->query($sql_costo_uso_tablones)->fetchColumn();
 $costo_total+=$res_uso;
 ?>
-<div class="small-10 columns">
+<div class="small-12 columns">
     <h2>ensilado con grano</h2>
     <a href="cosechas.php" class="regresar">regresar</a>
     <span id="mensaje"></span>

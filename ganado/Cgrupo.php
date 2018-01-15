@@ -26,7 +26,7 @@ if($_POST){
 
 ?>
 
-<div class="small-10 columns">
+<div class="small-12 columns">
        <h2>crear grupo</h2>
           <?php echo $mensaje?>
        <a href="grupos.php" class="regresar">regresar</a>

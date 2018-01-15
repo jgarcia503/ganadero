@@ -21,7 +21,7 @@ $insert=$conex->prepare("insert into suplementaciones "
    
 }
 ?>
-<div class="small-10 columns">
+<div class="small-12 columns">
     <?php echo $mensaje?>
        <h2>crear suplementacion</h2>
        <a href="javascript:history.back(1)" class="regresar">regresar</a>

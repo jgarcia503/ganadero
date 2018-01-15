@@ -2,7 +2,7 @@
 $res=$conex->query("select a.*,b.nombre from requisicion_enc a inner join bodega b on a.bodega_id::integer=b.codigo  order by fecha desc");
 ?>
 
-<div class="small-10 columns">
+<div class="small-12 columns">
     <h2>requisiciones</h2>
     <a href="Crequisicion.php" class="button primary">crear requisicion</a>
     

@@ -53,7 +53,7 @@ $proveedores=$conex->query("select * from contactos where tipo='proveedor'");
 
 ?>
 
-<div class="small-10 columns">
+<div class="small-12 columns">
     <?php echo $mensaje?>
        <h2>crear producto</h2>
        <a href="productos.php" class="regresar">regresar</a>

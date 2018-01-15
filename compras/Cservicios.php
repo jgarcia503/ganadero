@@ -17,7 +17,7 @@ if(filter_input(INPUT_SERVER, 'REQUEST_METHOD')==='POST'){
 }
 ?>
 
-<div class="small-10 columns">
+<div class="small-12 columns">
   <h2>pago de servicios</h2>
   <a href="servicios.php" class="regresar">regresar</a>
     <form method="post" action="" data-abide>

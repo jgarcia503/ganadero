@@ -68,7 +68,7 @@ if($_POST){
     }
 </style>
 
-<div class="small-10 columns">
+<div class="small-12 columns">
     <?php echo $mensaje ?>
        <h2>crear palpacion</h2>
        <a href="palpaciones.php" class="regresar">regresar</a>

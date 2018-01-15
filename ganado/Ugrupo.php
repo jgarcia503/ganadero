@@ -32,7 +32,7 @@ $id=$_SERVER[QUERY_STRING];
 $colores=$conex->query("select * from grupos where id=$id")->fetch();
 
 ?>
-<div class="small-10 columns">
+<div class="small-12 columns">
     <a href="grupos.php" class="regresar">regresar</a>
 <form action="" method="post">
     <?php echo $mensaje ?>

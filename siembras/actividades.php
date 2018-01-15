@@ -56,7 +56,7 @@ while($fila=$resactivos->fetch()){
 }
 $html_act.="</select>";
 ?>
-<div class="small-10 columns"  >
+<div class="small-12 columns"  >
     <div id="mensaje"></div>
     <h2>actividades</h2>
     <?php 

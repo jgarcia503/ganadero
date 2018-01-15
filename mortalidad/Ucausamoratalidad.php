@@ -33,7 +33,7 @@ if($_POST){
 $id=base64_decode($_SERVER[QUERY_STRING]);
 $causamortalidades=$conex->query("select * from causas_mortalidades where id=$id")->fetch();
 ?>
-<div class="small-10 columns">
+<div class="small-12 columns">
     <a href="mortalidad.php" class="regresar">regresar</a>
 <form action="" method="post">
     <label for="">nombre</label>

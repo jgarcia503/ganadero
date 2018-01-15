@@ -10,7 +10,7 @@ order by fecha desc");
 
 ?>
 
-<div class="small-10 columns">
+<div class="small-12 columns">
     <h2>administracion traslados</h2>
     <a href="Ctraslado.php" class="button primary">crear traslado</a>
     

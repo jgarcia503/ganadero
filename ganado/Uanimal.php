@@ -96,7 +96,7 @@
   $contactos=$conex->query("select nombre from contactos where tipo='admin'");
   $grupo=$conex->query("select * from grupos");
   ?>
-<div class="small-10 columns">
+<div class="small-12 columns">
     <?php echo $mensaje?>
     
     <h2>actualizar animal</h2>

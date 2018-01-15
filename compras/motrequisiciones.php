@@ -36,7 +36,7 @@ if($_POST){
 }
 ?>
 
-<div class="small-10 column">
+<div class="small-12 column">
     <h2>motivos requisiciones</h2>
     <?php echo $mensaje?>
     <div class="row">

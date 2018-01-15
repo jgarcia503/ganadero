@@ -42,7 +42,7 @@ while($fila=$res->fetch()){
     $selectbodega.="<option value='$fila[codigo]'>$fila[nombre]</option>";
 }
 ?>
-<div class="small-10 columns">
+<div class="small-12 columns">
     <h2>crear compra</h2>
     <a href="compras.php" class="regresar">regresar</a>
     <span id="mensaje"></span>

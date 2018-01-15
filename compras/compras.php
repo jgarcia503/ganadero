@@ -4,7 +4,7 @@ $sql_sin_terminar="select count(a.*) from compras_enc a left join compras_lns b 
 $res_sin_terminar=$conex->query($sql_sin_terminar)->fetchColumn();
 ?>
 
-<div class="small-10 columns">
+<div class="small-12 columns">
     <h2>compras</h2>
     <?php if(intval($res_sin_terminar)===0) {?>
     <a href="Ccompra.php" class="button primary">crear compras</a>

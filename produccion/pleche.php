@@ -1,6 +1,6 @@
 <?php   include '../plantilla.php'; ?>
 
- <div class="small-10 columns">
+ <div class="small-12 columns">
 <h2>admon peso leche</h2>
 
 <a href="Cpleche.php" class="button primary">crear peso leche</a>

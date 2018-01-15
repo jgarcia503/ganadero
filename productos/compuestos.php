@@ -15,7 +15,7 @@ if($_POST){
 }
 ?>
 
- <div class="small-10 columns">
+ <div class="small-12 columns">
 <h2>admon compuestos</h2>
 <?php echo $mensaje ?>
 <a href="#" class="button primary" id="crear">crear compuesto</a>

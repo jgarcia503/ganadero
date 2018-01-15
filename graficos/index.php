@@ -19,7 +19,7 @@ $res_prod_min=$res2->fetch(PDO::FETCH_ASSOC);
 
 
 ?>
-<div class="small-10 columns">
+<div class="small-12 columns">
    
     <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
 </div>
