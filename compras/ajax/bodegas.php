@@ -30,10 +30,23 @@ $unit_vol="<option value=''>seleccione</option>"
         . "<option value='ml'>mililitros</option>";
 
 while($fila=$res->fetch()){
-        if($fila[unidad_standar]=='kg'){
-                $unit_prod[$fila[codigo_producto]]=$unit_peso;
-    }else{
-              $unit_prod[$fila[codigo_producto]]=$unit_vol;
+//        if($fila[unidad_standar]=='kg'){
+//                $unit_prod[$fila[codigo_producto]]=$unit_peso;
+//    }else{
+//              $unit_prod[$fila[codigo_producto]]=$unit_vol;
+//    }
+    switch ($fila[unidad_standar]) {
+        case 'kg':
+            $unit_prod[$fila[codigo_producto]] = $unit_peso;
+
+            break;
+        case 'lt':
+            $unit_prod[$fila[codigo_producto]] = $unit_vol;
+            break;
+
+        case 'cc':
+            $unit_prod[$fila[codigo_producto]] = "<option values='cc'>cc</option>";
+            break;
     }
       $opciones_prod.="<option value='$fila[codigo_producto]'>$fila[nombre]</option>";
       $_SESSION['traslado'][$fila[codigo_producto]]=$fila[existencia];
