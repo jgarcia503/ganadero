@@ -345,7 +345,9 @@
                     <li><a href="<?php echo  'http://'.$_SERVER[HTTP_HOST].'/ganadero' ?>/compras/servicios.php">servicios</a></li>
                         </ul>
                     </li>
-                        
+                    <li>
+                        <a href="<?php echo  'http://'.$_SERVER[HTTP_HOST].'/ganadero' ?>/conta/inventarioFisico/inv_fisico.php">inventario fisico</a>
+                    </li>
                 </ul>
             </li>
             

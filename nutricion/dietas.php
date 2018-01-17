@@ -4,7 +4,7 @@
  
 <h2>admon dietas</h2>
 
-<a href="Cdieta.php" class="button primary">crear dieta</a>
+<a href="Cdieta_1.php" class="button primary">crear dieta</a>
 
 
 <?php
@@ -14,8 +14,9 @@ $res=$conex->query("select * from alimentacion_enc");
 <table class="table" data-filtering='true' data-paging="true">
 	<thead>
 		<tr>
-			<th>fecha</th>
-			<th>grupo</th>			
+			<th>nombre</th>
+			<th>fecha</th>			
+			<th>empleado</th>			
                                                                   <th data-filterable="false"></th>
 		</tr>
 	</thead>
@@ -26,11 +27,12 @@ while($fila=$res->fetch()){
     
     ?>
             <tr>
+                <td><?php  echo $fila[nombre]?></td>
                 <td><?php  echo $fila[fecha]?></td>
-                <td><?php  echo $fila[grupo]?></td>
+                <td><?php  echo $fila[empleado]?></td>
                 <!--<td><a href="#" class="prods" data-id="<?php echo $fila[id]?>">productos</a></td>-->        
                 <td>
-                    <a href="#" class="ver" data-id="<?php  echo base64_encode( $fila[id]) ?>"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                    <a href="#" class="ver" data-id="<?php  echo  $fila[id] ?>"><i class="fa fa-eye" aria-hidden="true"></i></a>
 <!--                    <a href="Udieta.php?<?php  echo  base64_encode( $fila[id])?>"><i class="fa fa-pencil" aria-hidden="true"></i></a>                    
                     <a href="Ddieta.php?<?php  echo  base64_encode('raza='. $fila[id])?>" id="eliminar"><i class="fa fa-trash" aria-hidden="true"></i></a>-->
                 </td>
@@ -62,7 +64,7 @@ if(isset($_SESSION[error])){
                         e.preventDefault();
 
                         $.ajax({
-                            url: "Rdieta.php?" + $(this).data('id'),
+                            url: "listaProductosDieta.php?id=" + $(this).data('id'),
                             success: function (datos) {
                                 
                                 $('#mimodal span').html(datos);

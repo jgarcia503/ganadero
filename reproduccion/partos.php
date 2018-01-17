@@ -36,7 +36,7 @@ while($fila=$res->fetch()){
                 
                 <td>
                     <a href="#" class="ver" data-id="<?php  echo base64_encode( $fila[id]) ?>"><i class="fa fa-eye" aria-hidden="true"></i></a>
-                    <a href="Upartos.php?<?php  echo  base64_encode( $fila[id])?>"><i class="fa fa-pencil" aria-hidden="true"></i></a>                    
+                    <!--<a href="Upartos.php?<?php  echo  base64_encode( $fila[id])?>"><i class="fa fa-pencil" aria-hidden="true"></i></a>-->                    
                     <a href="Dpartos.php?<?php  echo  base64_encode('parto='. $fila[id])?>" id="eliminar"><i class="fa fa-trash" aria-hidden="true"></i></a>
                 </td>
             </tr>

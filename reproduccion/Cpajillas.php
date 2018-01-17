@@ -35,14 +35,16 @@ if($_POST){
         </label>
          </div>
         <div class="small-4 columns">
-        <label>tipo semen
-            <select name="tipo_semen" required="">
+        <label>tipo semen</label>
+        <input type="radio" name="tipo_semen" value="sexado"><label class="inline">sexado </label>
+        <input type="radio" name="tipo_semen" value="convencional"><label class="inline">convencional</label>
+<!--            <select name="tipo_semen" required="">
                 <option value="">seleccione</option>
                 <option value="sexado">sexado</option>
                 <option value="convencional">convencional</option>
-            </select>
+            </select>-->
             <small class="error">requerido</small>
-        </label>
+        
          </div>
         
 

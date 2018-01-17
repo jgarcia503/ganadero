@@ -3,7 +3,7 @@
 include '../../conexion.php';
 $animal=$_GET[animal];
 
-$sql="select fecha,hora,evento from controles_sanitarios where animal='$animal'";
+$sql="select fecha,hora,evento,empleado from controles_sanitarios where animal='$animal'";
 
 $datos=$conex->query($sql);
 
@@ -14,6 +14,7 @@ $tabla="
     <tr>
       <th width='100px' >fecha</th>     
       <th width='100px' >hora</th>     
+      <th width='100px' >empleado</th>     
       <th width='100px' >evento</th>           
     </tr>
   </thead>
@@ -30,6 +31,9 @@ while($fila=$datos->fetch()){
     $lineas.="</td>";
     $lineas.="<td>";
     $lineas.=$fila[hora];    
+    $lineas.="</td>";
+    $lineas.="<td>";
+    $lineas.=$fila[empleado];    
     $lineas.="</td>";
     $lineas.="<td>";
     $lineas.=$fila[evento];    

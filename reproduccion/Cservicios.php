@@ -7,7 +7,7 @@ if($_POST){
 $reload='window.location.reload';
  $insert =$conex->prepare("insert into servicios"
          . " values(default,'$_POST[fecha]','$_POST[hora]','$_POST[animal]','$_POST[tipo]','$_POST[inseminador]'"
-         . ",'$_POST[padre]','$_POST[donadora]',trim('$_POST[notas]'),'$_POST[cod_pajilla]')");
+         . ",'$_POST[padre]','$_POST[donadora]',trim('$_POST[notas]'),'$_POST[cod_pajilla]','$_POST[hora_visualizacion_celo]')");
      if($insert->execute()){
          $sql_update="update pajillas_toros set disponible=false where codigo_pajilla='$_POST[cod_pajilla]'";
          $res=$conex->prepare($sql_update);
@@ -38,7 +38,7 @@ $reload='window.location.reload';
        <a href="servicios.php" class="regresar">regresar</a>
     <form action="" method="post" data-abide>
     <div class="row">
-        <div class="small-6 columns">
+        <div class="small-2 columns">
           
           
                      <label for="">fecha</label>
@@ -47,12 +47,17 @@ $reload='window.location.reload';
          
            
         </div>
-        <div class="small-6 columns">
-            <label for="">hora</label>
+        <div class="small-2 columns">
+            <label for="">hora de servicio</label>
             <input type="text" name="hora" required="">
             <small class="error">eliga una fecha</small>
         </div>
-        <div class="small-6 columns">
+                <div class="small-2 columns">
+            <label for="">hora visualizacion celo</label>
+            <input type="text" name="hora_visualizacion_celo" required="">
+            <small class="error">eliga una fecha</small>
+        </div>
+        <div class="small-2 columns">
             <label for="">animal</label>
             
             <select name="animal">
@@ -65,9 +70,8 @@ $reload='window.location.reload';
                 </select>
              <small class="error">eliga un animal</small>
         </div>
-
-        <div class="small-6 columns">
-             <label for="">padre</label>
+                <div class="small-2 columns end">
+             <label for="">toro</label>
             
             <select name="padre">
                 <option>seleccione</option>
@@ -78,9 +82,12 @@ $reload='window.location.reload';
                 ?>
             </select>
         </div>
+
     </div>
     <div class="row">
-            <div class="small-6 columns">
+        
+
+            <div class="small-2 columns">
                         <label for="">tipo</label>
             <select name="tipo" id="">
         <option value="">seleccionar</option>
@@ -90,25 +97,19 @@ $reload='window.location.reload';
         <option value="te">tranferencia de embriones</option>
     </select>
         </div>
-           <div class="small-6 columns">
-
-        </div>
-        
-        </div>
-        <div class="row">
-        <div class="small-4 columns">
+        <div class="small-2 columns">
              <label for="">donadora
              <input type="text" name="donadora">
              </label>
     
         </div>
-        <div class="small-4 columns">
+        <div class="small-2 columns">
             <label for="" id="inseminador">inseminador
                   <input type="text" name="inseminador">
               </label>
     
         </div>
-               <div class="small-4 columns">
+                  <div class="small-2 end columns">
             <label for="" id="inseminador">pajillas
                 <select name="cod_pajilla" required="">
                     <option value="">seleccione</option>
@@ -122,8 +123,8 @@ $reload='window.location.reload';
               </label>
     
         </div>
-    </div>
-     
+        
+        </div>
 
     
     <div class="row">
@@ -165,5 +166,6 @@ $reload='window.location.reload';
         /////////////////////////////////////////////////////////////////////////////////
               $("[name=fecha]").attr('readonly',true).datepicker( { dateFormat: "dd-mm-yy"});
               $("[name=hora]").timepicker({disableTextInput:true,step:15});
+              $("[name=hora_visualizacion_celo]").timepicker({disableTextInput:true,step:15});
 
     </script>

@@ -69,7 +69,7 @@ $extension=floatval($conversiones[$_POST[unidad]])*floatval($_POST[extension]);
             </a>            
             </div>
         <div class="small-6 columns">
-            <label for="">terreno</label>
+            <label for="">estatus terreno</label>
             <select name="propiedad" id="propiedad" required="">
                 <option value="">seleccione</option>
                 <option value="propio">propio</option>
