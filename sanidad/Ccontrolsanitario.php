@@ -57,7 +57,7 @@ if($_POST){
             <div class="small-6 columns">
                 <label for="">empleado</label>
                 <select name="empleado" >
-                    <option value="yo">yo</option>
+ 
                                <?php
                     while($fila=$contactos->fetch()){
                                                 echo "<option value='$fila[nombre]'>$fila[nombre]</option>";

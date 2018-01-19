@@ -7,14 +7,16 @@
 
 
 <?php
-$res=$conex->query("select * from suplementaciones");
+$res=$conex->query("select a.*,c.nombre grupo,b.nombre dieta from suplementaciones_enc a
+join alimentacion_enc b on b.id::text=a.dieta_id
+join grupos c on c.id::text=a.grupo_id");
 ?>
 
 <table class="table" data-filtering='true' data-paging="true">
 	<thead>
 		<tr>
 			<th>fecha</th>
-			<th>animal</th>
+			<th>grupo</th>
 			<th>dieta</th>		
                         <th data-filterable="false"></th>
 		</tr>
@@ -27,13 +29,13 @@ while($fila=$res->fetch()){
     ?>
             <tr>
                 <td><?php  echo $fila[fecha]?></td>
-                <td><?php  echo $fila[animal]?></td>
+                <td><?php  echo $fila[grupo]?></td>
                 <td><?php  echo $fila[dieta]?></td>
                 
                 <td>
                     <a href="#" class="ver" data-id="<?php  echo base64_encode( $fila[id]) ?>"><i class="fa fa-eye" aria-hidden="true"></i></a>
-                    <a href="Usuplementacion.php?<?php  echo  base64_encode( $fila[id])?>"><i class="fa fa-pencil" aria-hidden="true"></i></a>                    
-                    <a href="Dsuplementacion.php?<?php  echo  base64_encode('raza='. $fila[id])?>" id="eliminar"><i class="fa fa-trash" aria-hidden="true"></i></a>
+<!--                    <a href="Usuplementacion.php?<?php  echo  base64_encode( $fila[id])?>"><i class="fa fa-pencil" aria-hidden="true"></i></a>                    
+                    <a href="Dsuplementacion.php?<?php  echo  base64_encode('raza='. $fila[id])?>" id="eliminar"><i class="fa fa-trash" aria-hidden="true"></i></a>-->
                 </td>
             </tr>
             

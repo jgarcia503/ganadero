@@ -170,7 +170,7 @@ class kardex{
                 $sql_costo_promedio.="'$value[producto]')";
                 $info_prod=$this->conex->query($sql_costo_promedio)->fetch();
                 $sql_kardex="insert into kardex (id,codigo_bodega,codigo_producto,fecha,tipo_doc,no_doc,costo,salida) "
-                                                . "values(default,'$bodega_seleccionada','$info_prod[referencia]',now(),'requisicion','$proy_id-$value[id]','$info_prod[precio_promedio]','$salida')";
+                                                . "values(default,'$bodega_seleccionada','$info_prod[referencia]',now(),'requisicion-actividades','$proy_id-$value[id]','$info_prod[precio_promedio]','$salida')";
             
                                         $this->conex->prepare($sql_kardex)->execute();
                                         $sql_costo_promedio='';
