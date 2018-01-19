@@ -115,7 +115,7 @@ if($insert2->execute()){
         </div>
         <div class="small-2 columns">
               <label for="">grupo</label>
-              <select name="grupo">
+              <select name="grupo" required="">
                   <option value="">seleccione</option>
                   <?php
                   while($fila=$grupos->fetch()){
@@ -123,12 +123,12 @@ if($insert2->execute()){
                   }
                   ?>
               </select>
-
+<small class='error'>obligatorio</small>
         </div>
          <div class="small-2 columns">
                     <label>
                         motivo
-                        <select name="motivo">
+                        <select name="motivo" required="">
                             <option value="">seleccione</option>
                             <?php
                                 while($fila=$motivos->fetch()){
@@ -136,12 +136,13 @@ if($insert2->execute()){
                                 }
                                     ?>
                         </select>
+                        <small class='error'>obligatorio</small>
                     </label>
         </div>
         <div class="small-2 columns">
                     <label>
                         bodega
-                        <select name="bodega">
+                        <select name="bodega" required="">
                             <option value="">seleccione</option>
                             <?php
                             while($fila=$bodegas->fetch()){
@@ -149,6 +150,7 @@ if($insert2->execute()){
                             }
                             ?>                            
                         </select>
+                        <small class='error'>obligatorio</small>
                     </label>
         </div>
          <div class="small-2 columns end">
