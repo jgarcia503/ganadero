@@ -2,7 +2,7 @@
 $grupos=$conex->query("select distinct b.nombre ,b.id from animales a join grupos b on a.grupo=b.id::text");
 $dietas=$conex->query("select * from alimentacion_enc");
 $motivos=$conex->query('select * from motivos_requesiciones');
-$bodegas=$conex->query('select * from bodega a join existencias b on a.codigo=b.codigo_bodega');
+$bodegas=$conex->query('select distinct a.codigo,a.nombre from bodega a join existencias b on a.codigo=b.codigo_bodega');
 if($_POST){
     include '../php funciones/funciones.php';
 try{
