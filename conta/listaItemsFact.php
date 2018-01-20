@@ -2,7 +2,10 @@
 include '../conexion.php';
 $id=$_GET[id];//id encabezado factura
 
-$sql="select * from tratamientos_lns where id_enc=$id";
+$sql="select b.nombre,a.cantidad,a.medida from tratamientos_lns a 
+join productos b
+on b.referencia=a.id_producto
+where a.id_enc=$id";
 $res=$conex->query($sql);
 $tabla="<table>
   <thead>

@@ -16,7 +16,7 @@ $res=$conex->query("select * from tratamientos_enc");
 			<th>fecha</th>
 			<th>animal</th>			
 			<th data-filterable="false">productos</th>		
-			<th data-filterable="false">aplicar tratamiento</th>		
+			
                         <th data-filterable="false">acciones</th>
 		</tr>
 	</thead>
@@ -28,7 +28,7 @@ while($fila=$res->fetch()){
                 <td><?php  echo $fila[fecha]?></td>
                 <td><?php  echo $fila[animal]?></td>                
                 <td><a href=""  class="items" data-id='<?php echo $fila[id]?>'>productos</a></td>
-                <td><a href="" class="aplicar" data-id='<?php echo $fila[id]?>'>aplicar</a></td>
+                
                 <td>
                     <a href="#" class="ver" data-id="<?php  echo base64_encode( $fila[id]) ?>"><i class="fa fa-eye" aria-hidden="true"></i></a>
 <!--                    <a href="Umortalidad.php?<?php  echo  base64_encode( $fila[id])?>"><i class="fa fa-pencil" aria-hidden="true"></i></a>                    
