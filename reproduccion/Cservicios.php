@@ -1,5 +1,5 @@
 <?php   include '../plantilla.php';
-$hembras=$conex->query("select * from animales where sexo='Hembra'");
+$hembras=$conex->query("select * from animales where sexo='Hembra' and estado not in ('Muerto','Vendido')");
 $machos=$conex->query("select * from animales where sexo='Macho'");
 $pajillas=$conex->query("select * from pajillas_toros where disponible =true");
 
