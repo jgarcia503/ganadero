@@ -2,6 +2,7 @@
 $hembras=$conex->query("select * from animales where sexo='Hembra' and estado not in ('Muerto','Vendido')");
 $machos=$conex->query("select * from animales where sexo='Macho'");
 $pajillas=$conex->query("select * from pajillas_toros where disponible =true");
+$tipos=$conex->query("select * from plantilla_productos_enc");
 
 if($_POST){
 $reload='window.location.reload';
@@ -109,7 +110,7 @@ $reload='window.location.reload';
               </label>
     
         </div>
-                  <div class="small-2 end columns">
+                  <div class="small-2  columns">
             <label for="" id="inseminador">pajillas
                 <select name="cod_pajilla" required="">
                     <option value="">seleccione</option>
@@ -122,6 +123,19 @@ $reload='window.location.reload';
                 <small class="error">eliga una pajilla</small>
               </label>
     
+        </div>
+        <div class="small-2 end  columns">
+            <label>tipo
+                <select name="tipo">
+                    <option value="">seleccione</option>
+                    <?php
+                    while($fila=$tipos->fetch()){
+                        echo "<option value='$fila[id]'>$fila[tipo]</option>";
+                    }
+                    
+                    ?>
+                </select>
+            </label>
         </div>
         
         </div>
