@@ -1,14 +1,13 @@
 <?php   include '../plantilla.php';
-$cat_servicio=$conex->query("select * from cat_tipos_servicios");
 $id=$_GET[id];
 ?>
 <div class="small-12 columns">
     <h2>plantilla requisiciones servicios</h2>
     <a href="plantilla_productos.php" class="regresar">regresar</a>
     <span id="mensaje"></span>
-    
-            <div class="row">             
-                <input type="text" value="<?php echo $id?>" name="id_enc">
+    <input type="hidden" value="<?php echo $id?>" name="id_enc">
+<!--            <div class="row">             
+        
         <div class="small-3 columns ">
             <label>fecha<input type="text" name="fecha"></label>
          
@@ -18,9 +17,9 @@ $id=$_GET[id];
                 <select name="tipo">
                   <option value="">seleccionar</option>
         <?php
-        while($fila=$cat_servicio->fetch()){
-            echo "<option value='$fila[id]'>$fila[nombre] </option>";
-        }
+//        while($fila=$cat_servicio->fetch()){
+//            echo "<option value='$fila[id]'>$fila[nombre] </option>";
+//        }
         ?>
                 </select>
                 
@@ -32,17 +31,17 @@ $id=$_GET[id];
                 <select name="empleado">
                     <option value="">seleccione</option>
                     <?php
-                    $empleado="select * from contactos where tipo='empleado'";
-                    $resemp=$conex->query($empleado);
-                    while($fila=$resemp->fetch()){
-                        echo "<option value='$fila[usuario]'>$fila[nombre]</option>";
-                    }
+//                    $empleado="select * from contactos where tipo='empleado'";
+//                    $resemp=$conex->query($empleado);
+//                    while($fila=$resemp->fetch()){
+//                        echo "<option value='$fila[usuario]'>$fila[nombre]</option>";
+//                    }
                         ?>
                 </select>
             </label>
          
         </div>
-        </div>
+        </div>-->
                 
                 <div class="row">
                 <div class="small-3 columns">
@@ -143,7 +142,7 @@ $id=$_GET[id];
         ref=$('#referencia');
         if(cant.val()!=='' && unidad.val()!=='' && ref.val()!==''){
             if(_.indexOf(productos_list,ref.val()) === -1){
-                     f_ret=$('#tblAppendGrid').appendGrid('appendRow', [   { nombre: ref.find('option:selected').html(), cantidad: cant.val(), unidad: unidad.val(),id_producto: ref.val() }    ]);
+                     $('#tblAppendGrid').appendGrid('appendRow', [   { nombre: ref.find('option:selected').html(), cantidad: cant.val(), unidad: unidad.val(),id_producto: ref.val() }    ]);
                      productos_list.push(ref.val());
                  }else{
                      
@@ -156,8 +155,7 @@ $id=$_GET[id];
     $('#envia').on('click',function(e){
         e.preventDefault();
         datos={};
-
-        datos.id=$('[name=id_enc]').val();
+          datos.id=$('[name=id_enc]').val();
         datos.lineas=$('#tblAppendGrid').appendGrid('getAllValue');
         $.ajax({
             url:'ajax/plantilla_productos.php',

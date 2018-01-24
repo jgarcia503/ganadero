@@ -232,7 +232,7 @@
                             <li><a href='<?php echo  'http://'.$_SERVER[HTTP_HOST].'/ganadero' ?>/reproduccion/partos.php'>partos</a></li> <li class="divider"></li>
                             <li><a href='<?php echo  'http://'.$_SERVER[HTTP_HOST].'/ganadero' ?>/reproduccion/lista_negra.php'>lista incompatibilidad</a></li><li class="divider"></li>
                             <li><a href='<?php echo  'http://'.$_SERVER[HTTP_HOST].'/ganadero' ?>/reproduccion/pajillas.php'>pajillas</a></li>
-                            <li><a href='<?php echo  'http://'.$_SERVER[HTTP_HOST].'/ganadero' ?>/reproduccion/plantilla_productos.php'>plantillas productos</a></li>
+                            <li><a href='<?php echo  'http://'.$_SERVER[HTTP_HOST].'/ganadero' ?>/reproduccion/plantilla_productos.php'>plantilla requisiciones servicios</a></li>
                         </ul>
                     </li>
                                <li class="has-dropdown not-click"><a href="#">mortalidad</a>

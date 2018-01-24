@@ -2,8 +2,7 @@
 $hembras=$conex->query("select * from animales where sexo='Hembra' and estado not in ('Muerto','Vendido')");
 $machos=$conex->query("select * from animales where sexo='Macho'");
 $pajillas=$conex->query("select * from pajillas_toros where disponible =true");
-$tipos=$conex->query("select * from plantilla_productos_enc");
-
+$cat_servicio=$conex->query("select * from cat_tipos_servicios");
 if($_POST){
 $reload='window.location.reload';
  $insert =$conex->prepare("insert into servicios"
@@ -92,10 +91,11 @@ $reload='window.location.reload';
                         <label for="">tipo</label>
             <select name="tipo" id="">
         <option value="">seleccionar</option>
-        <option value="monta directa">monta directa</option>
-        <option value="inseminacion">inseminacion</option>
-        <option value="fiv">fecundacion in vitro</option>
-        <option value="te">tranferencia de embriones</option>
+        <?php
+        while($fila=$cat_servicio->fetch()){
+            echo "<option value='$fila[id]'>$fila[nombre] </option>";
+        }
+        ?>
     </select>
         </div>
         <div class="small-2 columns">
@@ -110,7 +110,7 @@ $reload='window.location.reload';
               </label>
     
         </div>
-                  <div class="small-2  columns">
+                  <div class="small-2 end columns">
             <label for="" id="inseminador">pajillas
                 <select name="cod_pajilla" required="">
                     <option value="">seleccione</option>
@@ -123,24 +123,8 @@ $reload='window.location.reload';
                 <small class="error">eliga una pajilla</small>
               </label>
     
-        </div>
-        <div class="small-2 end  columns">
-            <label>tipo
-                <select name="tipo">
-                    <option value="">seleccione</option>
-                    <?php
-                    while($fila=$tipos->fetch()){
-                        echo "<option value='$fila[id]'>$fila[tipo]</option>";
-                    }
-                    
-                    ?>
-                </select>
-            </label>
-        </div>
-        
-        </div>
-
-    
+        </div>        
+        </div>    
     <div class="row">
         <div class="small-12 columns">
              <label>notas</label>

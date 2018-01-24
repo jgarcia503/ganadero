@@ -1,13 +1,13 @@
 <?php    include '../plantilla.php'; ?>
 
  <div class="small-12 columns">
-<h2>plantilla de productos</h2>
+<h2>plantilla requisiciones servicios</h2>
 
-<a href="Cplantilla_productos.php" class="button primary">crear plantilla productos</a>
+<!--<a href="Cplantilla_productos.php" class="button primary">plantilla requisiciones servicios</a>-->
 
 
 <?php
-$res=$conex->query("select * from plantilla_productos_enc");
+$res=$conex->query("select b.id,b.nombre from plantilla_servicios_requisicion_enc a join cat_tipos_servicios b on a.id_tipo=b.id");
 ?>
 
 <table class="table" data-filtering='true' data-paging="true">
@@ -24,11 +24,11 @@ while($fila=$res->fetch()){
     
     ?>
             <tr>
-                <td><?php  echo $fila[tipo]?></td>     
+                <td><?php  echo $fila[nombre]?></td>     
                 <td>
-                      <a href="#" class="ver" data-id="<?php  echo base64_encode( $fila[id]) ?>"><i class="fa fa-eye" aria-hidden="true"></i></a>
-                    <a href="Urespalpaciones.php?<?php  echo  base64_encode($fila[id])?>"><i class="fa fa-pencil" aria-hidden="true"></i></a>                    
-                    <a href="Drespalpaciones.php?<?php  echo  base64_encode('palpacion='. $fila[id])?>" id="eliminar"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                      <!--<a href="#" class="ver" data-id="<?php  echo base64_encode( $fila[id]) ?>"><i class="fa fa-eye" aria-hidden="true"></i></a>-->
+                    <a href="Uplantilla.php?id=<?php  echo  $fila[id]?>"><i class="fa fa-pencil" aria-hidden="true"></i></a>                    
+                    <!--<a href="Drespalpaciones.php?<?php  echo  base64_encode('palpacion='. $fila[id])?>" id="eliminar"><i class="fa fa-trash" aria-hidden="true"></i></a>-->
                 </td>
             </tr>
             
