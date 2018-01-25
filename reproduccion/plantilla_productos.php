@@ -26,7 +26,7 @@ while($fila=$res->fetch()){
             <tr>
                 <td><?php  echo $fila[nombre]?></td>     
                 <td>
-                      <!--<a href="#" class="ver" data-id="<?php  echo base64_encode( $fila[id]) ?>"><i class="fa fa-eye" aria-hidden="true"></i></a>-->
+                    <a href="#" class="ver" data-id="<?php  echo $fila[id] ?>"><i class="fa fa-eye" aria-hidden="true"></i></a>
                     <a href="Uplantilla.php?id=<?php  echo  $fila[id]?>"><i class="fa fa-pencil" aria-hidden="true"></i></a>                    
                     <!--<a href="Drespalpaciones.php?<?php  echo  base64_encode('palpacion='. $fila[id])?>" id="eliminar"><i class="fa fa-trash" aria-hidden="true"></i></a>-->
                 </td>
@@ -53,7 +53,7 @@ while($fila=$res->fetch()){
         e.preventDefault();
         
         $.ajax({
-            url:"Rrespalpaciones.php?"+$(this).data('id'),
+            url:"ajax/ver_productos.php?id="+$(this).data('id'),
             success:function (datos){
                 console.log(datos);
                    $('#mimodal span').html(datos);

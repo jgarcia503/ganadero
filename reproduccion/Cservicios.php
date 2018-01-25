@@ -142,16 +142,16 @@ $reload='window.location.reload';
         $("select").on('change',function(){
             
             switch($(this).val()){
-                case 'monta directa':
+                case '1':
                     $("[name=donadora],[name=inseminador],[name=cod_pajilla]").parent('label').fadeOut();
                     $("[name=donadora],[name=inseminador]").val('');
                     break;
-                case 'te':
-                case 'fiv':
+                case '3':
+                case '4':
                     $("[name=donadora],[name=inseminador],[name=cod_pajilla]").parent('label').fadeIn();
                     
                     break;
-                case 'inseminacion':
+                case '2':
                     $("[name=inseminador]").parent('label').fadeIn();
                     $("[name=cod_pajilla]").parent('label').fadeIn();
                     $("[name=donadora]").parent('label').fadeOut();
