@@ -1,5 +1,13 @@
 <?php   include '../plantilla.php';
 $id=$_GET[id];
+$res=$conex->query("select a.producto_id, b.nombre ,a.cantidad,a.unidad from plantilla_servicios_requisicion_lns a join productos b 
+on b.referencia=a.producto_id
+  where enc_id='$id'");
+if(isset($_SESSION[productos_servicios])){  unset($_SESSION[productos_servicios]); }
+while($fila=$res->fetch(PDO::FETCH_ASSOC)){
+$_SESSION[productos_servicios][$fila[producto_id]]=   array('nombre'=>$fila[nombre],'cantidad'=>$fila[cantidad],'unidad'=>$fila[unidad]);
+}
+
 ?>
 <div class="small-12 columns">
     <h2>plantilla requisiciones servicios</h2>
@@ -80,7 +88,22 @@ $id=$_GET[id];
                 
         <div class="row">
         <div class="small-12 columns">
-                            <table id="tblAppendGrid">
+                            <table id="tabla" width='100%'>
+                                <thead>
+                                <tr>
+                                    <th>referencia</th>
+                                    <th>cantidad</th>
+                                    <th>unidad</th>
+                                    <th>eliminar</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                    <?php
+                                                                    foreach ($_SESSION[productos_servicios] as $k=>$v){
+                                                                        echo "<tr><td>$v[nombre]</td><td>$v[cantidad]</td><td>$v[unidad]</td><td><a href='#' class='eliminar' data-prod_id='$k'>eliminar</a></td></tr>";
+                                                                    }
+                                            ?>
+                                </tbody>
                             </table>    
         </div>
         </div>
@@ -112,26 +135,26 @@ $id=$_GET[id];
         }
     });
     
-    $('#tblAppendGrid').appendGrid({
-        
-        initRows: 0,
-        idPrefix: 'linea',
-        columns: [
-            { name: 'nombre', display: 'nombre', type: 'text', ctrlAttr: { readonly: true },ctrlCss: { width: '450px'} },
-            { name: 'cantidad', display: 'cantidad', type: 'text', ctrlAttr: { readonly: true },ctrlCss: { width: '150px'} },
-            { name: 'unidad', display: 'unidad', type: 'text', ctrlAttr: { readonly: true }, ctrlCss: { width: '150px'} },            
-            { name: 'id_producto', type: 'hidden', value: 0 }
-        ],
-      hideButtons: {
-            moveDown:true,
-            removeLast: true,
-            moveUp:true,
-            insert:true,
-            remove:true,
-            append:true
-        }
-    });
-        productos_list=[];
+//    $('#tblAppendGrid').appendGrid({
+//        
+//        initRows: 0,
+//        idPrefix: 'linea',
+//        columns: [
+//            { name: 'nombre', display: 'nombre', type: 'text', ctrlAttr: { readonly: true },ctrlCss: { width: '450px'} },
+//            { name: 'cantidad', display: 'cantidad', type: 'text', ctrlAttr: { readonly: true },ctrlCss: { width: '150px'} },
+//            { name: 'unidad', display: 'unidad', type: 'text', ctrlAttr: { readonly: true }, ctrlCss: { width: '150px'} },            
+//            { name: 'id_producto', type: 'hidden', value: 0 }
+//        ],
+//      hideButtons: {
+//            moveDown:true,
+//            removeLast: true,
+//            moveUp:true,
+//            insert:true,
+//            remove:true,
+//            append:true
+//        }
+//    });
+            productos_list=[];
 
     $('#add').on('click',function(e){
         
@@ -140,28 +163,49 @@ $id=$_GET[id];
         cant=$('#cantidad');
         unidad=$('#unidad');
         ref=$('#referencia');
-        if(cant.val()!=='' && unidad.val()!=='' && ref.val()!==''){
-            if(_.indexOf(productos_list,ref.val()) === -1){
-                     $('#tblAppendGrid').appendGrid('appendRow', [   { nombre: ref.find('option:selected').html(), cantidad: cant.val(), unidad: unidad.val(),id_producto: ref.val() }    ]);
-                     productos_list.push(ref.val());
-                 }else{
-                     
-                 }
-        }else{
-            alert('complete todos los campos');
-        }
+        id_enc=$("[name=id_enc]").val();
+        
+        $.ajax({
+            url:'ajax/sesion_lineas_productos_servicios.php',
+            data:{id_prod:ref.val(),cant:cant.val(),unidad:unidad.val(),id_enc:id_enc,nombre:ref.find('option:selected').html()},
+            dataType:'json',
+            success:function(data){
+                lineas='   <thead>         <tr> <th>referencia</th>     <th>cantidad</th>    <th>unidad</th> <th>eliminar</th>   </tr>    </thead>';
+                _.each(data,function(v,k,l){
+                    lineas+="<tr><td>"+v.nombre+"</td><td>"+v.cantidad+"</td><td>"+v.unidad+"</td><td><a href='#' class='eliminar' data-prod_id='"+k+"'>eliminar</a></td></tr>";
+                    
+                });
+           $('#tabla').html(lineas);
+            }
+        });
+    });
+    
+    $('#tabla').on('click','a.eliminar',function(e){
+        e.preventDefault();
+       x=$(this).attr('data-prod_id');
+       $.ajax({
+             url:'ajax/sesion_lineas_productos_servicios.php',
+            data:{id_prod:x,remover:true,procesar:false},
+            dataType:'json',
+             success:function(data){
+                lineas='   <thead>         <tr> <th>referencia</th>     <th>cantidad</th>    <th>unidad</th> <th>eliminar</th>   </tr>    </thead>';
+                _.each(data,function(v,k,l){
+                    lineas+="<tr><td>"+v.nombre+"</td><td>"+v.cantidad+"</td><td>"+v.unidad+"</td><td><a href='#' class='eliminar' data-prod_id='"+k+"'>eliminar</a></td></tr>";
+                    
+                });
+           $('#tabla').html(lineas);
+            }
+       });
     });
     
     $('#envia').on('click',function(e){
         e.preventDefault();
-        datos={};
-          datos.id=$('[name=id_enc]').val();
-        datos.lineas=$('#tblAppendGrid').appendGrid('getAllValue');
         $.ajax({
-            url:'ajax/plantilla_productos.php',
-            data:datos,
+             url:'ajax/sesion_lineas_productos_servicios.php',
+            data:{id_enc:$('[name=id_enc]').val()},
+            type:'post',
             success :function(data){
-                $('#mensaje').html(data);
+                alert('exito');
                 setTimeout(function(){
                     window.location.reload()
                 },1000);
@@ -170,4 +214,3 @@ $id=$_GET[id];
         });
     });
 </script>
-
