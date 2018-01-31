@@ -28,7 +28,7 @@ while($fila=$res->fetch()){
     
     ?>
             <tr>
-                <td><?php  echo $fila[codigo_toro]?></td>
+                <td><a href="#" class="info_toro" data-info="<?php echo $fila[url_info_toro]?>" ><?php  echo $fila[codigo_toro]?></a></td>
                 <td><?php  echo $fila[codigo_pajilla]?></td>
                 <td><?php  echo $fila[tipo_semen]?></td>
                 <td><?php  echo $fila[disponible]?'si':'no' ?></td>
@@ -54,7 +54,10 @@ while($fila=$res->fetch()){
 </div>
 </div>
 <script>
-
+                        $(".table").on('click','a.info_toro',function(e){
+                            window.open($(this).attr('data-info'),'_blank','height=800,width=1200');
+                              
+                        });
 
     
                         $(".table").on('click','a.ver',function(e){
