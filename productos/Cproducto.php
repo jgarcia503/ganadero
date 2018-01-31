@@ -19,7 +19,7 @@ if($_POST){
            $conex->beginTransaction();
  $insert =$conex->prepare("insert into productos"
          . " values(default,'$_POST[referencia]','$_POST[nombre]','$_POST[unidad_std]','0','$_POST[categoria]'"
-         . ",'$_POST[marca]','0',trim('$_POST[notas]'),$_POST[alerta_min],'$_POST[id_activo]')");
+         . ",'$_POST[marca]','0',trim('$_POST[notas]'),$_POST[alerta_min],'$_POST[id_activo]','$_POST[tipo_semen]')");
  
 // $insert_farmacia=$conex->prepare("insert into $almacen values(default,'$_POST[referencia]','$_POST[fecha_ingreso]'"
 //         . ",'$_POST[fecha_vencimiento]','$_POST[proveedor]','$_POST[cantidad]','$_POST[cantidad]')");
@@ -115,7 +115,12 @@ $proveedores=$conex->query("select * from contactos where tipo='proveedor'");
 </div>
     
     <div class="row">
-        <div class="small-4 columns">
+        <div class="small-3 columns">
+                <label>tipo semen</label>
+        <input type="radio" name="tipo_semen" value="sexado"><label class="inline">sexado </label>
+        <input type="radio" name="tipo_semen" value="convencional"><label class="inline">convencional</label>
+            </div>
+        <div class="small-3 columns">
             <label for="">marca</label>
          <select name="marca" required="">
              <option value="">seleccione</option>
@@ -126,7 +131,7 @@ $proveedores=$conex->query("select * from contactos where tipo='proveedor'");
          </select>
          <small class="error">selecione marca</small>
         </div>
-        <div class="small-4 columns">
+        <div class="small-3 columns">
             <label for="">categoria</label>
          <select name="categoria" required="">
              <option value="">seleccione</option>
@@ -137,7 +142,7 @@ $proveedores=$conex->query("select * from contactos where tipo='proveedor'");
          </select>
          <small class="error">selecione categoria</small>
         </div>
-           <div class="small-4 columns">
+           <div class="small-3 columns">
             <label for="">alerta minima</label>
             <input type="text" name="alerta_min">
          <small class="error">requerido</small>

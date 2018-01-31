@@ -27,7 +27,7 @@ while($fila=$res->fetch()){
         
     ?>
             <tr>
-                <td><?php  echo $fila[referencia]?></td>
+                <td><?php  echo $fila[url_info_toro]!==null ? "<a class='info_toro' data-info='$fila[url_info_toro]'>$fila[referencia]</a>": $fila[referencia]?></td>
              
                 <td><?php  echo $fila[nombre]?></td>
                      
@@ -82,6 +82,10 @@ while($fila=$res->fetch()){
 </div>
 </div>
 <script>
+                        $(".table").on('click','a.info_toro',function(e){
+                            window.open($(this).attr('data-info'),'_blank','height=800,width=1200');
+                              
+                        });
 
     $(".table").on('click','a.ver',function(e){
         e.preventDefault();
