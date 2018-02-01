@@ -16,7 +16,7 @@ $res_sin_terminar=$conex->query($sql_sin_terminar)->fetchColumn();
 			<th>Doc No</th>						
 			<th>Tipo doc</th>						
 			<th>total</th>					
-                                                                  <th data-breakpoints="all" ></th>                                                                  
+                                                                  <th data-breakpoints="all" >detalle</th>                                                                  
                         <th data-filterable="false">acciones</th>
 		</tr>
 	</thead>
