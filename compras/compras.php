@@ -9,13 +9,14 @@ $res_sin_terminar=$conex->query($sql_sin_terminar)->fetchColumn();
     <?php if(intval($res_sin_terminar)===0) {?>
     <a href="Ccompra.php" class="button primary">crear compras</a>
     <?php } ?>
-    <table class="table" data-filtering='true' data-paging="true">
+    <table class="table" data-filtering='true' data-paging="true" data-toggle-column="last">
 	<thead>
 		<tr>
 			<th>fecha</th>
 			<th>Doc No</th>						
 			<th>Tipo doc</th>						
 			<th>total</th>					
+                                                                  <th data-breakpoints="all" ></th>                                                                  
                         <th data-filterable="false">acciones</th>
 		</tr>
 	</thead>
@@ -27,7 +28,26 @@ while($fila=$res->fetch()){
                 <td><?php  echo $fila[fecha]?></td>
                 <td><?php  echo $fila[doc_no]?></td>                           
                 <td><?php  echo $fila[tipo_doc]?></td>                           
-                <td><?php  echo ($fila[total])===NULL?'sin terminar':number_format($fila[total],2)?></td>                                
+                <td><?php  echo ($fila[total])===NULL?'sin terminar':number_format($fila[total],2)?></td>   
+                <td>
+                    <table>
+                        <tr><th>producto</th><th>cantidad</th><th>unidad</th><th>precio unitario</th><th>subtotal</th></tr>
+                    <?php
+                    $sql="select * from compras_lns where enc_id=$fila[id]";
+                    $reslineas=$conex->query($sql);
+                    while($linea=$reslineas->fetch()){
+                        echo "<tr>";
+                        echo "<td>$linea[producto]</td>";
+                        echo "<td>".number_format($linea[cantidad],2)."</td>";
+                        echo "<td>$linea[unidad]</td>";
+                        echo "<td>".number_format($linea[precio],2)."</td>";
+                        echo "<td>".number_format($linea[subtotal],2)."</td>";
+                        echo "</tr>";
+                    }
+                    #echo "asdasdasdas";
+                        ?>
+                        </table>
+                </td>
                 <td>
                     <a href="#" class="ver" data-id="<?php  echo  $fila[id] ?>"><i class="fa fa-eye" aria-hidden="true"></i></a>
                     <?php if ($fila[total]!==null){?>
