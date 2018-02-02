@@ -10,12 +10,13 @@ if(filter_input(INPUT_SERVER, 'REQUEST_METHOD')==  'POST'){
     if ($user->rowCount() > 0) {
 
            $hacienda=$conex->query("select nombre from haciendas")->fetch();
-          
+          $user=$user->fetch();
            $_SESSION[usuario]=  filter_input(INPUT_POST, 'usuario');
-           $_SESSION[tipo]=$user->fetch()[tipo];
+           $_SESSION[tipo]=$user[tipo];
            $_SESSION[hacienda]=$hacienda[nombre];
            $_SESSION[fecha]=date('d m Y ',time()) ;
            $_SESSION[ip]=$_SERVER[HTTP_HOST];
+           $_SESSION[id_usuario]=$user[id];
             echo "<script>window.location='otros';</script>";
         }
     }
