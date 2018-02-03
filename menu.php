@@ -10,11 +10,11 @@ while($fila=$res->fetch(PDO::FETCH_ASSOC)){
     //SUBBLOQUES
     $ressubblk=$conex->query("select * from menu_subbloques where bloque_id=$fila[id]");
     while($fila1=$ressubblk->fetch(PDO::FETCH_ASSOC)){
-        if($fila1[url]===null){
+        if($fila1[id_url]===null){
                     echo '<li class="has-dropdown not-click"><a href="#">'.$fila1[subbloque].'</a>';
                     echo '<ul class="dropdown">';
                         //URLS
-                        $resurl=$conex->query("select * from menu_urls where id_subloque=$fila1[id] and id_bloque=$fila[id]");
+                        $resurl=$conex->query("select b.* from menu_urls a join urls b on a.id_url=b.id where a.id_subloque=$fila1[id] and a.id_bloque=$fila[id]");
                         while($fila2=$resurl->fetch(PDO::FETCH_ASSOC)){
                             echo '<li><a href=http://'.$_SERVER[HTTP_HOST].$fila2[url].">$fila2[nombre_url]</a></li>";
                             
@@ -22,7 +22,8 @@ while($fila=$res->fetch(PDO::FETCH_ASSOC)){
                     echo "</ul>";           
                     echo "</li>" ;          
                         }  else {
-                               echo '<li><a href=http://'.$_SERVER[HTTP_HOST].$fila1[url].">$fila1[subbloque]</a></li>";
+                                $url=$conex->query("select * from urls where id=$fila1[id_url]")->fetch();
+                               echo '<li><a href=http://'.$_SERVER[HTTP_HOST].$url[url].">$url[nombre_url]</a></li>";
                         }
 
                 }
