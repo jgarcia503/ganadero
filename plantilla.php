@@ -1,5 +1,12 @@
 <?php
 session_start();
+if(isset($_SESSION[permisos])){
+    if(!array_key_exists($_SERVER[REQUEST_URI], $_SESSION[permisos])){
+    
+    header("location:".$_SERVER[HTTP_HOST]."/ganadero/otros");
+    }
+}
+
 include  'conexion.php';
 include 'vendor/autoload.php';
 $mensaje='';

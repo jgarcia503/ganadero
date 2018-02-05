@@ -14,16 +14,17 @@ while($fila=$res->fetch(PDO::FETCH_ASSOC)){
                     echo '<li class="has-dropdown not-click"><a href="#">'.$fila1[subbloque].'</a>';
                     echo '<ul class="dropdown">';
                         //URLS
-                        $resurl=$conex->query("select b.* from menu_urls a join urls b on a.id_url=b.id join menu_permisos c on c.id_url=b.id  where a.id_subloque=$fila1[id] and a.id_bloque=$fila[id] and c.nivel<>0");
+                        $resurl=$conex->query("select b.*,c.nivel from menu_urls a join urls b on a.id_url=b.id join menu_permisos c on c.id_url=b.id  where a.id_subloque=$fila1[id] and a.id_bloque=$fila[id] and c.nivel<>0");
                         while($fila2=$resurl->fetch(PDO::FETCH_ASSOC)){
                             echo '<li><a href=http://'.$_SERVER[HTTP_HOST].$fila2[url].">$fila2[nombre_url]</a></li>";
-                            
+                            $_SESSION[permisos][$fila2[url]]=$fila2[nivel];
                                 }
                     echo "</ul>";           
                     echo "</li>" ;          
                         }  else {
                                 $url=$conex->query("select * from urls a  join menu_permisos b on a.id=b.id_url  where a.id=$fila1[id_url] and b.nivel<>0")->fetch();
                                echo '<li><a href=http://'.$_SERVER[HTTP_HOST].$url[url].">$url[nombre_url]</a></li>";
+                               $_SESSION[permisos][$url[url]]=$url[nivel];
                         }
 
                 }

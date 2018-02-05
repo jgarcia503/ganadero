@@ -1,5 +1,6 @@
 <?php
 include '../plantilla.php';
+$_SESSION[permisos][$_SERVER[REQUEST_URI]]=5;
 ?>
 <div class="small-12 columns" >
    
