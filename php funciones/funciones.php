@@ -30,5 +30,17 @@ function convertir($unidad,$cantidad){
     return $cantidad;
 }
 
+function check_permiso($url,$archivo,$titulo){
+    switch($url){
+    case 2:
+    case 4:
+    case 5:
+$uri=$_SERVER[REQUEST_URI];
+$uri=substr($uri,0,strrpos($uri,'/')).'/'.$archivo;
+$_SESSION[permisos][$uri]=true;
+echo "<a href='$archivo' class='button primary'>$titulo</a>";
+break;
+}
+}
 
 

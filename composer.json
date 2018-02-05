@@ -1,6 +1,7 @@
 {
     "require": {
         "twig/twig": "~1.35.0",
-        "dompdf/dompdf": "^0.8.1"
+        "dompdf/dompdf": "^0.8.1",
+        "league/uri": "^4.0"
     }
 }

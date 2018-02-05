@@ -2,11 +2,9 @@
 
 <div class="small-12 columns">
 <h2>admon mortalidades</h2>
+<?php 
+echo check_permiso($_SESSION[permisos][$_SERVER[REQUEST_URI]],'Cmortalidad.php','crear mortalidad');
 
-<a href="Cmortalidad.php" class="button primary">crear mortalidad</a>
-
-
-<?php
 $res=$conex->query("select * from mortalidades  order by fecha desc");
 ?>
 

@@ -9,7 +9,7 @@ if(isset($_SESSION[permisos])){
 
 include  'conexion.php';
 include 'vendor/autoload.php';
-$mensaje='';
+include 'php funciones/funciones.php';
 if(isset($_SESSION[usuario])){
 include 'assets.php';
 
