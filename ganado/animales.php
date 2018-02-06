@@ -40,7 +40,8 @@ while($fila=$res->fetch()){
                 <td><?php  echo $fila[procedencia]?></td>
                 <td>
                     <a href="#" class="ver" data-id="<?php  echo base64_encode( $fila[id]) ?>"><i class="fa fa-eye" aria-hidden="true"></i></a>
-                    <a href="Uanimal.php?<?php  echo  base64_encode( $fila[id])?>"><i class="fa fa-pencil" aria-hidden="true"></i></a>                    
+                    <?php echo check_permiso_for_update($_SESSION[permisos][$_SERVER[REQUEST_URI]], 'Uanimal.php', base64_encode($fila[id])) ?>
+                    <!--<a href="Uanimal.php?<?php  echo  base64_encode( $fila[id])?>"><i class="fa fa-pencil" aria-hidden="true"></i></a>-->                    
                     <a href="Danimal.php?<?php  echo  base64_encode('animal='. $fila[id])?>" id="eliminar"><i class="fa fa-trash" aria-hidden="true"></i></a>
                 </td>
             </tr>
