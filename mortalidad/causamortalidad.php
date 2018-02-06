@@ -5,10 +5,11 @@
  <div class="small-12 columns">
 <h2>admon causa mortalidad</h2>
 
-<a href="Ccausamortalidad.php" class="button primary">crear causa mortalidad</a>
+<!--<a href="Ccausamortalidad.php" class="button primary">crear causa mortalidad</a>-->
 
 
 <?php
+echo check_permiso($_SESSION[permisos][$_SERVER[REQUEST_URI]],'Ccausamortalidad.php','crear causa mortalidad');
 $res=$conex->query("select * from  causas_mortalidades");
 ?>
 

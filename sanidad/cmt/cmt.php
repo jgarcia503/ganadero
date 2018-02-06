@@ -3,10 +3,11 @@
  <div class="small-12 columns">
 <h2>admon pruebas cmt</h2>
 
-<a href="Ccmt.php" class="button primary">crear prueba cmt</a>
+<!--<a href="Ccmt.php" class="button primary">crear prueba cmt</a>-->
 
 
 <?php
+echo check_permiso($_SESSION[permisos][$_SERVER[REQUEST_URI]],'Ccmt.php','crear prueba cmt');
 $res=$conex->query("SELECT distinct fecha,count(fecha) animales_revisados from pruebas_cmt group by fecha");
 ?>
 

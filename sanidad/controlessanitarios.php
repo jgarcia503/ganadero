@@ -4,10 +4,11 @@
  <div class="small-12 columns">
 <h2>admon controles sanitarios</h2>
 
-<a href="Ccontrolsanitario.php" class="button primary">crear control sanitario</a>
+<!--<a href="Ccontrolsanitario.php" class="button primary">crear control sanitario</a>-->
 
 
 <?php
+echo check_permiso($_SESSION[permisos][$_SERVER[REQUEST_URI]],'Ccontrolsanitario.php','crear control sanitario');
 $res=$conex->query("select distinct animal from controles_sanitarios ");
 ?>
 

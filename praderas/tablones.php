@@ -3,10 +3,11 @@
 <div class="small-12 columns">
 <h2>admon tablones</h2>
 
-<a href="Ctablon.php" class="button primary">crear tablon</a>
+<!--<a href="Ctablon.php" class="button primary">crear tablon</a>-->
 
 
 <?php
+echo check_permiso($_SESSION[permisos][$_SERVER[REQUEST_URI]],'Ctablon.php','crear tablon');
 $res=$conex->query("select * from tablones");
 ?>
 

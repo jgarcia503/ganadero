@@ -12,8 +12,8 @@ order by fecha desc");
 
 <div class="small-12 columns">
     <h2>administracion traslados</h2>
-    <a href="Ctraslado.php" class="button primary">crear traslado</a>
-    
+    <!--<a href="Ctraslado.php" class="button primary">crear traslado</a>-->
+    <?php  echo check_permiso($_SESSION[permisos][$_SERVER[REQUEST_URI]],'Ctraslado.php','crear traslado'); ?>
     <table class="table" data-filtering='true' data-paging="true">
 	<thead>
 		<tr>

@@ -38,9 +38,16 @@ function check_permiso($url,$archivo,$titulo){
 $uri=$_SERVER[REQUEST_URI];
 $uri=substr($uri,0,strrpos($uri,'/')).'/'.$archivo;
 $_SESSION[permisos][$uri]=true;
+if($archivo!=='#'){
 echo "<a href='$archivo' class='button primary'>$titulo</a>";
-break;
 }
+else{
+    echo "<a href='$archivo' id='crear' class='button primary'>$titulo</a>";
+}
+        
+break;
+        
+    }
 }
 
 

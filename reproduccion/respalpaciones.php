@@ -3,10 +3,11 @@
  <div class="small-12 columns">
 <h2>admon res. palpaciones</h2>
 
-<a href="Crespalpaciones.php" class="button primary">crear res .palpaciones</a>
+<!--<a href="Crespalpaciones.php" class="button primary">crear res .palpaciones</a>-->
 
 
 <?php
+echo check_permiso($_SESSION[permisos][$_SERVER[REQUEST_URI]],'Crespalpaciones.php','crear resultado palpacion');
 $res=$conex->query("select * from resul_palpaciones");
 ?>
 

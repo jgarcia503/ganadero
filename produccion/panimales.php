@@ -3,10 +3,11 @@
  <div class="small-12 columns">
 <h2>admon peso animal</h2>
 
-<a href="Cpanimales.php" class="button primary">crear peso animal</a>
+<!--<a href="Cpanimales.php" class="button primary">crear peso animal</a>-->
 
 
 <?php
+echo check_permiso($_SESSION[permisos][$_SERVER[REQUEST_URI]],'Cpanimales.php','crear peso animales');
 $res=$conex->query("select * from bit_peso_animal ");
 ?>
 

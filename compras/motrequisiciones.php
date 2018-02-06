@@ -98,7 +98,9 @@ while($fila=$res->fetch()){
                     <small class="error">requerido</small>
                 </label>
                 <br/>
+                <?php if($_SESSION[permisos][$_SERVER[REQUEST_URI]]==2|| $_SESSION[permisos][$_SERVER[REQUEST_URI]]==4 || $_SESSION[permisos][$_SERVER[REQUEST_URI]]==5){ ?>
                 <input type="submit" class="button primary"value="crear">
+                <?php   } ?>
                 <input type="button" class="button primary" value="limpiar" id="limpia">
             </form>
         </div>

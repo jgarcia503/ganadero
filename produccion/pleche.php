@@ -3,10 +3,11 @@
  <div class="small-12 columns">
 <h2>admon peso leche</h2>
 
-<a href="Cpleche.php" class="button primary">crear peso leche</a>
+<!--<a href="Cpleche.php" class="button primary">crear peso leche</a>-->
 
 
 <?php
+echo check_permiso($_SESSION[permisos][$_SERVER[REQUEST_URI]],'Cpleche.php','crear peso leche');
 $res=$conex->query("select * from pesos_leches order by fecha desc");
 ?>
 

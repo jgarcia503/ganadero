@@ -3,10 +3,11 @@
 <div class="small-12 columns">
 <h2>admon razas</h2>
 
-<a href="Craza.php" class="button primary">crear raza</a>
+<!--<a href="Craza.php" class="button primary">crear raza</a>-->
 
 
 <?php
+echo check_permiso($_SESSION[permisos][$_SERVER[REQUEST_URI]],'Craza.php','crear raza');
 $res=$conex->query("select * from razas");
 ?>
 

@@ -4,10 +4,11 @@
  
 <h2>admon tipo cultivo</h2>
 
-<a href="Ctipovegetacion.php" class="button primary">crear tipo cultivo</a>
+<!--<a href="Ctipovegetacion.php" class="button primary">crear tipo cultivo</a>-->
 
 
 <?php
+echo check_permiso($_SESSION[permisos][$_SERVER[REQUEST_URI]],'Ctipovegetacion.php','crear tipo cultivo');
 $res=$conex->query("select * from tipo_vegetacion");
 ?>
 

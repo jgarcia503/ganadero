@@ -7,6 +7,7 @@
 
 
 <?php
+echo check_permiso($_SESSION[permisos][$_SERVER[REQUEST_URI]],'Cproyecto.php','crear proyecto siembra');
 $res=$conex->query("select * from proyectos_enc");
 ?>
 

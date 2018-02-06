@@ -2,10 +2,11 @@
 <div class="small-12 columns">
 <h2>admon contactos</h2>
 
-<a href="Ccontactos.php" class="button primary">crear contacto</a>
+<!--<a href="Ccontactos.php" class="button primary">crear contacto</a>-->
 
 
 <?php
+echo check_permiso($_SESSION[permisos][$_SERVER[REQUEST_URI]],'Ccontactos.php','crear contacto');
 $res=$conex->query("select * from contactos");
 ?>
 

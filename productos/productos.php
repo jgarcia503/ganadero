@@ -6,10 +6,11 @@ $res_bod=$conex->query($bod_sql);
  <div class="small-12 columns">
 <h2>admon producto</h2>
 
-<a href="Cproducto.php" class="button primary">crear producto</a>
+<!--<a href="Cproducto.php" class="button primary">crear producto</a>-->
 
 
 <?php
+echo check_permiso($_SESSION[permisos][$_SERVER[REQUEST_URI]],'Cproducto.php','crear producto'); 
 $res=$conex->query("select * from productos");
 ?>
 

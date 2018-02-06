@@ -3,10 +3,11 @@
  <div class="small-12 columns">
 <h2>admon vegetacion</h2>
 
-<a href="Cvegetacion.php" class="button primary">crear vegetacion</a>
+<!--<a href="Cvegetacion.php" class="button primary">crear vegetacion</a>-->
 
 
 <?php
+echo check_permiso($_SESSION[permisos][$_SERVER[REQUEST_URI]],'Cvegetacion.php','crear vegetacion');
 $res=$conex->query("select a.id,a.nombre subtipo,b.nombre tipo,a.notas from vegetaciones a inner join tipo_vegetacion b on b.id::varchar=a.id_tipo_cultivo");
 ?>
 

@@ -3,10 +3,11 @@
  <div class="small-12 columns">
 <h2>admon partos</h2>
 
-<a href="Cpartos.php" class="button primary">crear partos</a>
+<!--<a href="Cpartos.php" class="button primary">crear partos</a>-->
 
 
 <?php
+echo check_permiso($_SESSION[permisos][$_SERVER[REQUEST_URI]],'Cpartos.php','crear partos');
 $res=$conex->query("select * from partos  order by fecha desc");
 ?>
 

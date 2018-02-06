@@ -3,9 +3,10 @@
  <div class="small-12 columns">
 <h2>admon unidades</h2>
 
-<a href="Cunidad.php" class="button primary">crear unidad</a>
+<!--<a href="Cunidad.php" class="button primary">crear unidad</a>-->
 
 <?php
+echo check_permiso($_SESSION[permisos][$_SERVER[REQUEST_URI]],'Cunidad.php','crear unidad'); 
 $res=$conex->query("select * from unidades");
 ?>
 

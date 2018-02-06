@@ -18,9 +18,10 @@ if($_POST){
  <div class="small-12 columns">
 <h2>admon compuestos</h2>
 <?php echo $mensaje ?>
-<a href="#" class="button primary" id="crear">crear compuesto</a>
+<!--<a href="#" class="button primary" id="crear">crear compuesto</a>-->
 
 <?php
+echo check_permiso($_SESSION[permisos][$_SERVER[REQUEST_URI]],'#','crear compuesto'); 
 $res=$conex->query("select * from compuestos");
 ?>
 

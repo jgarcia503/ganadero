@@ -3,10 +3,11 @@
  <div class="small-12 columns">
 <h2>admon suplementacion</h2>
 
-<a href="Csuplementacion.php" class="button primary">crear suplementacion</a>
+<!--<a href="Csuplementacion.php" class="button primary">crear suplementacion</a>-->
 
 
 <?php
+echo check_permiso($_SESSION[permisos][$_SERVER[REQUEST_URI]],'Csuplementacion.php','crear suplementacion');
 $res=$conex->query("select a.*,c.nombre grupo,b.nombre dieta from suplementaciones_enc a
 join alimentacion_enc b on b.id::text=a.dieta_id
 join grupos c on c.id::text=a.grupo_id");

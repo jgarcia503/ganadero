@@ -3,10 +3,11 @@
  <div class="small-12 columns">
 <h2>admon terreno</h2>
 
-<a href="Cpotrero.php" class="button primary">crear terreno</a>
+<!--<a href="Cpotrero.php" class="button primary">crear terreno</a>-->
 
 
 <?php
+echo check_permiso($_SESSION[permisos][$_SERVER[REQUEST_URI]],'Cpotrero.php','crear  terreno');
 $res=$conex->query("select * from potreros");
 ?>
 

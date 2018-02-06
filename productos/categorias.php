@@ -3,9 +3,10 @@
  <div class="small-12 columns">
 <h2>admon categorias</h2>
 
-<a href="Ccategoria.php" class="button primary">crear categoria</a>
+<!--<a href="Ccategoria.php" class="button primary">crear categoria</a>-->
 
 <?php
+echo check_permiso($_SESSION[permisos][$_SERVER[REQUEST_URI]],'Ccategoria.php','crear categoria'); 
 $res=$conex->query("select * from categorias");
 ?>
 

@@ -3,10 +3,11 @@
  <div class="small-12 columns">
 <h2>admon servicios</h2>
 
-<a href="Cservicios.php" class="button primary">crear servicios</a>
+<!--<a href="Cservicios.php" class="button primary">crear servicios</a>-->
 
 
 <?php
+echo check_permiso($_SESSION[permisos][$_SERVER[REQUEST_URI]],'Cservicios.php','crear servicios');
 $res=$conex->query("select * from servicios  order by fecha desc");
 ?>
 

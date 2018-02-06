@@ -3,10 +3,11 @@
  <div class="small-12 columns">
 <h2>admon eventos sanitarios</h2>
 
-<a href="Ceventossanitarios.php" class="button primary">crear evento sanitario</a>
+<!--<a href="Ceventossanitarios.php" class="button primary">crear evento sanitario</a>-->
 
 
 <?php
+echo check_permiso($_SESSION[permisos][$_SERVER[REQUEST_URI]],'Ceventossanitarios.php','crear evento sanitario');
 $res=$conex->query("select * from eventos_sanitarios");
 ?>
 

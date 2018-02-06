@@ -5,10 +5,11 @@
  <div class="small-12 columns">
 <h2>admon grupos</h2>
 
-<a href="Cgrupo.php" class="button primary">crear grupo</a>
+<!--<a href="Cgrupo.php" class="button primary">crear grupo</a>-->
 
 
 <?php
+echo check_permiso($_SESSION[permisos][$_SERVER[REQUEST_URI]],'Cgrupo.php','crear grupo');
 $res=$conex->query("select * from grupos");
 ?>
 

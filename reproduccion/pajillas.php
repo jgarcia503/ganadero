@@ -4,10 +4,11 @@
  <div class="small-12 columns">
 <h2>admon pajillas</h2>
 
-<a href="Cpajillas.php" class="button primary">ingresar pajilla</a>
+<!--<a href="Cpajillas.php" class="button primary">ingresar pajilla</a>-->
 
 
 <?php
+echo check_permiso($_SESSION[permisos][$_SERVER[REQUEST_URI]],'Cpajillas.php','crear pajillas');
 $res=$conex->query("select * from pajillas_toros");
 ?>
 

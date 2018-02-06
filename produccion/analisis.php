@@ -3,10 +3,11 @@
  <div class="small-12 columns">
 <h2>analisis de leche</h2>
 
-<a href="Canalisis.php" class="button primary">registrar analisis</a>
+<!--<a href="Canalisis.php" class="button primary">registrar analisis</a>-->
 
 
 <?php
+echo check_permiso($_SESSION[permisos][$_SERVER[REQUEST_URI]],'Canalisis.php','crear analisis');
 $res=$conex->query("select * from analisis_leche ");
 ?>
 

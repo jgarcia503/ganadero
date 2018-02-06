@@ -4,8 +4,8 @@ $res=$conex->query("select * from activo");
 
 <div class="small-12 columns">
     <h2>crear activo</h2>
-    <a href="Cdeterioro_activo.php" class="button primary">crear activo</a>
-    
+    <!--<a href="Cdeterioro_activo.php" class="button primary">crear activo</a>-->
+    <?php echo check_permiso($_SESSION[permisos][$_SERVER[REQUEST_URI]],'Cdeterioro_activo.php','crear activo'); ?>
     <table class="table" data-filtering='true' data-paging="true">
 	<thead>
 		<tr>

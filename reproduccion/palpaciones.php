@@ -4,10 +4,11 @@
  <div class="small-12 columns">
 <h2>admon palpaciones</h2>
 
-<a href="Cpalpaciones.php" class="button primary">crear palpaciones</a>
+<!--<a href="Cpalpaciones.php" class="button primary">crear palpaciones</a>-->
 
 
 <?php
+echo check_permiso($_SESSION[permisos][$_SERVER[REQUEST_URI]],'Cpalpaciones.php','crear palpacion');
 $res=$conex->query("select *,prenada from palpaciones order by fecha desc");
 ?>
 

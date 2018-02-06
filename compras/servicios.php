@@ -4,8 +4,8 @@ $res=$conex->query("select * from compras_servicios  order by fecha desc");
 
 <div class="small-12 columns">
     <h2>adquirir servicios</h2>
-    <a href="Cservicios.php" class="button primary">comprar servicio</a>
-    
+    <!--<a href="Cservicios.php" class="button primary">comprar servicio</a>-->
+    <?php echo check_permiso($_SESSION[permisos][$_SERVER[REQUEST_URI]],'Cservicios.php','comprar servicio');  ?>
     <table class="table" data-filtering='true' data-paging="true">
 	<thead>
 		<tr>

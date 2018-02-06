@@ -4,10 +4,11 @@
  
 <h2>admon dietas</h2>
 
-<a href="Cdieta_1.php" class="button primary">crear dieta</a>
+<!--<a href="Cdieta_1.php" class="button primary">crear dieta</a>-->
 
 
 <?php
+echo check_permiso($_SESSION[permisos][$_SERVER[REQUEST_URI]],'Cdieta_1.php','crear dieta');
 $res=$conex->query("select * from alimentacion_enc");
 ?>
 

@@ -4,8 +4,8 @@ $res=$conex->query("select a.*,b.nombre from requisicion_enc a inner join bodega
 
 <div class="small-12 columns">
     <h2>requisiciones</h2>
-    <a href="Crequisicion.php" class="button primary">crear requisicion</a>
-    
+    <!--<a href="Crequisicion.php" class="button primary">crear requisicion</a>-->
+        <?php echo check_permiso($_SESSION[permisos][$_SERVER[REQUEST_URI]],'Crequisicion.php','comprar requisicion');  ?>
     <table class="table" data-filtering='true' data-paging="true">
 	<thead>
 		<tr>

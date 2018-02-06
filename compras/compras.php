@@ -6,8 +6,10 @@ $res_sin_terminar=$conex->query($sql_sin_terminar)->fetchColumn();
 
 <div class="small-12 columns">
     <h2>compras</h2>
-    <?php if(intval($res_sin_terminar)===0) {?>
-    <a href="Ccompra.php" class="button primary">crear compras</a>
+    <?php if(intval($res_sin_terminar)===0) {
+                                 echo check_permiso($_SESSION[permisos][$_SERVER[REQUEST_URI]],'Ccompra.php','crear compras'); 
+        ?>
+    <!--<a href="Ccompra.php" class="button primary">crear compras</a>-->
     <?php } ?>
     <table class="table" data-filtering='true' data-paging="true" data-toggle-column="last">
 	<thead>

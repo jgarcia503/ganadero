@@ -4,10 +4,11 @@
  
 <h2>admon actividades</h2>
 
-<a href="Ctipocontrolpotrero.php" class="button primary">crear actividad</a>
+<!--<a href="Ctipocontrolpotrero.php" class="button primary">crear actividad</a>-->
 
 
 <?php
+echo check_permiso($_SESSION[permisos][$_SERVER[REQUEST_URI]],'Ctipocontrolpotrero.php','crear actividad');
 $res=$conex->query("select * from controles_potreros");
 ?>
 

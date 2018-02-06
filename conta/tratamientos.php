@@ -3,10 +3,11 @@
 <div class="small-12 columns">
 <h2>admon tratamientos medicos</h2>
 
-<a href="Ctratamiento.php" class="button primary">crear tratamientos medicos</a>
+<!--<a href="Ctratamiento.php" class="button primary">crear tratamientos medicos</a>-->
 
 
 <?php
+echo check_permiso($_SESSION[permisos][$_SERVER[REQUEST_URI]],'Ctratamiento.php','crear tratamiento medico');
 $res=$conex->query("select * from tratamientos_enc");
 ?>
 

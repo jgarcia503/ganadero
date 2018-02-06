@@ -3,9 +3,10 @@
  <div class="small-12 columns">
 <h2>admon marcas</h2>
 
-<a href="Cmarca.php" class="button primary">crear marca</a>
+<!--<a href="Cmarca.php" class="button primary">crear marca</a>-->
 
 <?php
+echo check_permiso($_SESSION[permisos][$_SERVER[REQUEST_URI]],'Cmarca.php','crear marca'); 
 $res=$conex->query("select * from marcas");
 ?>
 

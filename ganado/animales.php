@@ -3,10 +3,11 @@
 <div class="small-12 columns">
     <h2>admon animales</h2>
 
-<a href="Canimal.php" class="button primary">crear animal</a>
+<!--<a href="Canimal.php" class="button primary">crear animal</a>-->
 
 
 <?php
+echo check_permiso($_SESSION[permisos][$_SERVER[REQUEST_URI]],'Canimal.php','crear animal');
 $res=$conex->query("select *,to_char(current_date,'DD MM YYYY')::date  - (select fecha from partos where animal=numero||'-'||nombre order by fecha::date desc limit 1)::date dias_lactancia from animales");
 ?>
 

@@ -4,8 +4,8 @@ $res=$conex->query("select * from bodega");
 
 <div class="small-12 columns">
     <h2>crear bodega</h2>
-    <a href="Cbodega.php" class="button primary">crear bodega</a>
-    
+    <!--<a href="Cbodega.php" class="button primary">crear bodega</a>-->
+        <?php echo check_permiso($_SESSION[permisos][$_SERVER[REQUEST_URI]],'Cbodega.php','crear bodega');  ?>
     <table class="table" data-filtering='true' data-paging="true">
 	<thead>
 		<tr>

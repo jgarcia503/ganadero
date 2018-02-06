@@ -5,10 +5,11 @@
  <div class="small-12 columns">
 <h2>admon colores</h2>
 
-<a href="Ccolores.php" class="button primary">crear color</a>
+<!--<a href="Ccolores.php" class="button primary">crear color</a>-->
 
 
 <?php
+echo check_permiso($_SESSION[permisos][$_SERVER[REQUEST_URI]],'Ccolores.php','crear color');
 $res=$conex->query("select * from colores");
 ?>
 

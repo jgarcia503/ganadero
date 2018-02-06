@@ -4,10 +4,11 @@
  <div class="small-12 columns">
 <h2>visitas medicas</h2>
 
-<a href="Cvisita.php" class="button primary">registrar visita medica</a>
+<!--<a href="Cvisita.php" class="button primary">registrar visita medica</a>-->
 
 
 <?php
+echo check_permiso($_SESSION[permisos][$_SERVER[REQUEST_URI]],'Cvisita.php','crear visita medica');
 $res=$conex->query("select * from visita_medica");
 ?>
 
