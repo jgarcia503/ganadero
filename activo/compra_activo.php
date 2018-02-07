@@ -6,9 +6,11 @@ $res_sin_terminar=$conex->query($sql_sin_terminar)->fetchColumn();
 
 <div class="small-12 columns">
     <h2>compras activo</h2>
-    <?php if(intval($res_sin_terminar)===0) {?>
-    <a href="Ccompra_activo.php" class="button primary">crear compras</a>
-    <?php } ?>
+    <?php if(intval($res_sin_terminar)===0) {
+                                    echo check_permiso($_SESSION[permisos][$_SERVER[REQUEST_URI]],'Ccompra_activo.php','crear compras activo'); 
+
+//    <!--<a href="Ccompra_activo.php" class="button primary">crear compras</a>-->
+  } ?>
     <table class="table" data-filtering='true' data-paging="true">
 	<thead>
 		<tr>
@@ -33,8 +35,10 @@ while($fila=$res->fetch()){
                     <?php if ($fila[total]!==null){?>
                     <a href="ajax/print_fact.php?id=<?php  echo  $fila[id] ?>"><i class="fa fa-file-pdf-o" aria-hidden="true"></i></a>
                     <?php } ?>
-                    <?php if($fila[total]===NULL and !$fila[aplicada]){?>
-                    <a href="Ucompra.php?id=<?php  echo   $fila[id]?>"><i class="fa fa-pencil" aria-hidden="true"></i></a>                    
+                    <?php if($fila[total]===NULL and !$fila[aplicada]){
+                                                    echo check_permiso_for_update($_SESSION[permisos][$_SERVER[REQUEST_URI]], 'Ucompra.php', "id=$fila[id]");
+                        ?>
+                    <!--<a href="Ucompra.php?id=<?php  echo   $fila[id]?>"><i class="fa fa-pencil" aria-hidden="true"></i></a>-->                    
                     <?php } 
                                             if($fila[total]!==NULL  and !$fila[aplicada]){ ?>
                            <a href='#' class='aplicar' data-id="<?php echo $fila[id]?>" title='aplicar'><i class='fa fa-check' aria-hidden='true'></i></a>

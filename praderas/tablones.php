@@ -38,7 +38,7 @@ while($fila=$res->fetch()){
                     <a href="#" class="release" data-id="<?php  echo $fila[id] ?>">liberar terreno</a>
                     <?php } ?>
                     <a href="#" class="ver" data-id="<?php  echo base64_encode( $fila[id]) ?>"><i class="fa fa-eye" aria-hidden="true"></i></a>
-                    <a href="Upotrero.php?<?php  echo  base64_encode($fila[id])?>"><i class="fa fa-pencil" aria-hidden="true"></i></a>                    
+                    <!--<a href="Upotrero.php?<?php  echo  base64_encode($fila[id])?>"><i class="fa fa-pencil" aria-hidden="true"></i></a>-->                    
                     <a href="Dpotrero.php?<?php  echo  base64_encode('potrero='. $fila[id])?>" id="eliminar"><i class="fa fa-trash" aria-hidden="true"></i></a>
                 </td>
             </tr>

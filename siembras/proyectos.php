@@ -3,7 +3,7 @@
 <div class="small-12 columns">
 <h2>admon proyectos</h2>
 
-<a href="Cproyecto.php" class="button primary">crear proyecto siembra</a>
+<!--<a href="Cproyecto.php" class="button primary">crear proyecto siembra</a>-->
 
 
 <?php
