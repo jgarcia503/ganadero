@@ -2,7 +2,7 @@
 
 include '../conexion.php';
 $suple=base64_decode($_SERVER[QUERY_STRING]);
-$sql="select * from suplementaciones where id=$suple";
+$sql="select * from suplementaciones_enc where id=$suple";
 $res=$conex->query($sql);
 $animal=$res->fetch(PDO::FETCH_ASSOC);
 
