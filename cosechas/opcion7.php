@@ -1,9 +1,9 @@
 <?php   
 include '../plantilla.php'; 
-include '../php funciones/funciones.php';
+#include '../php funciones/funciones.php';
 
 if(!isset($_GET[proy_id])){
-echo '<script>window.location="http://localhost:8089/ganadero/cosechas/cosechas.php"</script>';
+echo "<script>window.location=''http://'.$_SERVER[HTTP_HOST]/ganadero/cosechas/cosechas.php'</script>";
 }
 
 $costo_total=  calcular_costo_proyecto($_GET[proy_id]);

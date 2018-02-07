@@ -1,9 +1,9 @@
 <?php   
 include '../plantilla.php'; 
-include '../php funciones/funciones.php';
+#include '../php funciones/funciones.php';
 
 if(!isset($_GET[proy_id])){
-echo '<script>window.location="http://localhost:8089/ganadero/cosechas/cosechas.php"</script>';
+echo "<script>window.location=''http://'.$_SERVER[HTTP_HOST]/ganadero/cosechas/cosechas.php'</script>";
 }
 
 
@@ -25,7 +25,7 @@ $costo_total+=$res_uso;
        <h2>ensilado de parcela antes del tiempo</h2>
        <a href="cosechas.php" class="regresar">regresar</a>
          <?php  
-                            if($mensaje !==''){
+                            if(isset($mensaje)){
                                     echo $mensaje;
                                     echo "<script>setTimeout(function(){window.location='http://localhost:8089/ganadero/cosechas/cosechas.php'},1500) </script>";
                                    }

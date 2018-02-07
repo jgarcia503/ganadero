@@ -1,4 +1,9 @@
-<?php   include '../plantilla.php'; ?>
+<?php   include '../plantilla.php'; 
+#se hace para formar la url y anadirla a sesion
+$uri=$_SERVER[REQUEST_URI];
+$uri=substr($uri,0,strrpos($uri,'/')).'/';
+$opciones=array('opcion1.php','opcion2.php','opcion3.php','opcion4.php','opcion5.php','opcion6.php','opcion7.php','opcion8.php');
+?>
 
 <div class="small-12 columns">
 <h2>admon cosechas</h2>
@@ -19,7 +24,10 @@ $res=$conex->query("select * from proyectos_enc where cerrado='true'");
 	<tbody>
 <?php
 while($fila=$res->fetch()){
-    
+    #se hace para anadirlas a sesion y no las bloquee
+    foreach ($opciones as $value) {
+    $_SESSION[permisos][$uri.$value."?proy_id=".$fila[id_proyecto]]=true;
+    }
     
     ?>
             <tr>
