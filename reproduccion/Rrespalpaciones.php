@@ -5,7 +5,7 @@ $sql="select * from resul_palpaciones where id=$id";
 $res=$conex->query($sql);
 $animal=$res->fetch(PDO::FETCH_ASSOC);
 $plantilla="<div class='row'>"
-        . "<div class='small-3 columns'>".  array_keys($animal,$animal[nombre])[0]
+        . "<div class='small-3 columns'>".  ucwords('nombre')
         . "<input type='text' value='$animal[nombre]' readonly>"
         . "</div>"
         . "</div>"
