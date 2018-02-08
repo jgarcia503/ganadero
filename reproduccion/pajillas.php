@@ -35,7 +35,7 @@ while($fila=$res->fetch()){
                 <td><?php  echo $fila[disponible]?'si':'no' ?></td>
    
                 <td>
-                      <a href="#" class="ver" data-id="<?php  echo base64_encode( $fila[id]) ?>"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                      <!--<a href="#" class="ver" data-id="<?php  echo base64_encode( $fila[id]) ?>"><i class="fa fa-eye" aria-hidden="true"></i></a>-->
                     <!--<a href="Upalpaciones.php?<?php  echo  base64_encode($fila[id])?>"><i class="fa fa-pencil" aria-hidden="true"></i></a>-->                    
                     <a href="Dpalpaciones.php?<?php  echo  base64_encode('palpacion='. $fila[id])?>" id="eliminar"><i class="fa fa-trash" aria-hidden="true"></i></a>
                 </td>

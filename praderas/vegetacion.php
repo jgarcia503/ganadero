@@ -15,7 +15,7 @@ $res=$conex->query("select a.id,a.nombre subtipo,b.nombre tipo,a.notas from vege
 	<thead>
 		<tr>
 			<th>tipo</th>
-			<th>subtipo</th>
+			<th>nombre</th>
 			<th>notas</th>
 		
                         <th data-filterable="false"></th>
