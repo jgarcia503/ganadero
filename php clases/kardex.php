@@ -247,6 +247,10 @@ class kardex{
                         }                    
                 }
             }
+            $sql_update="update inventario_fisico_enc set en_proceso='false' where id=$ultimo_id_enc";
+            if(!$this->conex->prepare($sql_update)->execute()){
+                throw new PDOException;
+            }
         }
 
         private function _upsert_existencias($cant,$prod_id,$bod_id,$operacion='+'){

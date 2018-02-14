@@ -186,7 +186,7 @@ if(isset($_SESSION[inv_fisico])){  unset($_SESSION[inv_fisico]); }
         url:'ajax/aplicacion_inv_fisico.php',
         data:{bod_id:$('[name=bodega]').val()},
         success:function(){
-            //window.location.reload();
+            window.location.reload();
         }
         });
     });
