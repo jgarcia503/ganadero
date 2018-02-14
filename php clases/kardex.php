@@ -222,7 +222,91 @@ class kardex{
                                    
                 
         }
+        
+        public function crea_inv_fisico($ultimo_id_enc,$fecha){
+            $sql="select * from inventario_fisico_lns where enc_id=$ultimo_id_enc";
+            $res=  $this->conex->query($sql);
+            while($fila=$res->fetch(PDO::FETCH_ASSOC)){
+                $cant_teorica=  floatval($fila[cantidad_teorica]);
+                $cant_real=  floatval($fila[cantidad_real]);
+                $bod_id=$fila[bodega_id];
+                $unidad=$fila[unidad];
+                $prod_id=$fila[producto_id];
+                $costo=$fila[costo];
+                $cant_real_conv=  convertir($unidad, $cant_real);
+                    if($cant_teorica !== $cant_real_conv){
+                          $diff=$cant_teorica-$cant_real_conv;
+                        if($diff>0){
+                            $this->_upsert_existencias(abs($diff), $prod_id, $bod_id,'-');
+                            $this->_update_productos(abs($diff), $prod_id,'-');
+                            $this->_insert_kardex(abs($diff), $prod_id, $bod_id, $fecha, $ultimo_id_enc, $costo,false);
+                        }else{
+                            $this->_upsert_existencias(abs($diff), $prod_id, $bod_id,'+');
+                            $this->_update_productos(abs($diff), $prod_id,'+');
+                            $this->_insert_kardex(abs($diff), $prod_id, $bod_id, $fecha, $ultimo_id_enc, $costo,true);
+                        }                    
+                }
+            }
+        }
 
+        private function _upsert_existencias($cant,$prod_id,$bod_id,$operacion='+'){
+            $sql_existe="select * from existencias where codigo_bodega=$bod_id and codigo_producto='$prod_id'";
+            $res=$this->conex->query($sql_existe);
+            if($res->rowCount()!==0){
+                    $update_existencias="update existencias set existencia=(existencia::numeric(1000,2) $operacion $cant) where "
+                                                                . "codigo_producto='$prod_id' and codigo_bodega='$bod_id'";
+                    if(!$this->conex->prepare($update_existencias)->execute()){
+                        throw new PDOException;
+                    }
+            }else{
+                $insert_existencias="insert into existencias values(default,'$prod_id','$bod_id','$cant')";
+                if(!$this->conex->prepare($insert_existencias)->execute()){
+                    throw new PDOException;
+                }
+            }
+            
+            
+        }
+        
+        private function _update_productos($cant,$prod_id,$operacion='+'){
+            $update_productos="update productos set cantidad_total=(cantidad_total::numeric(1000,2) $operacion $cant) where referencia='$prod_id'";
+            if(!$this->conex->prepare($update_productos)->execute()){
+                    throw new PDOException;
+            }
+        }
+        
+        private function _insert_kardex($cant,$prod_id,$bod_id,$fecha,$ultimo_id,$costo,$entrada=false){
+            if($entrada){
+                       $insert_kardex="insert into kardex values(default,'$bod_id','$prod_id','$fecha','inventario-fisico','$ultimo_id','$costo','$cant','')";
+            }else{
+                 $insert_kardex="insert into kardex values(default,'$bod_id','$prod_id','$fecha','inventario-fisico','$ultimo_id','$costo','','$cant')";
+                        
+            }
+                        if(!$this->conex->prepare($insert_kardex)->execute()){
+                            throw  new PDOException;
+                        }
+        }
+        
 }
 
-
+#seudocodigo
+#while inventario_fisico_lns:
+    #if cant_teorica<>cant_real:
+    #diff=cant_teorica-cant_real
+        #if diff > 0:
+            #upsert_existencia(restar)
+                #si existe actualizo con absoluto(diff)
+                #sino inserto con absoluto(diff)
+            #update_productos
+                #actualizar productos con absoluto(diff)(restar)
+            #insert kardex
+                #insertar en kardex con absoluto(diff)(naturaleza SALIDA)
+        #else:
+            #upsert_existencia(sumar)
+                #si existe actualizo con absoluto(diff)
+                #sino inserto con absoluto(diff)
+            #update_productos
+                #actualizar productos con absoluto(diff)(sumar)
+            #insert kardex
+                #insertar en kardex con absoluto(diff)(naturaleza ENTRADA)
+#finish
