@@ -160,6 +160,7 @@ while($fila=$res->fetch()){
                     <th>unidad</th>
                     <th>precio</th>
                     <th>subtotal</th>
+                    <th>eliminar</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -276,18 +277,18 @@ while($fila=$res->fetch()){
       cant=$('#cantidad').val();
       unidad=$('#unidad').val();
       precio=$('#precio').val();
-      
+      id_enc=<?php echo $res_compra[id]?>;
       if(bod!=='' && ref!=='' && cant!=='' && unidad!=='' && precio!==''){
           subtotales=0;
                             $.ajax({
                                 url:'ajax/lineas_factura_compra_sesion.php',
-                                data:{bod:bod,ref:ref,cant:cant,unidad:unidad,precio:precio},
+                                data:{bod:bod,ref:ref,cant:cant,unidad:unidad,precio:precio,id_enc:id_enc,eliminar:false},
                                 dataType:'json',
                                 success:function(data){
                                     linea='';
                                     _.each(data,function(value,key,list){
                                      linea+='<tr>';
-                                     linea+='<td>'+data[key].bodega+'</td><td>'+key+'</td><td>'+data[key].cant+'</td><td>'+data[key].unidad+'</td><td>'+data[key].precio+'</td><td>'+numeral(data[key].subtotal).format('0,0.00')+'</td>';
+                                     linea+='<td>'+data[key].bodega+'</td><td>'+key+'</td><td>'+data[key].cant+'</td><td>'+data[key].unidad+'</td><td>'+data[key].precio+'</td><td>'+numeral(data[key].subtotal).format('0,0.00')+'</td><td><a href="#" class="delete" data-prod_id='+key+' data-id_enc='+id_enc+'>eliminar</a></td>';
                                      linea+='</tr>';
                                      subtotales+=parseFloat(data[key].subtotal);
                                  });
@@ -302,6 +303,32 @@ while($fila=$res->fetch()){
                   alert('complete todos los campos');
                   return;
                   }
+  });
+  //para el delete
+  $('#lineas>tbody').on('click','.delete',function(e){
+        e.preventDefault();
+        prod_id=$(this).attr('data-prod_id');
+        id_enc=$(this).attr('data-id_enc');
+        $.ajax({
+                 url:'ajax/lineas_factura_compra_sesion.php',
+                 data:{id_enc:id_enc,prod_id:prod_id,eliminar:true},
+                 dataType:'json',
+                 success:function(data){
+                                    linea='';
+                                    _.each(data,function(value,key,list){
+                                     linea+='<tr>';
+                                     linea+='<td>'+data[key].bodega+'</td><td>'+key+'</td><td>'+data[key].cant+'</td><td>'+data[key].unidad+'</td><td>'+data[key].precio+'</td><td>'+numeral(data[key].subtotal).format('0,0.00')+'</td><td><a href="#" class="delete" data-prod_id='+key+' data-id_enc='+id_enc+'>eliminar</a></td>';
+                                     linea+='</tr>';
+                                     subtotales+=parseFloat(data[key].subtotal);
+                                 });
+                                            //linea=`<tr><td>${bod}</td><td>${ref}</td><td>${cant}</td><td>${unidad}</td><td>${precio}</td><td>${subtotal}</td></tr>`;
+                                           // linea+=`<tr><td>${bod}</td><td>${ref}</td><td>${cant}</td><td>${unidad}</td><td>${precio}</td><td>${subtotal}</td></tr>`;
+                                            $('#lineas>tbody').html(linea);
+                                            $('[name=total]').val(numeral(subtotales).format('0,0.00'));
+
+                                }
+        });
+        
   });
   
   $('#ref').on('change',function (){
