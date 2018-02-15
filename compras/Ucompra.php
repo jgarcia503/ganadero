@@ -41,6 +41,9 @@ $selectbodega="<option value=''>seleccione</option>";
 while($fila=$res->fetch()){
     $selectbodega.="<option value='$fila[codigo]'>$fila[nombre]</option>";
 }
+$sql_lineas="select * from compras_lns where enc_id=$_GET[id]";
+$reslineas=$conex->query($sql_lineas);
+
 ?>
 <div class="small-12 columns">
     <h2>crear compra</h2>
@@ -164,7 +167,20 @@ while($fila=$res->fetch()){
                 </tr>
                 </thead>
                 <tbody>
-                
+                            <?php   
+                            while($fila=$reslineas->fetch(PDO::FETCH_ASSOC)){
+                                echo "<tr>";
+                                echo "<td>$fila[bodega]</td>";
+                                echo "<td>$fila[referencia]-$fila[producto]</td>";
+                                echo "<td>$fila[cantidad]</td>";
+                                echo "<td>$fila[unidad]</td>";
+                                echo "<td>$fila[precio]</td>";
+                                echo "<td>$fila[subtotal]</td>";
+                                echo "<td><a href='#' class='delete' data-prod_id='$fila[referencia]-$fila[producto]' data-id_enc='$res_compra[id]'>eliminar</a></td>";
+                                echo "</tr>";
+                                $_SESSION[lineas_fact]["$fila[referencia]-$fila[producto]"]=array('bodega'=>$fila[bodega],'cant'=>$fila[cantidad],'unidad'=>$fila[unidad],'precio'=>$fila[precio],'subtotal'=>$fila[subtotal]);
+                            }
+                            ?>
                 </tbody>
             </table>
 <!--                            <table id="tblAppendGrid">
@@ -195,7 +211,7 @@ while($fila=$res->fetch()){
     </div>
         <!--<button type="submit" class="encabezado">crear registro</button>-->
  </form>   
-           <button type="submit" class='lineas' data-id='<?php echo $res_compra[id]?>'>crear lineas</button>
+           <button type="submit" class='lineas' data-id='<?php echo $res_compra[id]?>'>cerrar compra</button>
     </div>
 
 
@@ -282,7 +298,7 @@ while($fila=$res->fetch()){
           subtotales=0;
                             $.ajax({
                                 url:'ajax/lineas_factura_compra_sesion.php',
-                                data:{bod:bod,ref:ref,cant:cant,unidad:unidad,precio:precio,id_enc:id_enc,eliminar:false},
+                                data:{bod:bod,ref:ref,cant:cant,unidad:unidad,precio:precio,id_enc:id_enc},
                                 dataType:'json',
                                 success:function(data){
                                     linea='';
@@ -310,8 +326,8 @@ while($fila=$res->fetch()){
         prod_id=$(this).attr('data-prod_id');
         id_enc=$(this).attr('data-id_enc');
         $.ajax({
-                 url:'ajax/lineas_factura_compra_sesion.php',
-                 data:{id_enc:id_enc,prod_id:prod_id,eliminar:true},
+                 url:'ajax/del_lineas_factura_compra_sesion.php',
+                 data:{id_enc:id_enc,ref:prod_id},
                  dataType:'json',
                  success:function(data){
                                     linea='';
