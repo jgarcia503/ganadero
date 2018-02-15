@@ -1,9 +1,12 @@
 <?php   
 session_start();
 include '../plantilla.php';
-$sql_compra="select * from compras_enc where id=$_GET[id]";
+$sql_compra="select * from compras_enc where id=$_GET[id] and aplicada='false'";
 $res_compra=$conex->query($sql_compra)->fetchAll(PDO::FETCH_ASSOC)[0];
-
+if(count($res_compra)===0){
+         echo "<script>window.location='/ganadero/compras/compras.php'</script>";
+        
+}
 $sql="select * from productos";
 $sqlproveedores="select * from contactos where tipo='proveedor'";
 $resprods=$conex->query($sql);
