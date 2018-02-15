@@ -227,7 +227,7 @@ while($fila=$res->fetch()){
     </div>
         <button type="submit" class="encabezado">crear registro</button>
  </form>   
-           <button type="submit" class='lineas hide' data-id=''>crear lineas</button>
+           <button type="submit" class='lineas hide' data-id=''>cerrar compra</button>
     </div>
 
 
