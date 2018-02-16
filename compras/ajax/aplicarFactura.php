@@ -1,5 +1,8 @@
 <?php
-
+/**
+ * @deprecated 
+ * el proceso se hace de una vez en crea_compra_lns.php
+ */
 include '../../conexion.php';
 include '../../php clases/kardex.php';
 $id=$_GET[id];
