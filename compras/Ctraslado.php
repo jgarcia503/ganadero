@@ -83,7 +83,7 @@ $res_bodega=$conex->query($sql_bodega);
         </tbody>
             </table>
         </div>
-                
+                <span id="add_panel">
                 <div class="small-3 columns">
                     <label>referencia
                         <select id="referencia" >
@@ -106,13 +106,28 @@ $res_bodega=$conex->query($sql_bodega);
 
                 </div>
                 <div class="small-3 columns">
-                    <button id="add" >add</button>
+                    <button id="add" type="button" >add</button>
 
                 </div>
-                
+                </span>
         <div class="small-12 columns">
-                            <table id="tblAppendGrid">
-                            </table>    
+                        <table id="lineas" width="100%">
+                <thead>
+                <tr>
+                    <th>referencia</th>                    
+                    <th>cantidad</th>
+                    <th>unidad</th>
+                    <th>costo</th>
+                    <th>subtotal</th>
+                    <th>eliminar</th>
+                </tr>
+                </thead>
+                <tbody>
+                
+                </tbody>
+            </table>
+<!--                            <table id="tblAppendGrid">
+                            </table>    -->
         </div>
         <div class="small-4 columns">
             
@@ -134,114 +149,48 @@ $res_bodega=$conex->query($sql_bodega);
 </table>
         </div>
     </div>
-        <button type="submit">crear registro</button>
+        <button type="submit" id="crea_enc_registro">crear registro</button>
+        <button type="submit" id="crea">cerrar traslado</button>
  </form>   
     </div>
 
 
 </div>
 <script>
-    var mapa;
-  $('#tblAppendGrid').appendGrid({        
-        initRows: 0,
-        idPrefix: 'linea',
-        columns: [
-            { name: 'referencia', display: 'referencia', type: 'text', ctrlAttr: { maxlength: 100,readonly:true }, ctrlCss: { width: '160px'}},            
-            { name: 'cantidad', display: 'cantidad', type: 'text', ctrlAttr: { maxlength: 100 ,readonly:true}, ctrlCss: { width: '100px'},
-                   onChange: function (evt, rowIndex) {
-                       var cantidad =parseFloat($($('#tblAppendGrid').appendGrid('getCellCtrl', 'cantidad', rowIndex)).val());
-                       var precio =parseFloat($($('#tblAppendGrid').appendGrid('getCellCtrl', 'precio', rowIndex)).val());
-                       var subt=cantidad*precio;
-                       $($('#tblAppendGrid').appendGrid('getCellCtrl', 'subtotal', rowIndex)).val(parseFloat(subt).toFixed(2));
-                        $($('#tblAppendGrid').appendGrid('getCellCtrl', 'subtotal', rowIndex)).trigger('change');
-                   }
-            },
-            { name: 'unidad', display: 'unidad', type: 'text', ctrlAttr: { readonly:true}, ctrlCss: { width: '100px'}  },
-            { name: 'costo', display: 'costo', type: 'text', ctrlAttr: { maxlength: 100,readonly:true}, ctrlCss: { width: '100px'} ,
-                         onChange: function (evt, rowIndex) {
-                       var cantidad =parseFloat($($('#tblAppendGrid').appendGrid('getCellCtrl', 'cantidad', rowIndex)).val());
-                       var precio =parseFloat($($('#tblAppendGrid').appendGrid('getCellCtrl', 'precio', rowIndex)).val());
-                       var subt=cantidad*precio;
-                       $($('#tblAppendGrid').appendGrid('getCellCtrl', 'subtotal', rowIndex)).val(parseFloat(subt).toFixed(2));
-                       $($('#tblAppendGrid').appendGrid('getCellCtrl', 'subtotal', rowIndex)).trigger('change');
-                   }
-            },
-//            { name: 'proveedor', display: 'proveedor', type: 'select', ctrlAttr: { required:true }, ctrlCss: { width: '150px'},
-//                ctrlOptions: <?php echo json_encode($proveedores)?>,
-//                 emptyCriteria: 'seleccione'
-//            },
-            { name: 'subtotal', display: 'subtotal', type: 'text', ctrlAttr: { maxlength: 100,readonly:true }, ctrlCss: { width: '100px'},
-                         onChange: function (evt, rowIndex) {
-                             var i=0;
-                             var total=0;
-                        var filas= $('#tblAppendGrid').appendGrid('getRowCount');
-                        for( ;i<filas;i++){
-                           total+=parseFloat($('#tblAppendGrid').appendGrid('getCtrlValue', 'subtotal', i));                            
-                        }   
-                        
-                         $('[name=total]').val(total.toFixed(2));
-                    }
-            }
-        ],
-        afterRowAppended: function (caller, parentRowIndex, addedRowIndex) {        
-                $($('#tblAppendGrid').appendGrid('getCellCtrl', 'subtotal', addedRowIndex)).trigger('change');
-       
-        },
-           hideButtons: {
-            moveDown:true,
-            removeLast: true,
-            moveUp:true,
-            insert:true,
-            remove:true,
-            append:true
-        },
-            maintainScroll:true,            
-            maxBodyHeight:400,
-            beforeRowRemove: function (caller, rowIndex) {
-                    var subt=parseFloat($($('#tblAppendGrid').appendGrid('getCellCtrl', 'subtotal', rowIndex)).val());
-                    
-                    if(!isNaN(subt)){
-                    var total_actual=parseFloat($('[name=total]').val());
-                    var act=total_actual-subt;
-                    $('[name=total]').val(parseFloat(act).toFixed(2));
-                       
-                    }
-                     $('#tblAppendGrid').appendGrid('removeRow', rowIndex);
-        }
-    });
+    $('#crea').hide();
+    $('#add_panel').hide();
     
         $("#miforma").foundation('abide','events');
            $("[name=fecha]").datepicker({ dateFormat: "dd-mm-yy"    ,  changeMonth: true, yearRange: "2000:2050",changeYear: true});
       $("#referencia").attr('disabled',true);
     
     $('#miforma').on('valid.fndtn.abide', function () {
-
-      if($('#tblAppendGrid').appendGrid('getRowCount')>0){
-          datos={};
-          datos.traslados=$('#tblAppendGrid').appendGrid('getAllValue');
-          datos.doc_no=$("[name=fac_no]").val();
-          datos.bod_org=$("[name=bodega_origen]").val();
-          datos.bod_dst=$("[name=bodega_destino]").val();
-          datos.fecha=$("[name=fecha]").val();
-          datos.notas=$("[name=notas]").val();
-          datos.total=$("[name=total]").val();
-          
+               datos={};
+               datos.bod_org=$("[name=bodega_origen]").val();
+               datos.bod_dst=$("[name=bodega_destino]").val();
+               datos.fecha=$("[name=fecha]").val();
+               datos.notas=$("[name=notas]").val();
                                     $.ajax({
-                                        url:'ajax/crea_traslado.php',
+                                        url:'ajax/crea_traslado_enc.php',
                                         data:datos,
+                                        dataType:'json',
                                         success:function(data){
-                                            $("span#mensaje").html(data);
-                                            setTimeout(function(){
-                                                 window.location.reload();
-                                            },500);
+                                           if(_.has(data,'ok')){
+                                                $("span#mensaje").html(data.ok);
+                                                $('#crea').show();
+                                                $('#crea').attr('data-id_enc',data.id);
+                                                $('#add_panel').show();
+                                                $('#crea_enc_registro').hide();
+                                                $("[name=bodega_origen]").attr('disabled',true);
+                                                $("[name=bodega_destino]").attr('disabled',true);
+                                                $("[name=fecha]").attr('disabled',true);
+                                                $("[name=notas]").attr('disabled',true);
+                                           }else{
+                                               $("span#mensaje").html(data.error);
+                                           }
+                                            $("span#mensaje").fadeOut(1500);
                                         }
                                     });
-            }
-
-      else{
-          alert('factura vacia');
-      }
-
     
   });
   
@@ -272,48 +221,58 @@ $res_bodega=$conex->query($sql_bodega);
 
       });
 
-    $("#add").on('click',function(e){        
-            e.preventDefault();
-                
-        ref=$("#referencia");
-        cant=$("#cantidad");
-        unidad=$("#unidad");
-        if(ref.val() !=='' && cant.val()!=='' && unidad.val()!==''){
-                
-                //verificar si hay cantidad disponible pra agaregar
-                    $.ajax({
-                        url:'ajax/check_existencia.php',
-                        data:{ref:ref.val(),cant:cant.val(),unidad:unidad.val()},
-                        dataType:'json'   ,
-                        success:function(data){                                                     
-                            if(_.has(data,'mensaje')){
-                            alert(data['mensaje']);
-                            return;
-                            }else{
-                                       $('#tblAppendGrid').appendGrid('appendRow',
-                                       [{ referencia: ref.val(),cantidad: cant.val(), unidad: unidad.val(),costo:data.cant ,subtotal:data.importe}]);
-
-                                    $("#referencia option[value='"+ref.val()+"']").remove();
-                                    ref.val('');
-                                    cant.val('');
-                                    unidad.val('');
-            
-                            }
-                        }            
-            });
-
-        }else{
-            alert('campos vacios');
+    $("#add").on('click',function(e){
+        ref=$('#referencia').find('option:selected').val();
+        cant=$('#cantidad').val();
+        unidad=$('#unidad').find('option:selected').val();
+        bod_org=$('[name=bodega_origen]').val();
+        enc_id=$('#crea').attr('data-id_enc');
+        if(ref==='' || cant==='' || unidad===''){
+            alert('compete todos los campos');
             return;
         }
-        //para evitar que cambien de bodega en el proceso
-        $("[name=bodega_origen]").attr('disabled',true);
-        $("[name=bodega_destino]").attr('disabled',true);
+        subtotales=0;
+        $.ajax({
+               url:'ajax/check_existencia.php',
+                        data:{ref:ref,cant:cant,unidad:unidad,bod_org:bod_org,enc_id:enc_id},
+                        dataType:'json',
+                        success:function(data){
+                             if(_.has(data,'error')){
+                                 alert(data.error);
+                             }else{
+                                 linea='';
+                                       _.each(data,function(value,key,list){
+                                     linea+='<tr>';
+                                     linea+='<td>'+data[key].nombre+'</td><td>'+data[key].cant+'</td><td>'+data[key].unidad+'</td><td>'+data[key].costo+'</td><td>'+numeral(data[key].subtotal).format('0,0.00')+'</td><td><a href="#" class="delete" data-prod_id='+key+' data-id_enc='+enc_id+'>eliminar</a></td>';
+                                     linea+='</tr>';
+                                     subtotales+=parseFloat(data[key].subtotal);
+                                        });
+                                 $('#lineas>tbody').html(linea);
+                                 $('[name=total]').val(numeral(subtotales).format('0,0.00'));
+                             }
+                        }
+        });
+
     });
     
     $("#referencia").on('change',function(){
-        tmp=$(this).val();
-        $('#unidad').html(mapa[tmp]);
+      unidad=$(this).find('option:selected').data('unidad');           
+      kg="<option value=''>seleccione</option>         <option value='qq'>quintal</option>        <option value='g'>gramos</option>        <option value='kg'>kilogramos</option>         <option value='oz'>onzas</option>         <option value='lb'>libras</option>";
+      lt="<option value=''>seleccione</option>        <option value='lt'>litros</option>        <option value='ml'>mililitros</option>";
+      switch(unidad){
+          case 'kg':
+              $('#unidad').html(kg);
+              break;
+          case 'unidad':
+              $('#unidad').html('<option value="unidad">unidad</option>');
+              break;
+          case 'cc':
+               $('#unidad').html('<option value="cc">cc</option>');
+              break;
+          case 'lt':
+               $('#unidad').html(lt);
+              break;
+      }
         
     });
 </script>

@@ -62,6 +62,6 @@ $(document).on('ready',function(){
 
 #elimar variables que esten en proceso
 unset($_SESSION['inventario']);
-unset($_SESSION['traslado']);
+unset($_SESSION['traslado_lns']);
 unset($_SESSION['codigo_silos']);
 unset($_SESSION['lineas_fact']);

@@ -1,7 +1,7 @@
 <?php
-session_start();
+//session_start();
 include '../../conexion.php';
-unset($_SESSION['traslado']);
+//unset($_SESSION['traslado']);
 $bodega_id=$_GET[bodega_id];
 
 $sql_prods_bodega="select a.codigo_producto,a.existencia,b.nombre,b.unidad_standar "
@@ -48,8 +48,8 @@ while($fila=$res->fetch()){
             $unit_prod[$fila[codigo_producto]] = "<option values='cc'>cc</option>";
             break;
     }
-      $opciones_prod.="<option value='$fila[codigo_producto]'>$fila[nombre]</option>";
-      $_SESSION['traslado'][$fila[codigo_producto]]=$fila[existencia];
+      $opciones_prod.="<option value='$fila[codigo_producto]' data-unidad='$fila[unidad_standar]'>$fila[nombre]</option>";
+      //$_SESSION['traslado'][$fila[codigo_producto]]=$fila[existencia];
 }
 
 while($bodega_dst=$res_bodga_dst->fetch()){
