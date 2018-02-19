@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * @deprecated el proceso se hace separado 
+ *  */
 require_once '../../conexion.php';
 require_once '../../php funciones/funciones.php';
 extract($_GET);
