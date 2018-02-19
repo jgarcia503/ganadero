@@ -1,9 +1,25 @@
 <?php   include '../plantilla.php';
-$sql_bodega="select * from bodega where codigo in (select distinct codigo_bodega from existencias)";
-$res_bodega=$conex->query($sql_bodega);
+$id=$_GET[id];
+$sql_enc="select b.codigo,b.nombre origen ,c.nombre destino ,a.fecha,a.notas
+from traslados_enc a 
+join bodega b on a.bodega_origen=b.codigo::text
+join bodega c on a.bodega_destino=c.codigo::text
+where a.id=$id";
+$res_enc=$conex->query($sql_enc)->fetch();
+
+$sql_lineas="select a.*,b.nombre from traslados_lns a
+join productos b on a.producto=b.referencia where  a.enc_id='$id'";
+$res_lns=$conex->query($sql_lineas);
+
+$sql_prod_bod_org="select * from existencias a
+join productos b on a.codigo_producto=b.referencia
+where codigo_bodega=$res_enc[codigo]";
+$res_prod_bod_org=$conex->query($sql_prod_bod_org);
+
+
 ?>
 <div class="small-12 columns">
-    <h2>crear traslados</h2>
+    <h2>modificar  traslados</h2>
     <a href="traslados.php" class="regresar">regresar</a>
     <span id="mensaje"></span>
     <form data-abide='ajax' id="miforma">
@@ -37,25 +53,13 @@ $res_bodega=$conex->query($sql_bodega);
                  <label class="inline">bodega origen</label>
              </td>
                     <td>
-                <select name="bodega_origen" required>
-                    <option value=''>seleccione</option>
-                    <?php
-                                                                   while($fila=$res_bodega->fetch()){
-                                                                       echo "<option value='$fila[codigo]'>$fila[nombre]</option>";
-                                                                   }
-                                                            ?>
-                </select>
-                         <small class="error">obligatorio</small>
+                        <input type="text" readonly="" value="<?php echo $res_enc[origen] ?>">
                     </td>
                        <td>
                  <label class="inline">bodega destino</label>
              </td>
                     <td>
-                <select name="bodega_destino" required>
-                    <option value=''>seleccione</option>
-                 
-                </select>
-                         <small class="error">obligatorio</small>
+                        <input type="text" readonly="" value="<?php  echo $res_enc[destino] ?>">
                     </td>
           </tr>
           <tr>
@@ -67,14 +71,15 @@ $res_bodega=$conex->query($sql_bodega);
                   <label class="inline">fecha</label>
               </td>            
             <td>
-                <input type="text" name="fecha" readonly="" required="">
-                <small class="error">obligatorio</small>
+                <input type="text" name="fecha" readonly="" value="<?php echo $res_enc[fecha] ?>">
+                
             </td>
             <td>
                 <label class="inline">notas</label>
             </td>
             <td>
-                <textarea name="notas" style="resize:none">                    
+                <textarea name="notas" style="resize:none" readonly="">                    
+                            <?php echo $res_enc[notas]  ?>
                 </textarea>                
             </td>
            
@@ -88,6 +93,11 @@ $res_bodega=$conex->query($sql_bodega);
                     <label>referencia
                         <select id="referencia" >
                             <option value="">seleccione</option>
+                            <?php
+                            while ($fila=$res_prod_bod_org->fetch(PDO::FETCH_ASSOC)){
+                                echo "<option value='$fila[referencia]' data-unidad=$fila[unidad_standar]>$fila[nombre]</option>";
+                            }
+                            ?>
                         </select>
                     </label>
 
@@ -106,7 +116,7 @@ $res_bodega=$conex->query($sql_bodega);
 
                 </div>
                 <div class="small-3 columns">
-                    <button id="add" type="button" >add</button>
+                    <button id="add" type="button" data-bod_org="<?php echo $res_enc[codigo]?>" data-id_enc="<?php echo $id ?>" >add</button>
 
                 </div>
                 </span>
@@ -123,7 +133,19 @@ $res_bodega=$conex->query($sql_bodega);
                 </tr>
                 </thead>
                 <tbody>
-                
+                <?php
+                                            while ($fila=$res_lns->fetch(PDO::FETCH_ASSOC)){
+                                                            echo "<tr>";                                                            
+                                                            echo "<td>$fila[nombre]</td>";
+                                                            echo "<td>$fila[cantidad]</td>";
+                                                            echo "<td>$fila[unidad]</td>";
+                                                            echo "<td>$fila[costo]</td>";
+                                                            echo "<td>$fila[importe]</td>";
+                                                            echo "<td><a href='#' class='delete' data-prod_id='$fila[producto]' data-id_enc='$res_enc[id]'>eliminar</a></td>";
+                                                            echo "</tr>";
+                                                            $_SESSION['traslado_lns'][$fila[producto]]=array('nombre'=>$fila[nombre],'cant'=>$cant,'unidad'=>$unidad,'costo'=>$fila[costo],'subtotal'=>$subtotal);
+                                            }
+                ?>
                 </tbody>
             </table>
 <!--                            <table id="tblAppendGrid">
@@ -157,76 +179,76 @@ $res_bodega=$conex->query($sql_bodega);
 
 </div>
 <script>
-    $('#crea').hide();
-    $('#add_panel').hide();
+    $('#crea_enc_registro').hide();
+    $('#add_panel').show();
     
-        $("#miforma").foundation('abide','events');
-           $("[name=fecha]").datepicker({ dateFormat: "dd-mm-yy"    ,  changeMonth: true, yearRange: "2000:2050",changeYear: true});
-      $("#referencia").attr('disabled',true);
+//        $("#miforma").foundation('abide','events');
+
+//      $("#referencia").attr('disabled',true);
     
-    $('#miforma').on('valid.fndtn.abide', function () {
-               datos={};
-               datos.bod_org=$("[name=bodega_origen]").val();
-               datos.bod_dst=$("[name=bodega_destino]").val();
-               datos.fecha=$("[name=fecha]").val();
-               datos.notas=$("[name=notas]").val();
-                                    $.ajax({
-                                        url:'ajax/crea_traslado_enc.php',
-                                        data:datos,
-                                        dataType:'json',
-                                        success:function(data){
-                                           if(_.has(data,'ok')){
-                                                $("span#mensaje").html(data.ok);
-                                                $('#crea').show();
-                                                $('#crea').attr('data-id_enc',data.id);
-                                                $('#add_panel').show();
-                                                $('#crea_enc_registro').hide();
-                                                $("[name=bodega_origen]").attr('disabled',true);
-                                                $("[name=bodega_destino]").attr('disabled',true);
-                                                $("[name=fecha]").attr('disabled',true);
-                                                $("[name=notas]").attr('disabled',true);
-                                           }else{
-                                               $("span#mensaje").html(data.error);
-                                           }
-                                            $("span#mensaje").fadeOut(1500);
-                                        }
-                                    });
-    
-  });
+//    $('#miforma').on('valid.fndtn.abide', function () {
+//               datos={};
+//               datos.bod_org=$("[name=bodega_origen]").val();
+//               datos.bod_dst=$("[name=bodega_destino]").val();
+//               datos.fecha=$("[name=fecha]").val();
+//               datos.notas=$("[name=notas]").val();
+//                                    $.ajax({
+//                                        url:'ajax/crea_traslado_enc.php',
+//                                        data:datos,
+//                                        dataType:'json',
+//                                        success:function(data){
+//                                           if(_.has(data,'ok')){
+//                                                $("span#mensaje").html(data.ok);
+//                                                $('#crea').show();
+//                                                $('#crea').attr('data-id_enc',data.id);
+//                                                $('#add_panel').show();
+//                                                $('#crea_enc_registro').hide();
+//                                                $("[name=bodega_origen]").attr('disabled',true);
+//                                                $("[name=bodega_destino]").attr('disabled',true);
+//                                                $("[name=fecha]").attr('disabled',true);
+//                                                $("[name=notas]").attr('disabled',true);
+//                                           }else{
+//                                               $("span#mensaje").html(data.error);
+//                                           }
+//                                            $("span#mensaje").fadeOut(1500);
+//                                        }
+//                                    });
+//    
+//  });
   
 
       
-            $("[name=bodega_destino]").on('change',function(){
-                if($(this).val()===''){
-                    $("#referencia").attr('disabled',true);
-                }else{
-                    $("#referencia").attr('disabled',false);
-                }
-            });
+//            $("[name=bodega_destino]").on('change',function(){
+//                if($(this).val()===''){
+//                    $("#referencia").attr('disabled',true);
+//                }else{
+//                    $("#referencia").attr('disabled',false);
+//                }
+//            });
       
-      $("[name=bodega_origen]").on('change',function(){
-          bodega_id=$(this).val();                  
-             
-                    $.ajax({
-                        url:'ajax/bodegas.php',
-                        data:{bodega_id:bodega_id},
-                        dataType:'json',
-                        success:function(data){
-                            $("#referencia").html(data['opciones']);
-                            $("[name=bodega_destino]").html(data.bodega_dst);
-                            mapa=data.unit_prod;
-                            $("[name=bodega_destino]").trigger('change');
-                        }
-                    });
-
-      });
+//      $("[name=bodega_origen]").on('change',function(){
+//          bodega_id=$(this).val();                  
+//             
+//                    $.ajax({
+//                        url:'ajax/bodegas.php',
+//                        data:{bodega_id:bodega_id},
+//                        dataType:'json',
+//                        success:function(data){
+//                            $("#referencia").html(data['opciones']);
+//                            $("[name=bodega_destino]").html(data.bodega_dst);
+//                            mapa=data.unit_prod;
+//                            $("[name=bodega_destino]").trigger('change');
+//                        }
+//                    });
+//
+//      });
 
     $("#add").on('click',function(e){
         ref=$('#referencia').find('option:selected').val();
         cant=$('#cantidad').val();
         unidad=$('#unidad').find('option:selected').val();
-        bod_org=$('[name=bodega_origen]').val();
-        id_enc=$('#crea').attr('data-id_enc');
+        bod_org=$('#add').attr('data-bod_org');
+        id_enc=$('#add').attr('data-id_enc');
         if(ref==='' || cant==='' || unidad===''){
             alert('compete todos los campos');
             return;
@@ -264,10 +286,10 @@ $res_bodega=$conex->query($sql_bodega);
                  data:{id_enc:id_enc,ref:prod_id},
                  dataType:'json',
                  success:function(data){
-                                    linea='';
-                                    _.each(data,function(value,key,list){
+                                       linea='';
+                                       _.each(data,function(value,key,list){
                                      linea+='<tr>';
-                                    linea+='<td>'+data[key].nombre+'</td><td>'+data[key].cant+'</td><td>'+data[key].unidad+'</td><td>'+data[key].costo+'</td><td>'+numeral(data[key].subtotal).format('0,0.00')+'</td><td><a href="#" class="delete" data-prod_id='+key+' data-id_enc='+id_enc+'>eliminar</a></td>';
+                                     linea+='<td>'+data[key].nombre+'</td><td>'+data[key].cant+'</td><td>'+data[key].unidad+'</td><td>'+data[key].costo+'</td><td>'+numeral(data[key].subtotal).format('0,0.00')+'</td><td><a href="#" class="delete" data-prod_id='+key+' data-id_enc='+id_enc+'>eliminar</a></td>';
                                      linea+='</tr>';
                                      subtotales+=parseFloat(data[key].subtotal);
                                  });

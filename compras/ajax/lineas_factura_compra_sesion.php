@@ -21,7 +21,7 @@ function check($prod_id,$id_enc,$bod,$prod_nombre,$cant,$unidad,$precio,$subtota
   global $conex;
     $sql_check="select * from compras_lns where referencia='$prod_id' and enc_id=$id_enc";
     $sql_insert="insert into compras_lns values(default,'$bod','$prod_id','$prod_nombre','$cant','$unidad','$precio','$subtotal',$id_enc)";
-    $sql_update="update compras_lns set bodega='$bod',cantidad='$cant',unidad='$unidad',precio='$precio',subtotal='$subtotal' where referencia='$prod_id'";
+    $sql_update="update compras_lns set bodega='$bod',cantidad='$cant',unidad='$unidad',precio='$precio',subtotal='$subtotal' where referencia='$prod_id' and enc_id=$id_enc";
     
 $res=$conex->query($sql_check);
 if($res->rowCount()===0){
