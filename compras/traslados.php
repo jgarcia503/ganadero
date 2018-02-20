@@ -39,7 +39,11 @@ while($fila=$res->fetch()){
                 <td><?php  echo $fila[notas]?></td>                
                 <td>
                     <a href="#" class="ver" data-id="<?php  echo  $fila[id] ?>"><i class="fa fa-eye" aria-hidden="true"></i></a>
-                    <?php echo check_permiso_for_update($_SESSION[permisos][$_SERVER[REQUEST_URI]], 'Utraslado.php', "id=$fila[id]");?>
+                    <?php 
+                            if($fila[costo_total]==''){
+                            echo check_permiso_for_update($_SESSION[permisos][$_SERVER[REQUEST_URI]], 'Utraslado.php', "id=$fila[id]");
+                            }
+                            ?>
                     <!--<a href="Utraslado.php?<?php  echo   $fila[id]?>"><i class="fa fa-pencil" aria-hidden="true"></i></a>-->                    
                     <!--<a href="Dmortalidad.php?<?php  echo  base64_encode('mortalidad='. $fila[id])?>" id="eliminar"><i class="fa fa-trash" aria-hidden="true"></i></a>-->
                 </td>

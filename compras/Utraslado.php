@@ -1,11 +1,15 @@
 <?php   include '../plantilla.php';
 $id=$_GET[id];
-$sql_enc="select b.codigo,b.nombre origen ,c.nombre destino ,a.fecha,a.notas
+$sql_enc="select b.codigo,b.nombre origen ,c.nombre destino ,a.fecha,a.notas,a.costo_total
 from traslados_enc a 
 join bodega b on a.bodega_origen=b.codigo::text
 join bodega c on a.bodega_destino=c.codigo::text
 where a.id=$id";
 $res_enc=$conex->query($sql_enc)->fetch();
+if($res_enc[costo_total]!==''){
+         echo "<script>window.location='/ganadero/compras/traslados.php'</script>";
+        
+}
 
 $sql_lineas="select a.*,b.nombre from traslados_lns a
 join productos b on a.producto=b.referencia where  a.enc_id='$id'";
@@ -134,16 +138,18 @@ $res_prod_bod_org=$conex->query($sql_prod_bod_org);
                 </thead>
                 <tbody>
                 <?php
+                                    $total=0;
                                             while ($fila=$res_lns->fetch(PDO::FETCH_ASSOC)){
                                                             echo "<tr>";                                                            
                                                             echo "<td>$fila[nombre]</td>";
                                                             echo "<td>$fila[cantidad]</td>";
                                                             echo "<td>$fila[unidad]</td>";
-                                                            echo "<td>$fila[costo]</td>";
-                                                            echo "<td>$fila[importe]</td>";
+                                                            echo "<td>".number_format($fila[costo],2)."</td>";
+                                                            echo "<td>".number_format($fila[importe],2)."</td>";
                                                             echo "<td><a href='#' class='delete' data-prod_id='$fila[producto]' data-id_enc='$res_enc[id]'>eliminar</a></td>";
                                                             echo "</tr>";
                                                             $_SESSION['traslado_lns'][$fila[producto]]=array('nombre'=>$fila[nombre],'cant'=>$cant,'unidad'=>$unidad,'costo'=>$fila[costo],'subtotal'=>$subtotal);
+                                             $total+=floatval($fila[importe]);
                                             }
                 ?>
                 </tbody>
@@ -163,7 +169,7 @@ $res_prod_bod_org=$conex->query($sql_prod_bod_org);
   <tbody>
     <tr>
         <td><label class="inline">total</label></td>
-      <td><input type="text" name="total" readonly=""></td>
+        <td><input type="text" name="total" readonly="" value="<?php echo number_format($total)?>"></td>
      
     </tr>
 
@@ -302,6 +308,21 @@ $res_prod_bod_org=$conex->query($sql_prod_bod_org);
         });
         
   });
+
+    $('#crea').on('click',function(e){
+    id_enc=$('#add').attr('data-id_enc');
+    total=$('[name=total]').val();
+    e.preventDefault();
+                        $.ajax({
+                        url:'ajax/cerrar_traslado.php',
+                        data:{id_enc:id_enc,total:total},
+                        //dataType:'json',
+                        success:function(data){
+                                window.location='traslados.php'
+                        }
+                    });
+
+    });
     
     $("#referencia").on('change',function(){
       unidad=$(this).find('option:selected').data('unidad');           
