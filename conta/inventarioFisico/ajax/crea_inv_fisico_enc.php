@@ -2,6 +2,7 @@
 session_start();
 include '../../../conexion.php';
 extract($_GET);
+$datos=[];
 $conex->beginTransaction();
 $inse_enc=$conex->prepare("insert into inventario_fisico_enc(id,fecha,bodega_id,usuario_id,fecha_hora,en_proceso) values (default,'$fecha',$bod_id,$usuario_id,now(),'true') returning id");
 if($inse_enc->execute()){
@@ -16,11 +17,13 @@ from existencias a
         inner join productos b on a.codigo_producto=b.referencia  where codigo_bodega =$bod_id";
     if($conex->prepare($sql)->execute()){
         $conex->commit();
-        echo 'true';
-        $_SESSION['ultimo_id_inv_fisico']=$ultimo_id;
-        $_SESSION['fecha_inv_fisico_enc']=$fecha;
+        $datos['ok']=true;
+        $datos['enc_id']=$ultimo_id;
+        //$datos['fecha_inv_fisico_enc']=$fecha;
     }else{
         $conex->rollBack();
-        echo 'false';
+        $datos['err']=false;
     }
 }
+
+echo json_encode($datos);
