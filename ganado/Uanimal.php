@@ -151,12 +151,12 @@
           <option value="primero"  <?php if($animales[parto]=='primero') echo 'selected' ?>>primero</option>
           <option value="segundo" <?php if($animales[parto]=='segundo') echo 'selected' ?>>segundo</option>
           <option value="tercero" <?php if($animales[parto]=='tercero') echo 'selected' ?>>tercero</option>
-          <option value="cuarto" <?php if($animales[parto]=='cuarto') echo 'selected' ?>>tercero</option>
-          <option value="quinto" <?php if($animales[parto]=='quinto') echo 'selected' ?>>tercero</option>
-          <option value="sexto" <?php if($animales[parto]=='sexto') echo 'selected' ?>>tercero</option>
-          <option value="septimo" <?php if($animales[parto]=='septimo') echo 'selected' ?>>tercero</option>
-          <option value="octavo" <?php if($animales[parto]=='octavo') echo 'selected' ?>>tercero</option>
-          <option value="noveno" <?php if($animales[parto]=='noveno') echo 'selected' ?>>tercero</option>
+          <option value="cuarto" <?php if($animales[parto]=='cuarto') echo 'selected' ?>>cuarto</option>
+          <option value="quinto" <?php if($animales[parto]=='quinto') echo 'selected' ?>>quinto</option>
+          <option value="sexto" <?php if($animales[parto]=='sexto') echo 'selected' ?>>sexto</option>
+          <option value="septimo" <?php if($animales[parto]=='septimo') echo 'selected' ?>>septimo</option>
+          <option value="octavo" <?php if($animales[parto]=='octavo') echo 'selected' ?>>octavo</option>
+          <option value="noveno" <?php if($animales[parto]=='noveno') echo 'selected' ?>>noveno</option>
           
       
       </select>
