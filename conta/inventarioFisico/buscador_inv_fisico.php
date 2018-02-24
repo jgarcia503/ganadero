@@ -5,7 +5,7 @@ $res=$conex->query("select * from inventario_fisico_enc");
 ?>
 
 <div class="small-12 columns">
-    <h2>administracion traslados</h2>
+    <h2>administracion inventarios fisicos</h2>
     <!--<a href="Ctraslado.php" class="button primary">crear traslado</a>-->
     <?php  echo check_permiso($_SESSION[permisos][$_SERVER[REQUEST_URI]],'inv_fisico.php','crear inventario fisico'); ?>
     <table class="table" data-filtering='true' data-paging="true">
@@ -33,6 +33,11 @@ while($fila=$res->fetch()){
                 <td><?php  echo $fila[notas]?></td>                
                 <td>
                     <a href="#" class="ver" data-id="<?php  echo  $fila[id] ?>"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                    <?php 
+                    if($fila[en_proceso]){
+                            echo check_permiso_for_update($_SESSION[permisos][$_SERVER[REQUEST_URI]], 'Uinv_fisico.php', "id=$fila[id]"); 
+                    }
+                    ?>
 <!--                    <a href="Umortalidad.php?<?php  echo  base64_encode( $fila[id])?>"><i class="fa fa-pencil" aria-hidden="true"></i></a>                    
                     <a href="Dmortalidad.php?<?php  echo  base64_encode('mortalidad='. $fila[id])?>" id="eliminar"><i class="fa fa-trash" aria-hidden="true"></i></a>-->
                 </td>

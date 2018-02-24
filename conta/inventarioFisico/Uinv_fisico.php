@@ -1,11 +1,12 @@
 <?php 
 include '../../plantilla.php';
-$res=$conex->query('select * from bodega');
+$id_enc=$_GET[id];
+$res_enc=$conex->query("select * from inventario_fisico_enc where id=$id_enc")->fetch(PDO::FETCH_ASSOC);
 $productos=$conex->query('select * from productos');
-$htmlsel="<option value=''>seleccione</option>";
-while($fila=$res->fetch()){
-  $htmlsel.="<option value='$fila[codigo]'>$fila[nombre]</option>";
-}
+//$htmlsel="<option value=''>seleccione</option>";
+//while($fila=$res->fetch()){
+//  $htmlsel.="<option value='$fila[codigo]'>$fila[nombre]</option>";
+//}
 ###########################
 $prods="<option value=''>seleccione</option>";
 while($fila=$productos->fetch()){
@@ -15,9 +16,8 @@ if(isset($_SESSION[inv_fisico])){  unset($_SESSION[inv_fisico]); }
 ?>
 <div class="small-12 columns"> 
     <h2>inventario fisico</h2>
-    <a href="buscador_inv_fisico.php">regresar</a>
     <div class="row">
-        <div class="small-2 columns">
+<!--        <div class="small-2 columns">
 
             <form action=""  >
                 <label>fecha
@@ -30,12 +30,12 @@ if(isset($_SESSION[inv_fisico])){  unset($_SESSION[inv_fisico]); }
                 </label>
                 <input type="submit" value="crear" class="button primary" name="envia">
             </form>
-        </div>
+        </div>-->
         <div class="small-10 columns" id="tabs">
             <ul class="tabs" data-tab>
   <li class="tab-title active"><a href="#panel1">realizar conteo</a></li>
   <li class="tab-title"><a href="#panel2">ajustes de diferencias</a></li>
-  
+  <li class="tab-title"><a href="#panel3">reporte de diferencia</a></li>
   
 </ul>
 <div class="tabs-content">
@@ -56,7 +56,7 @@ if(isset($_SESSION[inv_fisico])){  unset($_SESSION[inv_fisico]); }
                    cantidad<input type="text" id="cantidad">
           </div>
           <div class="small-3 columns">
-              <button type="button" id="add">add</button>
+              <button type="button" id="add" data-enc_id="<?php echo $id_enc?>" data-bod_id="<?php echo $res_enc[bodega_id]?>">add</button>
           </div>
       </div>
       <div class="row">
@@ -72,7 +72,27 @@ if(isset($_SESSION[inv_fisico])){  unset($_SESSION[inv_fisico]); }
                         </tr>
                     </thead>
                     <tbody>
-
+                            <?php
+                            $prod_lns="select a.*,b.* from inventario_fisico_lns a join productos b on a.producto_id=b.referencia where a.enc_id=$id_enc";
+                            $res_prods=$conex->query($prod_lns);
+                            while($fila=$res_prods->fetch(PDO::FETCH_ASSOC)){
+                                echo "<tr>";
+                                echo "<td>";
+                                echo $fila[nombre];
+                                echo "</td>";
+                                echo "<td>";
+                                echo $fila[costo];
+                                echo "</td>";
+                                echo "<td>";
+                                echo $fila[unidad_standar];
+                                echo "</td>";
+                                echo "<td>";
+                                echo $fila[cantidad_real];
+                                echo "</td>";
+                                echo "</tr>";
+                                $_SESSION[inv_fisico][$fila[producto_id]]=array('nombre'=>$fila[nombre],'unidad_elegida'=>'kg','precio_prom'=>$fila[costo],'cant'=>$fila[cantidad_real]);
+                            }
+                                    ?>
                     </tbody>
                 </table>
                 <button type="button" id="aplicar">aplicar</button>
@@ -100,12 +120,46 @@ if(isset($_SESSION[inv_fisico])){  unset($_SESSION[inv_fisico]); }
                    comentario ajuste<textarea id="coment_ajuste"></textarea>
           </div>
           <div class="small-3 end columns">
-              <button type="button" id="add1">add</button>
+              <button type="button" id="add1" data-enc_id="<?php echo $id_enc?>" data-bod_id="<?php echo $res_enc[bodega_id]?>">add</button>
           </div>
       </div>
       </div>
   
-
+  <div class="content" id="panel3">
+      <table>
+            <thead>
+                        <tr>
+                            <th width="400">producto</th>
+                            <th width="100">cantidad teorica</th>
+                            <th width="100">cantidad real</th>
+                            <th width="100">unidad</th>                            
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                                $sql_ajuste="select a.*,b.* from inventario_fisico_lns a join productos b on a.producto_id=b.referencia where a.enc_id=$id_enc";
+                                $res_ajuste=$conex->query($sql_ajuste);
+                                while($fila=$res_ajuste->fetch(PDO::FETCH_ASSOC)){
+                                    echo "<tr>";
+                                    echo "<td>";
+                                    echo $fila[nombre];
+                                    echo "</td>";
+                                    echo "<td>";
+                                    echo $fila[cantidad_teorica];
+                                    echo "</td>";
+                                    echo "<td>";
+                                    echo $fila[cantidad_real];
+                                    echo "</td>";
+                                    echo "<td>";
+                                    echo $fila[unidad_standar];
+                                    echo "</td>";
+                                    echo "</tr>";
+                                }
+                                ?>
+                    </tbody>
+      </table>
+    
+  </div>
             </div>
         </div>
     </div>
@@ -113,7 +167,7 @@ if(isset($_SESSION[inv_fisico])){  unset($_SESSION[inv_fisico]); }
 <script>
     $('#referencia').select2();
     $('#prod_id').select2();
-    $('#tabs').hide();
+    //$('#tabs').hide();
     $('[name=fecha]').datepicker({ dateFormat: "dd-mm-yy"    ,  changeMonth: true, yearRange: "2000:2050",
       changeYear: true});
   
@@ -217,13 +271,13 @@ if(isset($_SESSION[inv_fisico])){  unset($_SESSION[inv_fisico]); }
         }
         $.ajax({
             url:'ajax/ajuste_diferencia.php',
-            data:{unidad:unidad,ref:ref,cant:cant,enc_id:enc_id,bod_id:bod_id,coment_ajuste:coment_ajuste},
-            dataType:'json',
-            success:function(data){                     
-                    $('#coment_ajuste').val('');
-                    $('#unidad1').val('');
-                    $('#prod_id').val('');
-                    $('#cantidad1').val('');    
+            data:{unidad:unidad,ref:ref,cant:cant,enc_id:enc_id,bod_id:bod_id,coment_ajuste:coment_ajuste},            
+            success:function(){                     
+                window.location.reload();
+//                    $('#coment_ajuste').val('');
+//                    $('#unidad1').val('');
+//                    $('#prod_id').val('');
+//                    $('#cantidad1').val('');    
             }
         });
     });
@@ -249,9 +303,9 @@ if(isset($_SESSION[inv_fisico])){  unset($_SESSION[inv_fisico]); }
     $('#aplicar').on('click',function(){
     $.ajax({
         url:'ajax/aplicacion_inv_fisico.php',
-        data:{enc_id:$('#add').attr('data-enc_id'),fecha:$('[name=fecha]').val()},
+        data:{enc_id:$('#add').attr('data-enc_id'),fecha:'<?php echo $res_enc[fecha]?>'},
         success:function(){
-            window.location.reload();
+            window.location.href='buscador_inv_fisico.php';
         }
         });
     });   

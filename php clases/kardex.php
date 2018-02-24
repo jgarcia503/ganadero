@@ -230,12 +230,12 @@ class kardex{
                 $cant_teorica=  floatval($fila[cantidad_teorica]);
                 $cant_real=  floatval($fila[cantidad_real]);
                 $bod_id=$fila[bodega_id];
-                $unidad=$fila[unidad];
+                #$unidad=$fila[unidad];
                 $prod_id=$fila[producto_id];
                 $costo=$fila[costo];
-                $cant_real_conv=  convertir($unidad, $cant_real);
-                    if($cant_teorica !== $cant_real_conv){
-                          $diff=$cant_teorica-$cant_real_conv;
+                #$cant_real_conv=  convertir($unidad, $cant_real);
+                    if($cant_teorica !== $cant_real){
+                          $diff=$cant_teorica-$cant_real;
                         if($diff>0){
                             $this->_upsert_existencias(abs($diff), $prod_id, $bod_id,'-');
                             $this->_update_productos(abs($diff), $prod_id,'-');
@@ -247,7 +247,7 @@ class kardex{
                         }                    
                 }
             }
-            $sql_update="update inventario_fisico_enc set en_proceso='false' where id=$ultimo_id_enc";
+            $sql_update="update inventario_fisico_enc set en_proceso='false',fecha_diferencias_aplicadas=now() where id=$ultimo_id_enc";
             if(!$this->conex->prepare($sql_update)->execute()){
                 throw new PDOException;
             }
