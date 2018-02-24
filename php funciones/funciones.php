@@ -50,7 +50,7 @@ break;
     }
 }
 #para actualizar
-function check_permiso_for_update($url,$archivo,$parametro){
+function check_permiso_for_update($url,$archivo,$parametro,$extras){
     switch($url){
     case 3:
     case 4:
@@ -59,7 +59,7 @@ $uri=$_SERVER[REQUEST_URI];
 $uri=substr($uri,0,strrpos($uri,'/')).'/'.$archivo.'?'.$parametro;
 $_SESSION[permisos][$uri]=true;
 if($archivo!=='#'){
-     echo    "<a href='$archivo?$parametro'><i class='fa fa-pencil' aria-hidden='true'></i></a>";
+     echo    "<a href='$archivo?$parametro' $extras><i class='fa fa-pencil' aria-hidden='true'></i></a>";
 }
 else{
     echo "<a href='$archivo' id='crear' class='button primary'>$titulo</a>";
