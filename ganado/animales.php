@@ -8,7 +8,7 @@
 
 <?php
 echo check_permiso($_SESSION[permisos][$_SERVER[REQUEST_URI]],'Canimal.php','crear animal');
-$res=$conex->query("select *,to_char(current_date,'DD MM YYYY')::date  - (select fecha from partos where animal=numero||'-'||nombre order by fecha::date desc limit 1)::date dias_lactancia from animales");
+$res=$conex->query("select *,to_char(current_date,'DD MM YYYY')::date  - (select fecha from partos where animal=numero||'-'||nombre order by fecha::date desc limit 1)::date dias_lactancia from animales order by nombre");
 ?>
 
 <table class="table" data-filtering='true' data-paging="true">
@@ -40,7 +40,7 @@ while($fila=$res->fetch()){
                 <td><?php  echo $fila[procedencia]?></td>
                 <td>
                     <a href="#" class="ver" data-id="<?php  echo base64_encode( $fila[id]) ?>"><i class="fa fa-eye" aria-hidden="true"></i></a>
-                    <?php echo check_permiso_for_update($_SESSION[permisos][$_SERVER[REQUEST_URI]], 'Uanimal.php', base64_encode($fila[id])) ?>
+                    <?php echo check_permiso_for_update($_SESSION[permisos][$_SERVER[REQUEST_URI]], 'Uanimal.php', base64_encode($fila[id]),"target='_blank'") ?>
                     <!--<a href="Uanimal.php?<?php  echo  base64_encode( $fila[id])?>"><i class="fa fa-pencil" aria-hidden="true"></i></a>-->                    
                     <a href="Danimal.php?<?php  echo  base64_encode('animal='. $fila[id])?>" id="eliminar"><i class="fa fa-trash" aria-hidden="true"></i></a>
                 </td>
