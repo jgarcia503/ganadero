@@ -1,7 +1,12 @@
 <?php 
 include '../../plantilla.php';
 $id_enc=$_GET[id];
-$res_enc=$conex->query("select * from inventario_fisico_enc where id=$id_enc")->fetch(PDO::FETCH_ASSOC);
+$res_enc=$conex->query("select * from inventario_fisico_enc where id=$id_enc and en_proceso='true'")->fetchAll(PDO::FETCH_ASSOC)[0];
+
+if(count($res_enc)===0){
+         echo "<script>window.location='buscador_inv_fisico.php'</script>";
+        //echo "<script>window.location='/ganadero/compras/compras.php'</script>";
+}
 $productos=$conex->query('select * from productos');
 //$htmlsel="<option value=''>seleccione</option>";
 //while($fila=$res->fetch()){
