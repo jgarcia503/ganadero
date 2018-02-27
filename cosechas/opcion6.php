@@ -27,7 +27,7 @@ $costo_total+=$res_uso;
          <?php  
                             if(isset($mensaje)){
                                     echo $mensaje;
-                                    echo "<script>setTimeout(function(){window.location='http://localhost:8089/ganadero/cosechas/cosechas.php'},1500) </script>";
+                                    echo "<script>setTimeout(function(){window.location='http://". $_SERVER[HTTP_HOST].":8089/ganadero/cosechas/cosechas.php'},1500) </script>";
                                    }
                             ?>
        <form data-abide='ajax'  id="myform">
@@ -147,7 +147,7 @@ $('#myform').on('valid.fndtn.abide', function () {
                 
                 $("span#mensaje").html(datos);
                     setTimeout(function(){
-                                                                                   window.location='http://localhost:8089/ganadero/cosechas/cosechas.php';
+                                                                                   window.location="http://<?php echo $_SERVER[HTTP_HOST]?>:8089/ganadero/cosechas/cosechas.php";
                                                                                },1500);                
             }
         });

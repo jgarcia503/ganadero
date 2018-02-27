@@ -232,7 +232,7 @@ $('#myform').on('valid.fndtn.abide', function () {
             success:function(data){
                 $("span#mensaje").html(datos);
                                                                                setTimeout(function(){
-                                                                                   window.location='http://localhost:8089/ganadero/cosechas/cosechas.php';
+                                                                                   window.location="http://<?php echo $_SERVER[HTTP_HOST]?>:8089/ganadero/cosechas/cosechas.php";
                                                                                },1500);
                 
             }

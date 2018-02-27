@@ -40,7 +40,7 @@ $res=$conex->query($sql_bodegas);
                     <?php  
                             if(isset($mensaje)){
                                     echo $mensaje;
-                                    echo "<script>setTimeout(function(){window.location='http://localhost:8089/ganadero/cosechas/cosechas.php'},1500) </script>";
+                                    echo "<script>setTimeout(function(){window.location='http://". $_SERVER[HTTP_HOST].":8089/ganadero/cosechas/cosechas.php'},1500) </script>";
                                    }
                             ?>
            <form data-abide method="post" action="">

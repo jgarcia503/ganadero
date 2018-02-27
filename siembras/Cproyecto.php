@@ -122,7 +122,7 @@ $bodegas=$conex->query("select distinct codigo,nombre from bodega a
                                                                         success: function (datos) {
                                                                                $("span#mensaje").html(datos);
                                                                                setTimeout(function(){
-                                                                                   window.location='http://localhost:8089/ganadero/siembras/proyectos.php';
+                                                                                   window.location="http://<?php echo $_SERVER[HTTP_HOST]?>:8089/ganadero/siembras/proyectos.php";
                                                                                },2500);
                                                                                 
                                                                         }
