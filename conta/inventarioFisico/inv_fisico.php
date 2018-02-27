@@ -159,6 +159,17 @@ if(isset($_SESSION[inv_fisico])){  unset($_SESSION[inv_fisico]); }
                 unidad.html("<option value='unidad'>unidad</option>");
                 break;
         }
+        
+        switch($(this).find('option:selected').attr('data-unidad')){
+            case 'kg':
+            case 'lt':  
+            case 'cc':
+                $("#cantidad").mask('000,000,000,000,000.00', {reverse: true});
+                break;
+           case 'unidad':
+                 $('#cantidad').mask('00000000');
+                 break;
+        }
     });
     
         $('#prod_id').on('change',function(){        
@@ -176,6 +187,17 @@ if(isset($_SESSION[inv_fisico])){  unset($_SESSION[inv_fisico]); }
             case 'unidad':
                 unidad.html("<option value='unidad'>unidad</option>");
                 break;
+        }
+        
+        switch($(this).find('option:selected').attr('data-unidad')){
+                 case 'kg':
+                case 'lt':  
+                case 'cc':
+                    $("#cantidad1").mask('000,000,000,000,000.00', {reverse: true});
+                    break;
+           case 'unidad':
+                 $('#cantidad1').mask('00000000');
+                 break;
         }
     });
     

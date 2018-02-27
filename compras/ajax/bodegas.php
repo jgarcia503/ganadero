@@ -47,6 +47,9 @@ while($fila=$res->fetch()){
         case 'cc':
             $unit_prod[$fila[codigo_producto]] = "<option values='cc'>cc</option>";
             break;
+        case 'unidad':
+            $unit_prod[$fila[codigo_producto]] = "<option values='unidad'>unidad</option>";
+            break;
     }
       $opciones_prod.="<option value='$fila[codigo_producto]' data-unidad='$fila[unidad_standar]'>$fila[nombre]</option>";
       //$_SESSION['traslado'][$fila[codigo_producto]]=$fila[existencia];

@@ -305,6 +305,16 @@ $res_motivo=$conex->query($sql_reque);
     $("#referencia").on('change',function(){
         tmp=$(this).val();
         $('#unidad').html(mapa[tmp]);
+           switch($(this).find('option:selected').attr('data-unidad')){
+                                    case 'kg':                
+                                    case 'lt':                                
+                                    case 'cc':                
+                                            $("#cantidad").mask('000,000,000,000,000.00', {reverse: true});
+                                            break;
+                                    case 'unidad':
+                                            $('#cantidad').mask('00000000');
+                                            break;
+                }
         
     });
 </script>

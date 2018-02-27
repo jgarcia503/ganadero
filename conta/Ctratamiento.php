@@ -202,6 +202,17 @@ $productos=$conex->query("select a.referencia,a.nombre,b.existencia from existen
           
 $('[name=producto]').on('change',function(){
     unidad=$(this).find('option:selected').data('unidad');    
+    switch(unidad){
+            case 'kg':                
+            case 'lt':                                
+            case 'cc':                
+                $("[name=cant]").mask('000,000,000,000,000.00', {reverse: true});
+                break;
+            case 'unidad':
+                $('[name=cant]').mask('00000000');
+                break;
+        }
+    
         $('[name=medida]').val(unidad);    
 });
 

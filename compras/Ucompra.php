@@ -368,6 +368,16 @@ $reslineas=$conex->query($sql_lineas);
                $('#unidad').html(lt);
               break;
       }
+          switch(unidad){
+            case 'kg':                
+            case 'lt':                                
+            case 'cc':                
+                $("#cantidad").mask('000,000,000,000,000.00', {reverse: true});
+                break;
+            case 'unidad':
+                $('#cantidad').mask('00000000');
+                break;
+        }
   });
   
 //  $('[name=tipo_doc]').on('change',function(){
