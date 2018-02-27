@@ -63,7 +63,7 @@ catch (PDOException $pe){
 
 <div class="small-12 columns">
     <?php 
-    if($mensaje !==''){
+    if(isset($mensaje)){
                         echo $mensaje;
                        echo "<script>setTimeout(function(){window.location='http://localhost:8089/ganadero/reproduccion/servicios.php'},1500) </script>";
     }
