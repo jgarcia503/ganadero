@@ -33,6 +33,8 @@ $contactos=$conex->query("select * from contactos where id=$id")->fetch();
 ?>
 <div class="small-12 columns"> 
 <form action="" method="post">
+    <h2>editar usuario</h2>
+    <a href="contactos.php" class="regresar">regresar</a>
     <div class="row">
         <div class="small-6 columns">
             <label for="identificacion">identificacion
@@ -43,18 +45,7 @@ $contactos=$conex->query("select * from contactos where id=$id")->fetch();
             <input type="text" name="nombre" value="<?php echo $contactos[nombre] ?>"></label>
         </div>
     </div>
-    <div class="row">
-        <div class="small-6 columns">
-            <label for="">usuario
-                <input type="text" name="user" value="<?php echo $contactos[usuario] ?>">
-            </label>
-        </div>
-        <div class="small-6 columns">
-            <label for="">contraseña
-                <input type="password" name="pass" value="<?php echo $contactos[contrasena] ?>">
-            </label>
-        </div>
-    </div>
+
     <div class="row">
         <div class="small-6 columns">
             <label for="">telefono</label>
@@ -75,7 +66,24 @@ $contactos=$conex->query("select * from contactos where id=$id")->fetch();
                         <option value="proveedor" <?php echo $contactos[tipo]=='proveedor'?'selected':''?>>proveedor</option>
             </select>
                 </div>
-        <div class="small-6 columns"></div>
+        <div class="small-6 columns">
+            <?php         if($contactos['usuario']!=='' and $contactos[contrasena]!==''){           ?>
+            <label>permisos  </label>
+            <a href='#' id="permisos" data-id='<?php echo $contactos[id]?>'><i class="fa fa-key fa-2x" aria-hidden="true"></i></a>
+              <?php } ?>
+        </div>
+    </div>
+        <div class="row">
+        <div class="small-6 columns">
+            <label for="">usuario
+                <input type="text" name="user" value="<?php echo $contactos[usuario] ?>">
+            </label>
+        </div>
+        <div class="small-6 columns">
+            <label for="">contraseña
+                <input type="password" name="pass" value="<?php echo $contactos[contrasena] ?>">
+            </label>
+        </div>
     </div>
     <div class="row">
         <div class="small-12 columns">
@@ -83,11 +91,15 @@ $contactos=$conex->query("select * from contactos where id=$id")->fetch();
                 
             </textarea>
             <input type="hidden" name="contacto_id" value="<?php echo $id ?>">
-            <input type="submit" class="button primary">
+            <input type="submit" class="button primary" value="actualizar">
         </div>
     </div>
 </form>
 
+</div>
+<div id="mimodal" class="reveal-modal"  data-reveal >
+    <span></span>
+    <a class="close-reveal-modal" aria-label="Close">&#215;</a>
 </div>
 </div>
 <script>
@@ -99,10 +111,24 @@ $contactos=$conex->query("select * from contactos where id=$id")->fetch();
                 $('[name=user],[name=pass]').val('').parent('label').hide('slow');
                 break; 
              case 'empleado':
-            case 'propietario':
+            case 'admin':
                 $('[name=user],[name=pass]').parent('label').show('slow');
                 break; 
         }
     });
 
+      $("#permisos").on('click',function(e) {
+                            e.preventDefault();
+
+                            $.ajax({
+                                url: "ajax/permisos_usuarios.php?id=" + $(this).data('id'),
+                                success: function (datos) {
+                               
+                                    $('#mimodal span').html(datos);
+                                }
+                            });
+
+                            $('#mimodal').foundation('reveal', 'open');
+
+                        });                        
 </script>

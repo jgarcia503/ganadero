@@ -55,18 +55,20 @@ $insert=$conex->prepare("insert into contactos"
         <div class="small-6 columns"></div>
     </div>
     <div class="row">
-        <div class="small-6 columns">
+        <div class="small-3 columns">
             <label for="">usuario
                 <input type="text" name="user" required="">
             </label>
             <small class="error">escriba usuario</small>
         </div>
-        <div class="small-6 columns">
+        <div class="small-3 columns">
             <label for="">contraseña
                 <input type="password" name="pass" required="">
                 <small class="error">escriba contraseña</small>
             </label>
-
+        </div>
+        <div class="small-6 columns">
+            safas
         </div>
     </div>
     <div class="row">
