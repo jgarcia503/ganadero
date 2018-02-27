@@ -5,9 +5,16 @@ if($_POST){
 
 $insert=$conex->prepare("insert into contactos"
         . " values(default,'$_POST[identificacion]','$_POST[tipo]','$_POST[user]','','$_POST[tel]'"
-        . ",trim('$_POST[direccion]'),'$_POST[nombre]','$_POST[pass]','$_POST[email]')");      
+        . ",trim('$_POST[direccion]'),'$_POST[nombre]','$_POST[pass]','$_POST[email]') returning id");      
   
+
     if($insert->execute()){
+        if($_POST[tipo]==='empleado' or $_POST[tipo]==='admin'){
+            $id_usr=$insert->fetchColumn();       
+            $sql_permisos="insert into menu_permisos(id_url,nivel,id_usuario) select distinct id_url,0,$id_usr from menu_permisos ";
+            $conex->prepare($sql_permisos)->execute();
+        }
+        
         $mensaje= '<div data-alert class="alert-box success round">
  <h5 style="color:white">registro creado exitosamente</h5>
   <a href="#" class="close">&times;</a>
@@ -68,7 +75,7 @@ $insert=$conex->prepare("insert into contactos"
             </label>
         </div>
         <div class="small-6 columns">
-            safas
+            
         </div>
     </div>
     <div class="row">
